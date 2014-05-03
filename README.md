@@ -1,4 +1,6 @@
-dotvim
+Max's vimrc
 ======
 
-max used vimrc 
+Author: Chuanyu Tseng (max_tseng) 
+
+
