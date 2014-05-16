@@ -106,7 +106,11 @@ call vundle#rc()
 	Bundle 'EasyGrep'
 	Bundle 'grep.vim'
 	Bundle 'scrooloose/nerdtree'
+	Bundle 'jistr/vim-nerdtree-tabs'
 	Bundle 'wincent/Command-T'
+	Bundle 'Shougo/unite.vim'
+	Bundle 'yegappan/lid'
+	Bundle 'cscope_macros.vim'
 	"Colorscheme
 	"Bundle 'nightshade.vim'
 	"Bundle 'kellys'
@@ -139,14 +143,13 @@ call vundle#rc()
 		nnoremap <silent> <F7> :YRShow<cr>
 		nnoremap <silent> <F8> :cn<cr>		"QuickFix Next message
 		nnoremap <silent> <F9> :TagbarToggle<cr>	":TlistToggle"
-		nnoremap <F10> 	 :botright copen<cr>
-		nnoremap <S-F10> :cclose<cr>
+		nnoremap <silent> <F11> :bn<cr>
+		nnoremap <silent> <F12> :botright copen<cr>
+		nnoremap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
 	"}
 "}
-
-
 
 "Plugin" {
 	"plugin:Yankring" {
@@ -183,6 +186,8 @@ call vundle#rc()
 		let g:airline#extensions#syntastic#enabled     =  1
 		let g:airline#extensions#tabline#enabled       =  1
 		let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
+
+		let g:airline#extensions#tabline#show_buffers = 1
 		let g:airline#extensions#tabline#fnamecollapse =  1 " /a/m/model.rb
 		let g:airline#extensions#hunks#non_zero_only   =  1 " git gutter
 		let g:airline#extensions#tagbar#enabled = 1
@@ -197,5 +202,17 @@ call vundle#rc()
 		let NERDChristmasTree=1
 		let NERDTreeChDirMode=1
 		let NERDTreeIgnore=['\.o$', '\.ko$', '\~$', '\.dir$']
+	"}
+	"
+	"plugin:NERDTree-Tab{
+		let g:nerdtree_tabs_open_on_console_startup 	= 0
+		let g:nerdtree_tabs_autoclose 			= 1
+	"}
+	"
+	"plugin:quickfix{
+                aug QFClose
+                        au!
+                        au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+                aug END
 	"}
 "}
