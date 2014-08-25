@@ -111,6 +111,7 @@ call vundle#rc()
 	Bundle 'Shougo/unite.vim'
 	Bundle 'yegappan/lid'
 	Bundle 'cscope_macros.vim'
+	"Bundle 'drmikehenry/vim-fixkey'
 	"Colorscheme
 	"Bundle 'nightshade.vim'
 	"Bundle 'kellys'
@@ -156,6 +157,13 @@ call vundle#rc()
 		let g:yankring_replace_n_pkey = '<m-p>'
 	"}
 	"
+	"plugin:ctags {
+		if has("ctags")
+			if filereadable("tags")
+				set tags=tags
+			endif
+		endif
+	"}
 	"plugin:taglist"{
 		let Tlist_Ctags_Cmd            = '/usr/bin/ctags'
 		let Tlist_Show_One_File        = 1	"不同时显示多个文件的tag，只显示当前文件的
