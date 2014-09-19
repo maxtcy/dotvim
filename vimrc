@@ -80,7 +80,7 @@ set foldlevel=3
 
 "Using Vundle to install plugin
 "git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 "vndle Plugin:{

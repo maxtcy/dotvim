@@ -11,8 +11,8 @@ Quick Start
 2. Steps:
 
 ```
-$ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ git clone git://github.com/maxtcy/dotvim.git ~/.vim
+$ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
 3. Install plugins in VIM:
