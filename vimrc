@@ -60,6 +60,7 @@ set tabstop=8    " tab 的字元數
 set colorcolumn=90 "長度超過90字元
 set history=100  " 保留 100 個使用過的指令
 set cursorline   "Show current cursor
+set cursorcolumn "Show Column cursor"
 set hlsearch	 "High Light Search
 set autoindent
 set laststatus=2
@@ -111,6 +112,7 @@ call vundle#rc()
 	Bundle 'Shougo/unite.vim'
 	Bundle 'yegappan/lid'
 	Bundle 'cscope_macros.vim'
+	Bundle 'airblade/vim-gitgutter'
 	"Bundle 'drmikehenry/vim-fixkey'
 	"Colorscheme
 	"Bundle 'nightshade.vim'
@@ -144,6 +146,7 @@ call vundle#rc()
 		nnoremap <silent> <F7> :YRShow<cr>
 		nnoremap <silent> <F8> :cn<cr>		"QuickFix Next message
 		nnoremap <silent> <F9> :TagbarToggle<cr>	":TlistToggle"
+		nnoremap <silent> <F10> :GitGutterNextHunk<cr>
 		nnoremap <silent> <F11> :bn<cr>
 		nnoremap <silent> <F12> :botright copen<cr>
 		nnoremap <S-F12> :cclose<cr>
@@ -222,5 +225,10 @@ call vundle#rc()
                         au!
                         au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
                 aug END
+	"}
+	"
+	"plugin:Git Gutter {
+		let g:gitgutter_eager = 0	"  To notice change to git index
+		let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
 "}
