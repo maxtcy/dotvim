@@ -6,10 +6,8 @@ Quick Start
 ----------------
 1. Description:
 
-```
 	* Th is specific for Vim and it is working with [Vundle](https://github.com/gmarik/Vundle.vim).
 	* The installation requires [Git](http://git-scm.com/) and triggers [`git clone`](http://gitref.org/creating/#clone)
-```
 
 2. Steps:
 
