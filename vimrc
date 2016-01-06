@@ -87,7 +87,8 @@ call vundle#rc()
 "vndle Plugin:{
 	" Core plugins
 	Bundle "flazz/vim-colorschemes"
-	Bundle "kien/ctrlp.vim"
+	""Bundle 'kien/ctrlp.vim'
+	""Bundle 'wincent/Command-T'
 	"vim-scripts
 	Bundle "bling/vim-airline"
 	"Bundle 'Lokaltog/vim-powerline'
@@ -108,17 +109,19 @@ call vundle#rc()
 	Bundle 'grep.vim'
 	Bundle 'scrooloose/nerdtree'
 	Bundle 'jistr/vim-nerdtree-tabs'
-	Bundle 'wincent/Command-T'
-	Bundle 'Shougo/unite.vim'
+	""Bundle 'Shougo/unite.vim'
 	Bundle 'yegappan/lid'
 	Bundle 'cscope_macros.vim'
 	Bundle 'airblade/vim-gitgutter'
+	""Bundle 'Lokaltog/vim-easymotion'
+
+	Bundle 'mileszs/ack.vim'
+	"Bundle 'terryma/vim-multiple-cursors'
 	"Bundle 'drmikehenry/vim-fixkey'
 	"Colorscheme
 	"Bundle 'nightshade.vim'
 	"Bundle 'kellys'
 	"Bundle 'jammy.vim'
-	"
 "}
 
 " Brief help {
@@ -130,7 +133,7 @@ call vundle#rc()
 
 "Key Mapping" {
 	"key for Generic{
-		let mapleader="\\"
+		"let mapleader="\\"
 	"}
 
 	"key for build code"{
@@ -138,18 +141,22 @@ call vundle#rc()
 		noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F2> :wincmd p<cr>
-		nnoremap <silent> <F3> :BufExplorer<cr>
-		nnoremap <silent> <F4> :%s/\s\+$//g<cr>
-		nnoremap <silent> <F5> :NERDTreeToggle<cr>
-		nnoremap <silent> <F6> :cp<cr>		"QuickFix Last message
-		nnoremap <silent> <F7> :YRShow<cr>
-		nnoremap <silent> <F8> :cn<cr>		"QuickFix Next message
-		nnoremap <silent> <F9> :TagbarToggle<cr>	":TlistToggle"
-		nnoremap <silent> <F10> :GitGutterNextHunk<cr>
+		nnoremap <silent> <F2>  :wincmd p<cr>
+		nnoremap <silent> <F3>  :BufExplorer<cr>
+		nnoremap <silent> <F4>  :%s/\s\+$//g<cr>
+		nnoremap <silent> <F5>  :NERDTreeToggle<cr>
+		nnoremap <silent> <F6>  :cp<cr>		"QuickFix Last message
+		nnoremap <silent> <F7>  :YRShow<cr>
+		nnoremap <silent> <F8>  :cn<cr>		"QuickFix Next message
+		nnoremap <silent> <F9>  :TagbarToggle<cr>	":TlistToggle"
+		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>
 		nnoremap <silent> <F11> :bn<cr>
-		nnoremap <silent> <F12> :botright copen<cr>
-		nnoremap <S-F12> :cclose<cr>
+		nnoremap <silent> \<F11> :bd<cr>
+		nnoremap <silent> \<F10> :GitGutterNextHunk<cr>
+		nnoremap <silent> ]<F10> :GitGutterPrevHunk<cr>
+		nnoremap <silent> <F12>  :botright copen<cr>
+		nnoremap <silent> \<F12> :ccl<cr>
+		""nmap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
 	"}
@@ -198,10 +205,10 @@ call vundle#rc()
 		let g:airline#extensions#tabline#enabled       =  1
 		let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
 
-		let g:airline#extensions#tabline#show_buffers = 1
-		let g:airline#extensions#tabline#fnamecollapse =  1 " /a/m/model.rb
-		let g:airline#extensions#hunks#non_zero_only   =  1 " git gutter
-		let g:airline#extensions#tagbar#enabled = 1
+		let g:airline#extensions#tabline#show_buffers  = 1
+		let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
+		let g:airline#extensions#hunks#non_zero_only   = 1 " git gutter
+		let g:airline#extensions#tagbar#enabled        = 1
 	"}
 	"
 	"plugin:Easygrep"{
@@ -209,10 +216,10 @@ call vundle#rc()
 	"}
 	"
 	"plugin:NERDTree{
-		let g:NERDTreeWinPos="left"
-		let NERDChristmasTree=1
-		let NERDTreeChDirMode=1
-		let NERDTreeIgnore=['\.o$', '\.ko$', '\~$', '\.dir$']
+		let g:NERDTreeWinPos  = "left"
+		let NERDChristmasTree = 1
+		let NERDTreeChDirMode = 1
+		let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$']
 	"}
 	"
 	"plugin:NERDTree-Tab{
@@ -229,6 +236,6 @@ call vundle#rc()
 	"
 	"plugin:Git Gutter {
 		let g:gitgutter_eager = 0	"  To notice change to git index
-		let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
+		"let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
 "}

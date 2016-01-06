@@ -18,8 +18,9 @@ $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 3. Install plugins in VIM:
 
 ```
-	Launch `VIM` and keyin `:BundleInstall`
-	If the platform is Mac, Must copy ~/.vim/vimrc to /usr/share/vim/
+Launch `VIM` and keyin `:BundleInstall` in terminal.
+[Mac Env needs to know]
+If the platform is Mac, Must copy ~/.vim/vimrc to /usr/share/vim/
 ```	
 
 Furture Work
