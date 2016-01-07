@@ -86,39 +86,46 @@ call vundle#rc()
 
 "vndle Plugin:{
 	" Core plugins
-	Bundle "flazz/vim-colorschemes"
-	""Bundle 'kien/ctrlp.vim'
-	""Bundle 'wincent/Command-T'
+	Bundle 'kien/ctrlp.vim'
+	"Bundle 'wincent/Command-T'
 	"vim-scripts
 	Bundle "bling/vim-airline"
-	"Bundle 'Lokaltog/vim-powerline'
-	Bundle "rking/ag.vim"
-	Bundle 'AutoClose'
-	Bundle 'YankRing.vim'
-	Bundle 'taglist.vim'
 	Bundle 'vim-scripts/Tagbar'
-	"Bundle 'lookupfile'
-	Bundle 'genutils'
-	Bundle 'EnhCommentify.vim'
-	Bundle 'SearchComplete'
-	Bundle 'Align'
-	Bundle 'c9s/colorselector.vim'
-	Bundle 'markabe/bufexplorer'
-	""Bundle 'cscope_maps'
-	Bundle 'EasyGrep'
-	Bundle 'grep.vim'
 	Bundle 'scrooloose/nerdtree'
 	Bundle 'jistr/vim-nerdtree-tabs'
-	""Bundle 'Shougo/unite.vim'
-	Bundle 'yegappan/lid'
-	Bundle 'cscope_macros.vim'
-	Bundle 'airblade/vim-gitgutter'
-	""Bundle 'Lokaltog/vim-easymotion'
+	Bundle 'markabe/bufexplorer'
+	"Bundle 'Lokaltog/vim-powerline'
+	"Bundle 'taglist.vim'
+
+	"""""""""""""""
+	"    YankRing 	   : copy / paste
+	"    EnhCommentify : mark out cod
+	"    Lookupfile    : search files with vim
+	"    genutils	   : necessary by Lookupfile
+	"    align	   : align text format
+	"    EasyGrep	   : vv to grep for the work under cursor, match all
+	"    unite	   : something like ctrlp
+	""""""""""""""
+	Bundle 'YankRing.vim'
+	Bundle 'AutoClose'
+	Bundle 'EnhCommentify.vim'
+	"Bundle 'lookupfile'
+	"Bundle 'genutils'
+	"Bundle 'Shougo/unite.vim'
+	Bundle 'vim-scripts/Align'
+	"Bundle 'Lokaltog/vim-easymotion'
 
 	Bundle 'mileszs/ack.vim'
-	"Bundle 'terryma/vim-multiple-cursors'
-	"Bundle 'drmikehenry/vim-fixkey'
+	Bundle 'rking/ag.vim'
+	Bundle 'vim-scripts/EasyGrep'
+	Bundle 'airblade/vim-gitgutter'
+	Bundle 'brookhong/cscope.vim'
+	Bundle 'vim-scripts/cscope_macros.vim'
+	Bundle 'terryma/vim-multiple-cursors'
+
 	"Colorscheme
+	Bundle 'c9s/colorselector.vim'
+	"Bundle 'flazz/vim-colorschemes'
 	"Bundle 'nightshade.vim'
 	"Bundle 'kellys'
 	"Bundle 'jammy.vim'
