@@ -86,8 +86,6 @@ call vundle#rc()
 
 "vndle Plugin:{
 	" Core plugins
-	Bundle 'kien/ctrlp.vim'
-	"Bundle 'wincent/Command-T'
 	"vim-scripts
 	Bundle "bling/vim-airline"
 	Bundle 'vim-scripts/Tagbar'
@@ -105,6 +103,8 @@ call vundle#rc()
 	"    align	   : align text format
 	"    EasyGrep	   : vv to grep for the work under cursor, match all
 	"    unite	   : something like ctrlp
+	"    ctrlp	   : Turn on document
+	"    Command-T     : Turn on document
 	""""""""""""""
 	Bundle 'YankRing.vim'
 	Bundle 'AutoClose'
@@ -112,6 +112,8 @@ call vundle#rc()
 	"Bundle 'lookupfile'
 	"Bundle 'genutils'
 	"Bundle 'Shougo/unite.vim'
+	"Bundle 'kien/ctrlp.vim'
+	"Bundle 'wincent/Command-T'
 	Bundle 'vim-scripts/Align'
 	"Bundle 'Lokaltog/vim-easymotion'
 
