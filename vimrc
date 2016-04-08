@@ -88,6 +88,7 @@ call vundle#rc()
 	" Core plugins
 	"vim-scripts
 	Bundle "bling/vim-airline"
+	Bundle 'vim-airline/vim-airline-themes'
 	Bundle 'vim-scripts/Tagbar'
 	Bundle 'scrooloose/nerdtree'
 	Bundle 'jistr/vim-nerdtree-tabs'
@@ -121,8 +122,8 @@ call vundle#rc()
 	Bundle 'rking/ag.vim'
 	Bundle 'vim-scripts/EasyGrep'
 	Bundle 'airblade/vim-gitgutter'
-	Bundle 'brookhong/cscope.vim'
-	Bundle 'vim-scripts/cscope_macros.vim'
+	""Bundle 'brookhong/cscope.vim'
+	""Bundle 'vim-scripts/cscope_macros.vim'
 	Bundle 'terryma/vim-multiple-cursors'
 
 	"Colorscheme
