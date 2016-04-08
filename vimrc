@@ -87,7 +87,7 @@ call vundle#rc()
 "vndle Plugin:{
 	" Core plugins
 	"vim-scripts
-	Bundle "bling/vim-airline"
+	Bundle "vim-airline/vim-airline"
 	Bundle 'vim-airline/vim-airline-themes'
 	Bundle 'vim-scripts/Tagbar'
 	Bundle 'scrooloose/nerdtree'
