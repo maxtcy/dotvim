@@ -160,12 +160,12 @@ call vundle#rc()
 		nnoremap <silent> <F8>  :cn<cr>		"QuickFix Next message
 		nnoremap <silent> <F9>  :TagbarToggle<cr>	":TlistToggle"
 		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>
+		nnoremap <silent> .<F10> :GitGutterNextHunk<cr>
+		nnoremap <silent> ,<F10> :GitGutterPrevHunk<cr>
 		nnoremap <silent> <F11> :bn<cr>
-		nnoremap <silent> \<F11> :bd<cr>
-		nnoremap <silent> \<F10> :GitGutterNextHunk<cr>
-		nnoremap <silent> ]<F10> :GitGutterPrevHunk<cr>
+		nnoremap <silent> /<F11> :bd<cr>
 		nnoremap <silent> <F12>  :botright copen<cr>
-		nnoremap <silent> \<F12> :ccl<cr>
+		nnoremap <silent> /<F12> :ccl<cr>
 		""nmap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
