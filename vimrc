@@ -151,21 +151,21 @@ call vundle#rc()
 		noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F2>  :wincmd p<cr>
+		nnoremap <silent> <F2>  :wincmd p<cr>			"Switch Window
 		nnoremap <silent> <F3>  :BufExplorer<cr>
-		nnoremap <silent> <F4>  :%s/\s\+$//g<cr>
-		nnoremap <silent> <F5>  :NERDTreeToggle<cr>
-		nnoremap <silent> <F6>  :cp<cr>		"QuickFix Last message
+		nnoremap <silent> <F4>  :NERDTreeToggle<cr>
+		nnoremap <silent> <F5>  :%s/\s\+$//g<cr>
+		nnoremap <silent> <F6>  :cp<cr>				"QuickFix Last message
 		nnoremap <silent> <F7>  :YRShow<cr>
-		nnoremap <silent> <F8>  :cn<cr>		"QuickFix Next message
-		nnoremap <silent> <F9>  :TagbarToggle<cr>	":TlistToggle"
-		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>
-		nnoremap <silent> .<F10> :GitGutterNextHunk<cr>
-		nnoremap <silent> ,<F10> :GitGutterPrevHunk<cr>
-		nnoremap <silent> <F11> :bn<cr>
-		nnoremap <silent> /<F11> :bd<cr>
-		nnoremap <silent> <F12>  :botright copen<cr>
-		nnoremap <silent> /<F12> :ccl<cr>
+		nnoremap <silent> <F8>  :cn<cr>				"QuickFix Next message
+		nnoremap <silent> <F9>  :TagbarToggle<cr>		"TlistToggle"
+		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>	"HL Git Diff"
+		nnoremap <silent>.<F10> :GitGutterNextHunk<cr>
+		nnoremap <silent>,<F10> :GitGutterPrevHunk<cr>
+		nnoremap <silent> <F11> :bn<cr>				"Buffer Next
+		nnoremap <silent>/<F11> :bd<cr>				"Buffer Close
+		nnoremap <silent> <F12> :botright copen<cr>		"QuickFix Open
+		nnoremap <silent>/<F12> :ccl<cr>			"QuickFix Close
 		""nmap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
@@ -208,17 +208,17 @@ call vundle#rc()
 		endif
 		let g:airline_theme="powerlineish"
 		""let g:airline_theme="base16"
-		""let g:airline_powerline_fonts=1
-		let g:airline#extensions#branch#empty_message  =  "No SCM"
-		let g:airline#extensions#whitespace#enabled    =  0
-		let g:airline#extensions#syntastic#enabled     =  1
-		let g:airline#extensions#tabline#enabled       =  1
-		let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
-
+		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
+		let g:airline#extensions#whitespace#enabled    = 0
+		let g:airline#extensions#tabline#enabled       = 1	" Enable Tabline
+		let g:airline#extensions#tabline#tab_nr_type   = 1	" tab number
 		let g:airline#extensions#tabline#show_buffers  = 1
-		let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
-		let g:airline#extensions#hunks#non_zero_only   = 1 " git gutter
+		let g:airline#extensions#tabline#fnamecollapse = 1	" collapsing parent directories in buffer name
+		let g:airline#extensions#hunks#non_zero_only   = 1	" git gutter
 		let g:airline#extensions#tagbar#enabled        = 1
+                "let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
+                "let g:airline#extensions#branch#enabled        = 1
+                "let g:airline#extensions#branch#empty_message  = "No SCM"
 	"}
 	"
 	"plugin:Easygrep"{
