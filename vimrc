@@ -87,8 +87,8 @@ call vundle#rc()
 "vndle Plugin:{
 	" Core plugins
 	"vim-scripts
-	Bundle "vim-airline/vim-airline"
-	Bundle 'vim-airline/vim-airline-themes'
+	Plugin 'vim-airline/vim-airline'
+	Plugin 'vim-airline/vim-airline-themes'
 	Bundle 'vim-scripts/Tagbar'
 	Bundle 'scrooloose/nerdtree'
 	Bundle 'jistr/vim-nerdtree-tabs'
@@ -203,12 +203,17 @@ call vundle#rc()
 	"}
 	"
 	"plugin:airline"{
-		if !exists("g:airline_symbols")
-			let g:airline_symbols = {}
-		endif
 		let g:airline_theme="powerlineish"
 		""let g:airline_theme="base16"
 		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
+
+		if !exists("g:airline_symbols")
+			let g:airline_symbols = {}
+		endif
+		if has('gui_running')					" Add this section can enable Gvim with correct symbol
+			set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
+		endif
+
 		let g:airline#extensions#whitespace#enabled    = 0
 		let g:airline#extensions#tabline#enabled       = 1	" Enable Tabline
 		let g:airline#extensions#tabline#tab_nr_type   = 1	" tab number
@@ -233,8 +238,9 @@ call vundle#rc()
 	"}
 	"
 	"plugin:NERDTree-Tab{
-		let g:nerdtree_tabs_open_on_console_startup 	= 0
-		let g:nerdtree_tabs_autoclose 			= 1
+		let g:nerdtree_tabs_open_on_console_startup = 0
+		let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
+		let g:nerdtree_tabs_autoclose               = 1
 	"}
 	"
 	"plugin:quickfix{
