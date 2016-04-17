@@ -214,13 +214,14 @@ call vundle#rc()
 			set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
 		endif
 
-		let g:airline#extensions#whitespace#enabled    = 0
-		let g:airline#extensions#tabline#enabled       = 1	" Enable Tabline
-		let g:airline#extensions#tabline#tab_nr_type   = 1	" tab number
-		let g:airline#extensions#tabline#show_buffers  = 1
-		let g:airline#extensions#tabline#fnamecollapse = 1	" collapsing parent directories in buffer name
-		let g:airline#extensions#hunks#non_zero_only   = 1	" git gutter
-		let g:airline#extensions#tagbar#enabled        = 1
+		let g:airline#extensions#whitespace#enabled     = 0
+		let g:airline#extensions#tabline#enabled        = 1	" Enable Tabline
+		let g:airline#extensions#tabline#tab_nr_type    = 1	" tab number
+		let g:airline#extensions#tabline#buffer_nr_show = 1	" Show Buffer number
+		let g:airline#extensions#tabline#show_buffers   = 1
+		let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
+		let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
+		let g:airline#extensions#tagbar#enabled         = 1
                 "let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
                 "let g:airline#extensions#branch#enabled        = 1
                 "let g:airline#extensions#branch#empty_message  = "No SCM"
