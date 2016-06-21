@@ -95,6 +95,8 @@ call vundle#rc()
 	Bundle 'markabe/bufexplorer'
 	"Bundle 'Lokaltog/vim-powerline'
 	"Bundle 'taglist.vim'
+	Bundle 'gcmt/wildfire.vim'
+	Bundle 'Yggdroot/indentLine'
 
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
