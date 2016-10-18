@@ -66,9 +66,12 @@ set autoindent
 set laststatus=2
 set encoding=utf8
 set t_Co=256	 "Powerline color setting
+autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
+
 colorscheme nightshade
 colorscheme jammy
 colorscheme kellys
+colorscheme torte
 set nocompatible
 "colorscheme nightshade
 
@@ -205,7 +208,8 @@ call vundle#rc()
 	"}
 	"
 	"plugin:airline"{
-		let g:airline_theme="powerlineish"
+		"let g:airline_theme="powerlineish"
+		let g:airline_theme="light"
 		""let g:airline_theme="base16"
 		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
 
