@@ -81,6 +81,32 @@ augroup vimrc
 augroup END
 set foldlevel=3
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" vim-plug . Since Vundle is not maintain anymore
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
+"plugin:{
+	"core plugins
+	"vim-scripts
+	""Plug 'Lokaltog/vim-powerline'		//replace by vim-airline
+	""Plug 'vim-airline/vim-airline'
+	""Plug 'vim-airline/vim-airline-themes'
+	""Plug 'vim-scripts/Tagbar'		//replace by Tagbar
+	""Plug 'taglist.vim'
+	""Plug 'scrooloose/nerdtree'
+	""Plug 'jistr/vim-nerdtree-tabs'
+	""Plug 'markabe/bufexplorer'
+	""Plug 'gcmt/wildfire.vim'
+	""Plug 'Yggdroot/indentLine'
+"}
+""call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Using Vundle to install plugin
 "git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
