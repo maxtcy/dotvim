@@ -66,13 +66,13 @@ set autoindent
 set laststatus=2
 set encoding=utf8
 set t_Co=256	 "Powerline color setting
+set nocompatible
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 
-colorscheme nightshade
-colorscheme jammy
-colorscheme kellys
-colorscheme torte
-set nocompatible
+"colorscheme nightshade
+"colorscheme jammy
+"colorscheme kellys
+"colorscheme torte
 "colorscheme nightshade
 
 augroup vimrc
@@ -89,43 +89,20 @@ set foldlevel=3
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
+call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{
 	"core plugins
 	"vim-scripts
-	""Plug 'Lokaltog/vim-powerline'		//replace by vim-airline
-	""Plug 'vim-airline/vim-airline'
-	""Plug 'vim-airline/vim-airline-themes'
-	""Plug 'vim-scripts/Tagbar'		//replace by Tagbar
-	""Plug 'taglist.vim'
-	""Plug 'scrooloose/nerdtree'
-	""Plug 'jistr/vim-nerdtree-tabs'
-	""Plug 'markabe/bufexplorer'
-	""Plug 'gcmt/wildfire.vim'
-	""Plug 'Yggdroot/indentLine'
-"}
-""call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Using Vundle to install plugin
-"git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-
-"vndle Plugin:{
-	" Core plugins
-	"vim-scripts
-	Plugin 'vim-airline/vim-airline'
-	Plugin 'vim-airline/vim-airline-themes'
-	Bundle 'vim-scripts/Tagbar'
-	Bundle 'scrooloose/nerdtree'
-	Bundle 'jistr/vim-nerdtree-tabs'
-	Bundle 'markabe/bufexplorer'
-	"Bundle 'Lokaltog/vim-powerline'
-	"Bundle 'taglist.vim'
-	Bundle 'gcmt/wildfire.vim'
-	Bundle 'Yggdroot/indentLine'
+	Plug 'Lokaltog/vim-powerline'		"replace by vim-airline
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-scripts/Tagbar'		"replace by Tagbar
+	Plug 'taglist.vim'
+	Plug 'scrooloose/nerdtree'
+	Plug 'jistr/vim-nerdtree-tabs'
+	Plug 'markabe/bufexplorer'
+	Plug 'gcmt/wildfire.vim'
+	Plug 'Yggdroot/indentLine'
 
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
@@ -138,31 +115,92 @@ call vundle#rc()
 	"    ctrlp	   : Turn on document
 	"    Command-T     : Turn on document
 	""""""""""""""
-	Bundle 'YankRing.vim'
-	Bundle 'AutoClose'
-	Bundle 'EnhCommentify.vim'
-	"Bundle 'lookupfile'
-	"Bundle 'genutils'
-	"Bundle 'Shougo/unite.vim'
-	"Bundle 'kien/ctrlp.vim'
-	"Bundle 'wincent/Command-T'
-	Bundle 'vim-scripts/Align'
-	"Bundle 'Lokaltog/vim-easymotion'
+	Plug 'YankRing.vim'
+	Plug 'AutoClose'
+	Plug 'EnhCommentify.vim'
+	"Plug 'lookupfile'
+	"Plug 'genutils'
+	"Plug 'Shougo/unite.vim'
+	"Plug 'kien/ctrlp.vim'
+	"Plug 'wincent/Command-T'
+	Plug 'vim-scripts/Align'
+	"Plug 'Lokaltog/vim-easymotion'
 
-	Bundle 'mileszs/ack.vim'
-	Bundle 'rking/ag.vim'
-	Bundle 'vim-scripts/EasyGrep'
-	Bundle 'airblade/vim-gitgutter'
-	""Bundle 'brookhong/cscope.vim'
-	""Bundle 'vim-scripts/cscope_macros.vim'
-	Bundle 'terryma/vim-multiple-cursors'
+	Plug 'mileszs/ack.vim'
+	Plug 'rking/ag.vim'
+	Plug 'vim-scripts/EasyGrep'
+	Plug 'airblade/vim-gitgutter'
+	""Plug 'brookhong/cscope.vim'
+	""Plug 'vim-scripts/cscope_macros.vim'
+	Plug 'terryma/vim-multiple-cursors'
 
 	"Colorscheme
-	Bundle 'c9s/colorselector.vim'
-	"Bundle 'flazz/vim-colorschemes'
-	"Bundle 'nightshade.vim'
-	"Bundle 'kellys'
-	"Bundle 'jammy.vim'
+	Plug 'c9s/colorselector.vim'
+	"Plug 'flazz/vim-colorschemes'
+	"Plug 'nightshade.vim'
+	"Plug 'kellys'
+	"Plug 'jammy.vim'
+
+"}
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Using Vundle to install plugin
+"git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+""set rtp+=~/.vim/bundle/Vundle.vim/
+""call vundle#rc()
+""
+"""vndle Plugin:{
+""	" Core plugins
+""	"vim-scripts
+""	Plugin 'vim-airline/vim-airline'
+""	Plugin 'vim-airline/vim-airline-themes'
+""	Bundle 'vim-scripts/Tagbar'
+""	Bundle 'scrooloose/nerdtree'
+""	Bundle 'jistr/vim-nerdtree-tabs'
+""	Bundle 'markabe/bufexplorer'
+""	"Bundle 'Lokaltog/vim-powerline'
+""	"Bundle 'taglist.vim'
+""	Bundle 'gcmt/wildfire.vim'
+""	Bundle 'Yggdroot/indentLine'
+""
+""	"""""""""""""""
+""	"    YankRing 	   : copy / paste
+""	"    EnhCommentify : mark out cod
+""	"    Lookupfile    : search files with vim
+""	"    genutils	   : necessary by Lookupfile
+""	"    align	   : align text format
+""	"    EasyGrep	   : vv to grep for the work under cursor, match all
+""	"    unite	   : something like ctrlp
+""	"    ctrlp	   : Turn on document
+""	"    Command-T     : Turn on document
+""	""""""""""""""
+""	Bundle 'YankRing.vim'
+""	Bundle 'AutoClose'
+""	Bundle 'EnhCommentify.vim'
+""	"Bundle 'lookupfile'
+""	"Bundle 'genutils'
+""	"Bundle 'Shougo/unite.vim'
+""	"Bundle 'kien/ctrlp.vim'
+""	"Bundle 'wincent/Command-T'
+""	Bundle 'vim-scripts/Align'
+""	"Bundle 'Lokaltog/vim-easymotion'
+""
+""	Bundle 'mileszs/ack.vim'
+""	Bundle 'rking/ag.vim'
+""	Bundle 'vim-scripts/EasyGrep'
+""	Bundle 'airblade/vim-gitgutter'
+""	""Bundle 'brookhong/cscope.vim'
+""	""Bundle 'vim-scripts/cscope_macros.vim'
+""	Bundle 'terryma/vim-multiple-cursors'
+""
+""	"Colorscheme
+""	Bundle 'c9s/colorselector.vim'
+""	"Bundle 'flazz/vim-colorschemes'
+""	"Bundle 'nightshade.vim'
+""	"Bundle 'kellys'
+""	"Bundle 'jammy.vim'
 "}
 
 " Brief help {
