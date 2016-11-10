@@ -72,7 +72,7 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 "colorscheme nightshade
 "colorscheme jammy
 "colorscheme kellys
-"colorscheme torte
+colorscheme torte
 "colorscheme nightshade
 
 augroup vimrc
@@ -93,10 +93,10 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{
 	"core plugins
 	"vim-scripts
-	Plug 'Lokaltog/vim-powerline'		"replace by vim-airline
+	"Plug 'Lokaltog/vim-powerline'		"replace by vim-airline
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-	Plug 'vim-scripts/Tagbar'		"replace by Tagbar
+	"Plug 'vim-scripts/Tagbar'		"replace by Tagbar
 	Plug 'taglist.vim'
 	Plug 'scrooloose/nerdtree'
 	Plug 'jistr/vim-nerdtree-tabs'
@@ -209,6 +209,8 @@ call plug#end()
     " :BundleSearch(!) foo - search(or refresh cache first) for foo
     " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 " }
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Key Mapping" {
 	"key for Generic{
