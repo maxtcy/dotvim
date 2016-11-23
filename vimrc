@@ -96,8 +96,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Plug 'Lokaltog/vim-powerline'		"replace by vim-airline
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-	"Plug 'vim-scripts/Tagbar'		"replace by Tagbar
-	Plug 'taglist.vim'
+	Plug 'vim-scripts/Tagbar'
+	""Plug 'taglist.vim'			"replace by Tagbar
 	Plug 'scrooloose/nerdtree'
 	Plug 'jistr/vim-nerdtree-tabs'
 	Plug 'markabe/bufexplorer'
