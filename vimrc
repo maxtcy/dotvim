@@ -222,21 +222,21 @@ call plug#end()
 		noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F2>  :wincmd p<cr>			"Switch Window
+		nnoremap <silent> <F2>  :wincmd p<cr>				"Switch Window
 		nnoremap <silent> <F3>  :BufExplorer<cr>
 		nnoremap <silent> <F4>  :NERDTreeToggle<cr>
 		nnoremap <silent> <F5>  :%s/\s\+$//g<cr>
-		nnoremap <silent> <F6>  :cp<cr>				"QuickFix Last message
+		nnoremap <silent> <F6>  :cp<cr>					"QuickFix Last message
 		nnoremap <silent> <F7>  :YRShow<cr>
-		nnoremap <silent> <F8>  :cn<cr>				"QuickFix Next message
-		nnoremap <silent> <F9>  :TagbarToggle<cr>		"TlistToggle"
+		nnoremap <silent> <F8>  :cn<cr>					"QuickFix Next message
+		nnoremap <silent> <F9>  :TagbarToggle<cr>			"TlistToggle"
 		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>	"HL Git Diff"
 		nnoremap <silent>.<F10> :GitGutterNextHunk<cr>
 		nnoremap <silent>,<F10> :GitGutterPrevHunk<cr>
-		nnoremap <silent> <F11> :bn<cr>				"Buffer Next
-		nnoremap <silent>/<F11> :bd<cr>				"Buffer Close
-		nnoremap <silent> <F12> :botright copen<cr>		"QuickFix Open
-		nnoremap <silent>/<F12> :ccl<cr>			"QuickFix Close
+		nnoremap <silent> <F11> :bn<cr>:TagbarClose<cr>			"Buffer Next
+		nnoremap <silent>/<F11> :bw<cr>					"Buffer Close
+		nnoremap <silent> <F12> :botright copen<cr>			"QuickFix Open
+		nnoremap <silent>/<F12> :ccl<cr>				"QuickFix Close
 		""nmap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
