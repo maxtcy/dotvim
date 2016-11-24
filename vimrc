@@ -79,7 +79,7 @@ augroup vimrc
 	au BufReadPre * setlocal foldmethod=indent
 	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
-set foldlevel=3
+set foldlevel=5
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -132,6 +132,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'airblade/vim-gitgutter'
 	""Plug 'brookhong/cscope.vim'
 	""Plug 'vim-scripts/cscope_macros.vim'
+	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 
 	"Colorscheme
@@ -209,12 +210,12 @@ call plug#end()
     " :BundleSearch(!) foo - search(or refresh cache first) for foo
     " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 " }
-"
+"''
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Key Mapping" {
 	"key for Generic{
-		"let mapleader="\\"
+		let mapleader="\\"
 	"}
 
 	"key for build code"{
