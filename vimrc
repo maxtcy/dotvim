@@ -257,13 +257,13 @@ call plug#end()
 		endif
 	"}
 	"plugin:taglist"{
-		let Tlist_Ctags_Cmd            = '/usr/bin/ctags'
-		let Tlist_Show_One_File        = 1	"不同时显示多个文件的tag，只显示当前文件的
-		let Tlist_Exit_OnlyWindow      = 1	"如果taglist窗口是最后一个窗口，则退出vim
-		""let Tlist_Auto_Open          = 1	"自動打開taglistgg視窗
-		let Tlist_Inc_Winwidth         = 0	"禁止自动改变当前Vim窗口的大小
-		""let Tlist_Use_Right_Window   = 1	"把方法列表放在屏幕的右侧
-		let Tlist_File_Fold_Auto_Close = 1	"让当前不被编辑的文件的方法列表自动折叠起来
+	"	let Tlist_Ctags_Cmd            = '/usr/bin/ctags'
+	"	let Tlist_Show_One_File        = 1	"不同时显示多个文件的tag，只显示当前文件的
+	"	let Tlist_Exit_OnlyWindow      = 1	"如果taglist窗口是最后一个窗口，则退出vim
+	"	""let Tlist_Auto_Open          = 1	"自動打開taglistgg視窗
+	"	let Tlist_Inc_Winwidth         = 0	"禁止自动改变当前Vim窗口的大小
+	"	""let Tlist_Use_Right_Window   = 1	"把方法列表放在屏幕的右侧
+	""	let Tlist_File_Fold_Auto_Close = 1	"让当前不被编辑的文件的方法列表自动折叠起来
 	"}
 	"
 	"plugin:tagbar"{
@@ -272,6 +272,7 @@ call plug#end()
 		" "autocmd VimEnter * nested :TagbarOpen
 		let g:tagbar_width = 30
 		let g:tagbar_sort = 0			"List by position
+		let g:tagbar_autoclose = 1
 	"}
 	"
 	"plugin:airline"{
