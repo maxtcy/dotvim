@@ -59,8 +59,8 @@ set shiftwidth=8 " 設定縮排寬度 = 4
 set tabstop=8    " tab 的字元數
 set colorcolumn=90 "長度超過90字元
 set history=100  " 保留 100 個使用過的指令
-set cursorline   "Show current cursor
-set cursorcolumn "Show Column cursor"
+"set cursorline   "Show current cursor
+"set cursorcolumn "Show Column cursor"
 set hlsearch	 "High Light Search
 set autoindent
 set laststatus=2
@@ -130,14 +130,14 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'rking/ag.vim'
 	Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
-	""Plug 'brookhong/cscope.vim'
-	""Plug 'vim-scripts/cscope_macros.vim'
+	"Plug 'brookhong/cscope.vim'
+	"Plug 'vim-scripts/cscope_macros.vim'
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 
 	"Colorscheme
 	Plug 'c9s/colorselector.vim'
-	"Plug 'flazz/vim-colorschemes'
+	Plug 'tomasr/molokai'
 	"Plug 'nightshade.vim'
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
@@ -192,8 +192,8 @@ call plug#end()
 ""	Bundle 'rking/ag.vim'
 ""	Bundle 'vim-scripts/EasyGrep'
 ""	Bundle 'airblade/vim-gitgutter'
-""	""Bundle 'brookhong/cscope.vim'
-""	""Bundle 'vim-scripts/cscope_macros.vim'
+""	"Bundle 'brookhong/cscope.vim'
+""	"Bundle 'vim-scripts/cscope_macros.vim'
 ""	Bundle 'terryma/vim-multiple-cursors'
 ""
 ""	"Colorscheme
@@ -223,21 +223,22 @@ call plug#end()
 		noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F2>  :wincmd p<cr>				"Switch Window
-		nnoremap <silent> <F3>  :BufExplorer<cr>
-		nnoremap <silent> <F4>  :NERDTreeToggle<cr>
-		nnoremap <silent> <F5>  :%s/\s\+$//g<cr>
-		nnoremap <silent> <F6>  :cp<cr>					"QuickFix Last message
-		nnoremap <silent> <F7>  :YRShow<cr>
-		nnoremap <silent> <F8>  :cn<cr>					"QuickFix Next message
-		nnoremap <silent> <F9>  :TagbarToggle<cr>			"TlistToggle"
-		nnoremap <silent> <F10> :GitGutterLineHighlightsToggle<cr>	"HL Git Diff"
-		nnoremap <silent>.<F10> :GitGutterNextHunk<cr>
-		nnoremap <silent>,<F10> :GitGutterPrevHunk<cr>
-		nnoremap <silent> <F11> :bn<cr>:TagbarClose<cr>			"Buffer Next
-		nnoremap <silent>/<F11> :bw<cr>					"Buffer Close
-		nnoremap <silent> <F12> :botright copen<cr>			"QuickFix Open
-		nnoremap <silent>/<F12> :ccl<cr>				"QuickFix Close
+		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
+		nnoremap <silent> <F3>   :NERDTreeToggle<cr>
+		nnoremap <silent> <F4>   :BufExplorer<cr>
+		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>
+		nnoremap <silent> <F6>   :cp<cr>				"QuickFix Last message
+		nnoremap <silent> <F7>   :YRShow<cr>
+		nnoremap <silent> <F8>   :cn<cr>				"QuickFix Next message
+		nnoremap <silent> <F9>   :botright copen<cr>			"QuickFix Open
+		nnoremap <silent>/<F9>   :ccl<cr>				"QuickFix Close
+		nnoremap <silent> <F10>  :GitGutterLineHighlightsToggle<cr>	"HL Git Diff"
+		nnoremap <silent>.<F10>  :GitGutterNextHunk<cr>
+		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
+		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
+		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
+		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
+		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
 		""nmap <S-F12> :cclose<cr>
 		""nnoremap <silent> <F10> :SelectColorS<cr>
 
