@@ -59,7 +59,7 @@ set shiftwidth=8 " 設定縮排寬度 = 4
 set tabstop=8    " tab 的字元數
 set colorcolumn=90 "長度超過90字元
 set history=100  " 保留 100 個使用過的指令
-"set cursorline   "Show current cursor
+set cursorline   "Show current cursor
 "set cursorcolumn "Show Column cursor"
 set hlsearch	 "High Light Search
 set autoindent
@@ -71,8 +71,8 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 
 "colorscheme nightshade
 "colorscheme jammy
-"colorscheme kellys
-colorscheme torte
+colorscheme kellys
+"colorscheme torte
 "colorscheme nightshade
 
 augroup vimrc
@@ -130,6 +130,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'rking/ag.vim'
 	Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
+	Plug 'tpope/vim-fugitive'
 	"Plug 'brookhong/cscope.vim'
 	"Plug 'vim-scripts/cscope_macros.vim'
 	Plug 'ronakg/quickr-cscope.vim'
@@ -273,7 +274,7 @@ call plug#end()
 		" "autocmd VimEnter * nested :TagbarOpen
 		let g:tagbar_width = 30
 		let g:tagbar_sort = 0			"List by position
-		let g:tagbar_autoclose = 1
+		let g:tagbar_autoclose = 0
 	"}
 	"
 	"plugin:airline"{
