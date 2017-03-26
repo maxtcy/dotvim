@@ -6,7 +6,7 @@ Quick Start
 ----------------
 1. Description:
 
-	* [~~Vundle~~](https://github.com/gmarik/Vundle.vim) is not mentain anymore.
+	* [~~Vundle~~](https://github.com/gmarik/Vundle.vim) is not maintain anymore.
 	* Using ([plug](https://github.com/junegunn/vim-plug) ) instead
 
 2. Steps:
