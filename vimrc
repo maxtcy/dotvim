@@ -266,4 +266,8 @@ call plug#end()
 		let g:gitgutter_eager = 0	"  To notice change to git index
 		"let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
+	" plugin:Ctrlp {
+		let g:ctrlp_map = '<s-p>'
+		let g:ctrlp_cmd = 'CtrlP'
+	" }
 "}
