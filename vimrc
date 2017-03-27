@@ -124,7 +124,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Plug 'Shougo/unite.vim'
 	"Plug 'wincent/Command-T'
 	Plug 'vim-scripts/Align'
-	"Plug 'Lokaltog/vim-easymotion'
+	Plug 'easymotion/vim-easymotion'
 
 	Plug 'mileszs/ack.vim'
 	Plug 'rking/ag.vim'
@@ -146,72 +146,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "}
 call plug#end()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Using Vundle to install plugin
-"git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-""set rtp+=~/.vim/bundle/Vundle.vim/
-""call vundle#rc()
-""
-"""vndle Plugin:{
-""	" Core plugins
-""	"vim-scripts
-""	Plugin 'vim-airline/vim-airline'
-""	Plugin 'vim-airline/vim-airline-themes'
-""	Bundle 'vim-scripts/Tagbar'
-""	Bundle 'scrooloose/nerdtree'
-""	Bundle 'jistr/vim-nerdtree-tabs'
-""	Bundle 'markabe/bufexplorer'
-""	"Bundle 'Lokaltog/vim-powerline'
-""	"Bundle 'taglist.vim'
-""	Bundle 'gcmt/wildfire.vim'
-""	Bundle 'Yggdroot/indentLine'
-""
-""	"""""""""""""""
-""	"    YankRing 	   : copy / paste
-""	"    EnhCommentify : mark out cod
-""	"    Lookupfile    : search files with vim
-""	"    genutils	   : necessary by Lookupfile
-""	"    align	   : align text format
-""	"    EasyGrep	   : vv to grep for the work under cursor, match all
-""	"    unite	   : something like ctrlp
-""	"    ctrlp	   : Turn on document
-""	"    Command-T     : Turn on document
-""	""""""""""""""
-""	Bundle 'YankRing.vim'
-""	Bundle 'AutoClose'
-""	Bundle 'EnhCommentify.vim'
-""	"Bundle 'lookupfile'
-""	"Bundle 'genutils'
-""	"Bundle 'Shougo/unite.vim'
-""	"Bundle 'kien/ctrlp.vim'
-""	"Bundle 'wincent/Command-T'
-""	Bundle 'vim-scripts/Align'
-""	"Bundle 'Lokaltog/vim-easymotion'
-""
-""	Bundle 'mileszs/ack.vim'
-""	Bundle 'rking/ag.vim'
-""	Bundle 'vim-scripts/EasyGrep'
-""	Bundle 'airblade/vim-gitgutter'
-""	"Bundle 'brookhong/cscope.vim'
-""	"Bundle 'vim-scripts/cscope_macros.vim'
-""	Bundle 'terryma/vim-multiple-cursors'
-""
-""	"Colorscheme
-""	Bundle 'c9s/colorselector.vim'
-""	"Bundle 'flazz/vim-colorschemes'
-""	"Bundle 'nightshade.vim'
-""	"Bundle 'kellys'
-""	"Bundle 'jammy.vim'
-"}
-
-" Brief help {
-    " :BundleList          - list configured bundles
-    " :BundleInstall(!)    - install(update) bundles
-    " :BundleSearch(!) foo - search(or refresh cache first) for foo
-    " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-" }
-"''
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Key Mapping" {
@@ -237,6 +171,7 @@ call plug#end()
 		nnoremap <silent>.<F10>  :GitGutterNextHunk<cr>
 		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
 		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
+		nnoremap <silent>/<F10>  :Gblame<cr>				"Show git blame in vim
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
