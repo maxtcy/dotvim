@@ -71,7 +71,8 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 
 "colorscheme nightshade
 "colorscheme jammy
-colorscheme kellys
+"colorscheme kellys
+colorscheme molokai
 "colorscheme torte
 "colorscheme nightshade
 
@@ -93,11 +94,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{
 	"core plugins
 	"vim-scripts
-	"Plug 'Lokaltog/vim-powerline'		"replace by vim-airline
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'vim-scripts/Tagbar'
-	""Plug 'taglist.vim'			"replace by Tagbar
 	Plug 'scrooloose/nerdtree'
 	Plug 'jistr/vim-nerdtree-tabs'
 	Plug 'markabe/bufexplorer'
@@ -138,7 +137,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	"Colorscheme
 	Plug 'c9s/colorselector.vim'
-	Plug 'tomasr/molokai'
+	"Plug 'tomasr/molokai'
 	"Plug 'nightshade.vim'
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
@@ -154,8 +153,8 @@ call plug#end()
 	"}
 
 	"key for build code"{
-		noremap <silent> \j :make -j16<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
-		noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
+	"	noremap <silent> \j :make -j16<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
+	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
@@ -175,11 +174,10 @@ call plug#end()
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
-		""nmap <S-F12> :cclose<cr>
-		""nnoremap <silent> <F10> :SelectColorS<cr>
-
 	"}
 "}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Plugin" {
 	"plugin:Yankring" {
@@ -193,20 +191,11 @@ call plug#end()
 			endif
 		endif
 	"}
-	"plugin:taglist"{
-	"	let Tlist_Ctags_Cmd            = '/usr/bin/ctags'
-	"	let Tlist_Show_One_File        = 1	"不同时显示多个文件的tag，只显示当前文件的
-	"	let Tlist_Exit_OnlyWindow      = 1	"如果taglist窗口是最后一个窗口，则退出vim
-	"	""let Tlist_Auto_Open          = 1	"自動打開taglistgg視窗
-	"	let Tlist_Inc_Winwidth         = 0	"禁止自动改变当前Vim窗口的大小
-	"	""let Tlist_Use_Right_Window   = 1	"把方法列表放在屏幕的右侧
-	""	let Tlist_File_Fold_Auto_Close = 1	"让当前不被编辑的文件的方法列表自动折叠起来
-	"}
 	"
 	"plugin:tagbar"{
 		let g:tagbar_ctags_bin = '/usr/bin/ctags'
-		""autocmd FileType c nested :TagbarOpen	"Auto Turn on while file type is c, cpp
-		" "autocmd VimEnter * nested :TagbarOpen
+		"autocmd FileType c nested :TagbarOpen	"Auto Turn on while file type is c, cpp
+		"autocmd VimEnter * nested :TagbarOpen
 		let g:tagbar_width = 30
 		let g:tagbar_sort = 0			"List by position
 		let g:tagbar_autoclose = 0
@@ -215,6 +204,7 @@ call plug#end()
 	"plugin:airline"{
 		"let g:airline_theme="powerlineish"
 		let g:airline_theme="light"
+"                let g:airline_theme="tomorrow"
 		""let g:airline_theme="base16"
 		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
 
@@ -246,7 +236,7 @@ call plug#end()
 		let g:NERDTreeWinPos  = "left"
 		let NERDChristmasTree = 1
 		let NERDTreeChDirMode = 1
-		let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$']
+		let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
 	"}
 	"
 	"plugin:NERDTree-Tab{
