@@ -259,5 +259,7 @@ call plug#end()
 	" plugin:Ctrlp {
 		let g:ctrlp_map = '<s-p>'
 		let g:ctrlp_cmd = 'CtrlP'
+		let g:ctrlp_max_files = 0	"Add for earch all files
+		let g:ctrlp_max_depth = 40	"Add for earch all files
 	" }
 "}
