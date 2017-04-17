@@ -135,6 +135,10 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 
+	"Markdwon
+	Plug 'plasticboy/vim-markdown'
+	Plug 'suan/vim-instant-markdown'
+
 	"Colorscheme
 	Plug 'c9s/colorselector.vim'
 	"Plug 'tomasr/molokai'
