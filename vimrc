@@ -259,7 +259,21 @@ call plug#end()
 	" plugin:Ctrlp {
 		let g:ctrlp_map = '<s-p>'
 		let g:ctrlp_cmd = 'CtrlP'
-		let g:ctrlp_max_files = 0	"Add for earch all files
-		let g:ctrlp_max_depth = 40	"Add for earch all files
+		let g:ctrlp_max_files = 0		"Add for earch all files
+		let g:ctrlp_max_depth = 40		"Add for earch all files
+		let g:ctrlp_clear_cache_on_exit = 0 	"Improve Trun on Ctrlp Delay
+
+		let g:ctrlp_custom_ignore = {
+		  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
+		  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+		  \ }
+
+		if executable('ag')
+			set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
+			" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+			let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+			" ag is fast enough that CtrlP doesn't need to cache
+			let g:ctrlp_use_caching = 0
+		endif
 	" }
 "}
