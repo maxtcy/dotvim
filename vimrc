@@ -173,8 +173,8 @@ call plug#end()
 		nnoremap <silent> <F10>  :GitGutterLineHighlightsToggle<cr>	"HL Git Diff"
 		nnoremap <silent>.<F10>  :GitGutterNextHunk<cr>
 		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
-		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
 		nnoremap <silent>/<F10>  :Gblame<cr>				"Show git blame in vim
+		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
@@ -208,8 +208,8 @@ call plug#end()
 	"plugin:airline"{
 		"let g:airline_theme="powerlineish"
 		let g:airline_theme="light"
-"                let g:airline_theme="tomorrow"
-		""let g:airline_theme="base16"
+                "let g:airline_theme="tomorrow"
+		"let g:airline_theme="base16"
 		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
 
 		if !exists("g:airline_symbols")
@@ -273,11 +273,11 @@ call plug#end()
 		  \ }
 
 		if executable('ag')
-			set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
-			" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-			let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-			" ag is fast enough that CtrlP doesn't need to cache
-			let g:ctrlp_use_caching = 0
+		    set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
+		    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+		    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+		    " ag is fast enough that CtrlP doesn't need to cache
+		    let g:ctrlp_use_caching = 0
 		endif
 	" }
 "}
