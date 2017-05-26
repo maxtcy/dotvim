@@ -247,6 +247,7 @@ call plug#end()
 		let g:nerdtree_tabs_open_on_console_startup = 0
 		let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
 		let g:nerdtree_tabs_autoclose               = 1
+		let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
 	"}
 	"
 	"plugin:quickfix{
