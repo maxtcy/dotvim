@@ -134,6 +134,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Plug 'vim-scripts/cscope_macros.vim'
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
+	"Highlights the XML/HTML tags
+	Plugin 'Valloric/MatchTagAlways'
 
 	"Markdwon
 	Plug 'plasticboy/vim-markdown'
