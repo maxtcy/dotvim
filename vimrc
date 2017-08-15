@@ -114,9 +114,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"    ctrlp	   : Turn on document
 	"    Command-T     : Turn on document
 	""""""""""""""
-	Plug 'YankRing.vim'
-	Plug 'AutoClose'
-	Plug 'EnhCommentify.vim'
+	Plug 'vim-scripts/YankRing.vim'
+	Plug 'vim-scripts/AutoClose'
+	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'ctrlpvim/ctrlp.vim'
 	"Plug 'lookupfile'
 	"Plug 'genutils'
@@ -135,7 +135,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	"Highlights the XML/HTML tags
-	Plugin 'Valloric/MatchTagAlways'
+	Plug 'Valloric/MatchTagAlways'
 
 	"Markdwon
 	Plug 'plasticboy/vim-markdown'
