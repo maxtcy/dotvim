@@ -8,3 +8,6 @@ sudo apt install cscope
 
 echo "[2] ag (somethig like grep, but faster)"
 sudo apt-get install silversearcher-ag
+
+echo "[3] ctags"
+sudo apt-get install ctags
