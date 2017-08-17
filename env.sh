@@ -3,9 +3,23 @@ sudo add-apt-repository ppa:pgolm/the-silver-searcher
 echo "-=update repository=-"
 sudo apt-get update &>/dev/null
 echo "-=update Done=-"
+
+echo "[0] Airline Necessary Font"
+MY_HOME=$HOME
+cd "$HOME"
+mkdir -p ~/.font
+if [ -d ~/.font ]
+then
+echo "Folder exist!!"
+fi
+cd ~/.font
+git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
+cd powerline-fonts/
+./install.sh
+###########################
 echo "[1] Cscope"
 sudo apt install cscope &>/dev/null
-
+###########################
 echo "[2] ag (somethig like grep, but faster)"
 sudo apt-get install silversearcher-ag &>/dev/null
 
@@ -26,5 +40,9 @@ else
         sudo dpkg -i silversearcher-ag_2.0.0-1_amd64.deb
 fi
 
+###########################
 echo "[3] ctags"
 sudo apt-get install ctags &>/dev/null
+
+###########################
+echo "[End of this Script] DONE!!! "
