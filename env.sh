@@ -19,18 +19,6 @@ machine_linux() {
 	echo "-=update Done=-"
 
 	###########################
-	echo "[0] Airline Necessary Font"
-	cd "$HOME"
-	mkdir -p ~/.font
-	if [ -d ~/.font ]
-	then
-		echo "Folder exist!!"
-	fi
-	cd ~/.font
-	git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
-	cd powerline-fonts/
-	./install.sh
-	###########################
 	echo "[1] Cscope"
 	sudo apt install cscope &>/dev/null
 	###########################
@@ -78,6 +66,19 @@ ln -s ~/.vim/vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &>/dev/null
 
+###########################
+echo "[0] Airline Necessary Font"
+cd "$HOME"
+mkdir -p ~/.font
+if [ -d ~/.font ]
+then
+	echo "Folder exist!!"
+fi
+cd ~/.font
+git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
+cd powerline-fonts/
+./install.sh
+###########################
 case "${machine}" in
 	Linux*)
 		machine_linux
