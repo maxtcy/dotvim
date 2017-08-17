@@ -1,11 +1,21 @@
 #!/bin/bash
+
+MY_HOME=$HOME
+###########################
+echo "[vimrc download]Fetch dotvim.git from github"
+git clone git://github.com/maxtcy/dotvim.git ~/.vim
+ln -s ~/.vim/vimrc ~/.vimrc
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+###########################
 sudo add-apt-repository ppa:pgolm/the-silver-searcher
 echo "-=update repository=-"
 sudo apt-get update &>/dev/null
 echo "-=update Done=-"
 
+###########################
 echo "[0] Airline Necessary Font"
-MY_HOME=$HOME
 cd "$HOME"
 mkdir -p ~/.font
 if [ -d ~/.font ]
