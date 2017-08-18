@@ -1,5 +1,8 @@
 #!/bin/bash
 
+MY_HOME=$HOME
+MY_VIM="$HOME/.vim"
+MY_FONT="$HOME/.font"
 ###########################
 machine_mac() {
 	echo "[1] Cscope"
@@ -43,41 +46,102 @@ machine_linux() {
 	sudo apt-get install ctags &>/dev/null
 	###########################
 }
+
+airline_font() {
+	echo "[0] Airline Necessary Font"
+	cd "$HOME"
+	if [ -d "$MY_FONT" ] ; then
+		echo "Folder exist!!"
+
+		read -p  $'Would you like to \033[31mdelete\033[0m the old one \n\tand download new one (y/n) ?' ans
+		case ${ans:0:1} in
+			y|Y )
+				rm -rf "$MY_FONT"
+				mkdir -p "$MY_FONT"
+				cd "$MY_FONT"
+				git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
+				gitresult=$?
+				if [[ $gitresult -ne 0 ]]
+				then
+					echo -e "!!![ git clone \033[33mFAIL\033[0m]!!!
+					\n\033[31m!!![Terminate Script]!!!\033[0m"
+					exit
+				fi
+				;;
+			n|N )
+				echo -e "\033[31m!!![Terminate Script]!!!\033[0m"
+				exit
+				;;
+			*)
+				echo -e "\033[31mNot legal input(${ans})\n!!![Terminate Script]!!!\033[0m"
+				exit
+				;;
+		esac
+	fi
+	cd powerline-fonts/
+	./install.sh
+}
 ###########################
 
-MY_HOME=$HOME
-###########################
 unamestr="$(uname -s)" #echo $OSTYPE
 case "${unamestr}" in
 	Linux*)	machine=Linux
-		sudo apt-get install git-core curl tig ;;
+		echo -e "-= Setup Env is \e[7m(${machine})\e[0m =-"
+#                sudo apt-get install git-core curl tig &>/dev/null
+		;;
 	Darwin*) machine=Mac
+		echo -e "-= Setup Env is \033[7m(${machine})\033[0m =-"
 		brew update
-		brew install git curl tig  ;;
+		brew install vim --override-system-vim
+		brew install git curl tig
+		;;
 	CYGWIN*) machine=Cygwin ;;
 	*)
 		echo "Unknown OS type!! Abort following steps"
 		exit ;;
 esac
 ###########################
-echo "[vimrc download]Fetch dotvim.git from github"
-git clone git://github.com/maxtcy/dotvim.git ~/.vim
-ln -s ~/.vim/vimrc ~/.vimrc
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &>/dev/null
-
+#echo -e "[-= Script Start =-]\tFetch dotvim.git from github"
+#if [ ! -d "$MY_VIM" ]; then
+#        git clone git://github.com/maxtcy/dotvim.git "$MY_VIM" &>/dev/null #2>&1
+#        gitresult=$?
+#        if [[ $gitresult -ne 0 ]]
+#        then
+#                echo -e "!!![ git clone \033[33mFAIL\033[0m]!!!
+#                \n\033[31m!!![Terminate Script]!!!\033[0m"
+#                exit
+#        fi
+#else
+#        echo -e "\033[7m($MY_VIM)\033[0m already \033[7mEXIST\033[0m !!"
+#        read -p  $'Would you like to \033[31mdelete\033[0m the old one \n\tand download new one (y/n) ?' ans
+#        case ${ans:0:1} in
+#                y|Y )
+#                        rm -f "$MY_VIM"
+#                        git clone git://github.com/maxtcy/dotvim.git "$MY_VIM" &>/dev/null #2>&1
+#                        gitresult=$?
+#                        if [[ $gitresult -ne 0 ]]
+#                        then
+#                                echo -e "!!![ git clone \033[33mFAIL\033[0m]!!!
+#                                \n\033[31m!!![Terminate Script]!!!\033[0m"
+#                                exit
+#                        fi
+#                        ;;
+#                n|N )
+#                        echo -e "\033[31m!!![Terminate Script]!!!\033[0m"
+#                        exit
+#                        ;;
+#                *)
+#                        echo -e "\033[31mNot legal input(${ans})\n!!![Terminate Script]!!!\033[0m"
+#                        exit
+#                        ;;
+#        esac
+#fi
 ###########################
-echo "[0] Airline Necessary Font"
-cd "$HOME"
-mkdir -p ~/.font
-if [ -d ~/.font ]
-then
-	echo "Folder exist!!"
-fi
-cd ~/.font
-git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
-cd powerline-fonts/
-./install.sh
+#ln -s ~/.vim/vimrc ~/.vimrc
+#curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+#                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &>/dev/null
+###########################
+airline_font
 ###########################
 case "${machine}" in
 	Linux*)
@@ -94,4 +158,4 @@ case "${machine}" in
 		exit ;;
 esac
 ###########################
-echo "[End of this Script] DONE!!! "
+echo -e  "\033[92m[-= End of this Script =-] DONE!!! "
