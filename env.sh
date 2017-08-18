@@ -50,7 +50,7 @@ MY_HOME=$HOME
 unamestr="$(uname -s)" #echo $OSTYPE
 case "${unamestr}" in
 	Linux*)	machine=Linux
-		sudo apt-get install git-core curl tig ;;
+		sudo apt-get install git-core curl tig &>/dev/null;;
 	Darwin*) machine=Mac
 		brew update
 		brew install git curl tig  ;;
@@ -59,9 +59,16 @@ case "${unamestr}" in
 		echo "Unknown OS type!! Abort following steps"
 		exit ;;
 esac
+echo -e "-= Setup Env is \e[7m(${machine})\e[0m =-"
 ###########################
-echo "[vimrc download]Fetch dotvim.git from github"
-git clone git://github.com/maxtcy/dotvim.git ~/.vim
+echo -e "[-= Script Start =-]\nFetch dotvim.git from github"
+git clone git://github.com/maxtcy/dotvim.git ~/.vim &>/dev/null #2>&1
+gitresult=$?
+if [[ $gitresult -ne 0 ]]
+then
+	echo -e "!!![ git clone \e[33mFAIL\e[0m]!!!\n\033[31m!!![Terminate Script]!!!\e[0m"
+	exit
+fi
 ln -s ~/.vim/vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &>/dev/null
@@ -94,4 +101,4 @@ case "${machine}" in
 		exit ;;
 esac
 ###########################
-echo "[End of this Script] DONE!!! "
+echo "[-= End of this Script =-] DONE!!! "
