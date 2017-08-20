@@ -46,27 +46,36 @@ machine_linux() {
 ###########################
 
 MY_HOME=$HOME
+MY_VIM="$HOME/.vim"
 ###########################
 unamestr="$(uname -s)" #echo $OSTYPE
 case "${unamestr}" in
 	Linux*)	machine=Linux
+		echo -e "-= Setup Env is \e[7m(${machine})\e[0m =-"
 		sudo apt-get install git-core curl tig &>/dev/null;;
 	Darwin*) machine=Mac
+		echo -e "-= Setup Env is \033[7m(${machine})\033[0m =-"
 		brew update
+		brew install vim --override-system-vim
 		brew install git curl tig  ;;
 	CYGWIN*) machine=Cygwin ;;
 	*)
 		echo "Unknown OS type!! Abort following steps"
 		exit ;;
 esac
-echo -e "-= Setup Env is \e[7m(${machine})\e[0m =-"
 ###########################
 echo -e "[-= Script Start =-]\nFetch dotvim.git from github"
-git clone git://github.com/maxtcy/dotvim.git ~/.vim &>/dev/null #2>&1
-gitresult=$?
-if [[ $gitresult -ne 0 ]]
-then
-	echo -e "!!![ git clone \e[33mFAIL\e[0m]!!!\n\033[31m!!![Terminate Script]!!!\e[0m"
+if [ ! -d "$MY_VIM" ]; then
+	git clone git://github.com/maxtcy/dotvim.git "$MY_VIM" &>/dev/null #2>&1
+	gitresult=$?
+	if [[ $gitresult -ne 0 ]]
+	then
+		echo -e "!!![ git clone \033[33mFAIL\033[0m]!!!
+		\n\033[31m!!![Terminate Script]!!!\033[0m"
+		exit
+	fi
+else
+	echo -e "\033[7m($MY_VIM)\033[0m already \033[7mEXIST\033[0m Abort !!"
 	exit
 fi
 ln -s ~/.vim/vimrc ~/.vimrc
@@ -101,4 +110,4 @@ case "${machine}" in
 		exit ;;
 esac
 ###########################
-echo "[-= End of this Script =-] DONE!!! "
+echo -e  "\033[92m[-= End of this Script =-] DONE!!! "
