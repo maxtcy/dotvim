@@ -82,6 +82,10 @@ augroup vimrc
 augroup END
 set foldlevel=5
 
+" Update file automatically
+set updatetime=1000	"update file time
+au CursorHold,CursorHoldI * checktime
+au FocusGained,BufEnter * :checktime
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " vim-plug . Since Vundle is not maintain anymore
