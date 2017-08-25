@@ -3,33 +3,57 @@
 # Ref Link 2) https://www.tecmint.com/powerline-adds-powerful-statuslines-and-prompts-to-vim-and-bash/
 
 setup_bash() {
-sed -i '$a LINE_SCRIPT=/usr/share/powerline/bindings/bash/powerline.sh\
-if [ -f $LINE_SCRIPT ]; then\
-	source $LINE_SCRIPT\
-fi' $DST
+
+pwlstr=$(pip3 show powerline-status)
+idx=0
+for i in $pwlstr
+do
+	if [[ $idx == 6 ]] ; then
+		PWL_SCRIPT=$i"/powerline/bindings/bash/powerline.sh"
+	fi
+	let "idx++";
+done
+
+content=$(printf "#POWERLINE SETTING\\
+if [ -f %s ]; then\\
+    export term=\"XTERM-256color\"\\
+    powerline-daemon -q\\
+    POWERLINE_BASH_CONTINUATION=1\\
+    POWERLINE_BASH_SELECT=1\\
+    source %s\\
+fi" "$PWL_SCRIPT" "$PWL_SCRIPT")
+
+if [[ -f $PWL_SCRIPT ]]; then
+	sed -i '$a'"$content" $DST
+fi
 }
 
 if [ $# -eq 0 ]; then
-	sudo apt install python3-pip
+        sudo apt install python3-pip
 
-	sudo pip3 install git+https://github.com/Lokaltog/powerline
+        sudo pip3 install git+https://github.com/Lokaltog/powerline
 
-	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+        wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+        wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 
-	sudo mv PowerlineSymbols.otf /usr/share/fonts/
-	fc-cache -vf /usr/share/fonts/
-	sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
-
+        sudo mv PowerlineSymbols.otf /usr/share/fonts/
+        fc-cache -vf /usr/share/fonts/
+        sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 	DST="$HOME/.bashrc"
 	setup_bash
 	source ~/.bashrc
 else
-	echo -e "\033[7m(TEST Version)\033[0m"
-	DST="$PWD/test.txt"
-	if [ ! -f $DST ]; then
-		echo -e "123\n4567" >> $DST
+	if [ "$1" == "p" ]; then
+		DST="$HOME/.bashrc"
+		setup_bash
+		source ~/.bashrc
+	elif [ "$1" == "t" ]; then
+		echo -e "\033[7m(TEST Version)\033[0m"
+		DST="$PWD/test.txt"
+		if [ ! -f $DST ]; then
+			echo -e "123\n4567" >> $DST
+		fi
+		setup_bash
+		cat $DST;
 	fi
-	setup_bash
-	cat $DST;
 fi
