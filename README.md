@@ -19,6 +19,10 @@ Quick Start
 
 **3. Install plugins in VIM:**
 
+	- You can execute the scripts under ~/.vim/.
+		1. 'env.sh' would setup the correspondings of vim.
+		2. 'bash_pwl.sh' would setup the powerline within terminal prompt.
+
 	- Using symbolic link command to link `.vimrc` to `~/.vim/vimrc`
 		$ ln -s src dst
 		$ ln -s ~/.vim/vimrc ~/.vimrc
@@ -44,11 +48,9 @@ Others
 - Markdown Preview [Ref_Link](http://www.jianshu.com/p/24aefcd4ca93)
 > - Node.js
 >
->> 	sudo apt repository ppa:chris-lea/node.js
->
->>	sudo apt udpate
->
->>	sudo ap install nodejs
+>> 	sudo apt-get remove nodejs
+>>	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+>>	sudo apt-get install -y nodejs
 >
 > -  npm
 >> 	sudo apt install npm
