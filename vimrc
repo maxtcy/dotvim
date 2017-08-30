@@ -106,6 +106,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'markabe/bufexplorer'
 	Plug 'gcmt/wildfire.vim'
 	Plug 'Yggdroot/indentLine'
+	Plug 'ntpeters/vim-better-whitespace'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-repeat'
 
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
@@ -184,6 +187,11 @@ call plug#end()
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
+
+                " Bind \ (backword slash) to Ag shortcut. add '!' can help turn on the 1st search file in the other window
+                nnoremap <silent> \f :Ag! <SPACE> --vimgrep<SPACE>
+                ""command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
 	"}
 "}
 
@@ -286,5 +294,10 @@ call plug#end()
 		    " ag is fast enough that CtrlP doesn't need to cache
 		    let g:ctrlp_use_caching = 0
 		endif
+	" }
+	" plugin:ag {
+		let g:ag_working_path_mode = 'r'
+		let g:ag_highlight         = 1
+"                let g:ag_prg               = "Ag --vimgrep --smart-case"
 	" }
 "}
