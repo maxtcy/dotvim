@@ -7,36 +7,34 @@ setup_screen() {
 	scn_cmd="termcapinfo xterm 'Co#256:AB=\\E[48;5;%dm:AF=\\E[38;5;%dm'"
 	if [[ -f ${scn_rc} ]]; then
 		rm -r $scn_rc
-		printf "#Set Screen color as 256 color " >> ${scn_rc}
-#                echo "#Set Screen color as 256 color " | tee ${scn_rc}
-		sed -i '$a'"${scn_cmd}" $scn_rc
+		printf "#Set Screen color as 256 color\n" >> ${scn_rc}
+		printf "${scn_cmd}" >> ${scn_rc}
 	fi
 }
 
 setup_bash() {
+	pwlstr=$(pip3 show powerline-status)
+	idx=0
+	for i in $pwlstr
+	do
+		if [[ $idx == 6 ]] ; then
+			PWL_SCRIPT=$i"/powerline/bindings/bash/powerline.sh"
+		fi
+		let "idx++";
+	done
 
-pwlstr=$(pip3 show powerline-status)
-idx=0
-for i in $pwlstr
-do
-	if [[ $idx == 6 ]] ; then
-		PWL_SCRIPT=$i"/powerline/bindings/bash/powerline.sh"
+	content=$(printf "#POWERLINE SETTING\\
+	if [ -f %s ]; then\\
+	    export term=\"XTERM-256color\"\\
+	    powerline-daemon -q\\
+	    POWERLINE_BASH_CONTINUATION=1\\
+	    POWERLINE_BASH_SELECT=1\\
+	    source %s\\
+	fi" "$PWL_SCRIPT" "$PWL_SCRIPT")
+
+	if [[ -f $PWL_SCRIPT ]]; then
+		sed -i '$a'"$content" $DST
 	fi
-	let "idx++";
-done
-
-content=$(printf "#POWERLINE SETTING\\
-if [ -f %s ]; then\\
-    export term=\"XTERM-256color\"\\
-    powerline-daemon -q\\
-    POWERLINE_BASH_CONTINUATION=1\\
-    POWERLINE_BASH_SELECT=1\\
-    source %s\\
-fi" "$PWL_SCRIPT" "$PWL_SCRIPT")
-
-if [[ -f $PWL_SCRIPT ]]; then
-	sed -i '$a'"$content" $DST
-fi
 }
 
 if [ $# -eq 0 ]; then
@@ -53,6 +51,7 @@ if [ $# -eq 0 ]; then
 	DST="$HOME/.bashrc"
 	setup_bash
 	source ~/.bashrc
+	setup_screen
 else
 	case "$1" in
 		"p")
@@ -72,6 +71,12 @@ else
 			;;
 		"s")
 			setup_screen
+			;;
+		*)
+			printf "parameter error!\n"
+			echo	"s: for screen test"
+			echo	"t: test mode"
+			echo	"p: for Bash update"
 			;;
 	esac
 #        if [ "$1" == "p" ]; then
