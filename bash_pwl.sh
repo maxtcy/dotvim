@@ -2,6 +2,17 @@
 # Ref Link 1) http://www.2daygeek.com/powerline-adds-powerful-statusline-to-vim-bash-tumx-in-ubuntu-fedora-debian-arch-linux-mint/#
 # Ref Link 2) https://www.tecmint.com/powerline-adds-powerful-statuslines-and-prompts-to-vim-and-bash/
 
+setup_screen() {
+	scn_rc="$HOME/.screenrc"
+	scn_cmd="termcapinfo xterm 'Co#256:AB=\\E[48;5;%dm:AF=\\E[38;5;%dm'"
+	if [[ -f ${scn_rc} ]]; then
+		rm -r $scn_rc
+		printf "#Set Screen color as 256 color " >> ${scn_rc}
+#                echo "#Set Screen color as 256 color " | tee ${scn_rc}
+		sed -i '$a'"${scn_cmd}" $scn_rc
+	fi
+}
+
 setup_bash() {
 
 pwlstr=$(pip3 show powerline-status)
@@ -43,17 +54,37 @@ if [ $# -eq 0 ]; then
 	setup_bash
 	source ~/.bashrc
 else
-	if [ "$1" == "p" ]; then
-		DST="$HOME/.bashrc"
-		setup_bash
-		source ~/.bashrc
-	elif [ "$1" == "t" ]; then
-		echo -e "\033[7m(TEST Version)\033[0m"
-		DST="$PWD/test.txt"
-		if [ ! -f $DST ]; then
-			echo -e "123\n4567" >> $DST
-		fi
-		setup_bash
-		cat $DST;
-	fi
+	case "$1" in
+		"p")
+			DST="$HOME/.bashrc"
+			setup_bash
+			source ~/.bashrc
+			;;
+
+		"t")
+			echo -e "\033[7m(TEST Version)\033[0m"
+			DST="$PWD/test.txt"
+			if [ ! -f $DST ]; then
+				echo -e "123\n4567" >> $DST
+			fi
+			setup_bash
+			cat $DST;
+			;;
+		"s")
+			setup_screen
+			;;
+	esac
+#        if [ "$1" == "p" ]; then
+#                DST="$HOME/.bashrc"
+#                setup_bash
+#                source ~/.bashrc
+#        elif [ "$1" == "t" ]; then
+#                echo -e "\033[7m(TEST Version)\033[0m"
+#                DST="$PWD/test.txt"
+#                if [ ! -f $DST ]; then
+#                        echo -e "123\n4567" >> $DST
+#                fi
+#                setup_bash
+#                cat $DST;
+#        fi
 fi
