@@ -4,12 +4,14 @@
 
 setup_screen() {
 	scn_rc="$HOME/.screenrc"
-	scn_cmd="termcapinfo xterm 'Co#256:AB=\\E[48;5;%dm:AF=\\E[38;5;%dm'"
-	if [[ -f ${scn_rc} ]]; then
+	scn_cmd="termcapinfo xterm 'Co#256:AB=\033[48;5;%dm:AF=\033[38;5;%dm'"
+#        if [[ -f ${scn_rc} ]]; then
 		rm -r $scn_rc
 		printf "#Set Screen color as 256 color\n" >> ${scn_rc}
-		printf "${scn_cmd}" >> ${scn_rc}
-	fi
+		echo  "${scn_cmd}" >> ${scn_rc}
+#                echo -e "${scn_cmd}" >> ${scn_rc}	"Can Not print out escape chart
+#                printf "${scn_cmd}"  >> ${scn_rc}	"Can Not print out escape chart
+#        fi
 }
 
 setup_bash() {
@@ -23,14 +25,14 @@ setup_bash() {
 		let "idx++";
 	done
 
-	content=$(printf "#POWERLINE SETTING\\
-	if [ -f %s ]; then\\
-	    export term=\"XTERM-256color\"\\
-	    powerline-daemon -q\\
-	    POWERLINE_BASH_CONTINUATION=1\\
-	    POWERLINE_BASH_SELECT=1\\
-	    source %s\\
-	fi" "$PWL_SCRIPT" "$PWL_SCRIPT")
+content=$(printf "#POWERLINE SETTING\\
+if [ -f %s ]; then\\
+    export term=\"XTERM-256color\"\\
+    powerline-daemon -q\\
+    POWERLINE_BASH_CONTINUATION=1\\
+    POWERLINE_BASH_SELECT=1\\
+    source %s\\
+fi" "$PWL_SCRIPT" "$PWL_SCRIPT")
 
 	if [[ -f $PWL_SCRIPT ]]; then
 		sed -i '$a'"$content" $DST
