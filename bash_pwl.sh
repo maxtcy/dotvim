@@ -20,13 +20,19 @@ setup_screen() {
 setup_bash() {
 	pwlstr=$(pip3 show powerline-status)
 	idx=0
-	for i in $pwlstr
-	do
-		if [[ $idx == 6 ]] ; then
-			PWL_SCRIPT=$i"/powerline/bindings/bash/powerline.sh"
-		fi
-		let "idx++";
-	done
+	matchs=$(echo "$pwlstr" | grep "Location")
+	match=($matchs)
+	echo ${match[1]}
+
+	PWL_SCRIPT=${match[1]}"/powerline/bindings/bash/powerline.sh"
+#	for 14.04
+#        for i in $pwlstr
+#        do
+#                if [[ $idx == 6 ]] ; then
+#                        PWL_SCRIPT=$i"/powerline/bindings/bash/powerline.sh"
+#                fi
+#                let "idx++";
+#        done
 
 content=$(printf "#POWERLINE SETTING\\
 if [ -f %s ]; then\\
