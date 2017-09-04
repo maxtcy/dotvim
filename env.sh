@@ -50,9 +50,19 @@ machine_linux() {
 airline_font() {
 	echo "[0] Airline Necessary Font"
 	cd "$HOME"
-	if [ -d "$MY_FONT" ] ; then
+	if [ ! -d "$MY_FONT" ] ; then
+		mkdir -p "$MY_FONT"
+		cd "$MY_FONT"
+		git clone https://github.com/Lokaltog/powerline-fonts.git &>/dev/null
+		gitresult=$?
+		if [[ $gitresult -ne 0 ]]
+		then
+			echo -e "!!![ git clone \033[33mFAIL\033[0m]!!!
+			\n\033[31m!!![Terminate Script]!!!\033[0m"
+			exit
+		fi
+	else
 		echo "Folder exist!!"
-
 		read -p  $'Would you like to \033[31mdelete\033[0m the old one \n\tand download new one (y/n) ?' ans
 		case ${ans:0:1} in
 			y|Y )
