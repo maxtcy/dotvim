@@ -22,28 +22,69 @@ machine_linux() {
 	echo "-=update Done=-"
 
 	###########################
-	echo "[1] Cscope"
-	sudo apt install cscope &>/dev/null
+	read -p $'[1] Cscope. Do you like to install this (y/n) ?' cscopeans
+	case ${cscopeans:0:1} in
+		y|Y)
+		        sudo apt install cscope &>/dev/null
+			;;
+		n|N)
+			echo "[1][Skip Installation of Cscope]"
+			;;
+		*)
+			echo "[1]Wrong Parameter! Need to check again!!"
+			;;
+	esac
+	echo "[1] Done!"
 	###########################
 	echo "[2] ag (somethig like grep, but faster)"
 	sudo apt-get install silversearcher-ag &>/dev/null
 
 	outstr=$(ag --version) # To get ag version
-	N=3
-	ver=$(echo $outstr | awk -v N=$N '{print $N}') #echo $ver
-	num=$(echo $ver | awk -F'.' '{print $1}') #echo $num
+	echo -e "$outstr"
 
-	if [ $num > 0 ]
-	then
-		echo "New version, No need to update"
-	else
-		echo "[******] Need to using wget to install new version"
-		wget http://launchpadlibrarian.net/323511019/silversearcher-ag_2.0.0-1_amd64.deb
-		sudo dpkg -i silversearcher-ag_2.0.0-1_amd64.deb
-	fi
+	read -p $'Do you want to update AG version(y/n) ?' agversion
+	case ${agversion:0:1} in
+		y|Y)
+			echo "[******] Need to using wget to install new version"
+			wget http://launchpadlibrarian.net/323511019/silversearcher-ag_2.0.0-1_amd64.deb
+			sudo dpkg -i silversearcher-ag_2.0.0-1_amd64.deb
+
+			outstr=$(ag --version) # To get ag version
+			echo $outstr
+			;;
+		n|N)
+			echo "[2][Skip Installation of ag]"
+			;;
+		*)
+			echo "[2]Wrong Parameter! Need to check again!!"
+			;;
+	esac
+	echo "[2] Done!"
+#        N=3
+#        ver=$(echo $outstr | awk -v N=$N '{print $N}') #echo $ver
+#        num=$(echo $ver | awk -F'.' '{print $1}') #echo $num
+#        if [ $num > 0 ]
+#        then
+#                echo "New version, No need to update"
+#        else
+#                echo "[******] Need to using wget to install new version"
+#                wget http://launchpadlibrarian.net/323511019/silversearcher-ag_2.0.0-1_amd64.deb
+#                sudo dpkg -i silversearcher-ag_2.0.0-1_amd64.deb
+#        fi
 	###########################
-	echo "[3] ctags"
-	sudo apt-get install ctags &>/dev/null
+	read -p $'[3] ctags. Do you like to install this (y/n) ?' ctagsans
+	case ${ctagsans:0:1} in
+		y|Y)
+			sudo apt-get install ctags &>/dev/null
+			;;
+		n|N)
+			echo "[3][Skip Installation of ctags]"
+			;;
+		*)
+			echo "[3]Wrong Parameter! Need to check again!!"
+			;;
+	esac
+	echo "[3] Done!"
 	###########################
 }
 
@@ -90,6 +131,7 @@ airline_font() {
 	fi
 	cd powerline-fonts/
 	./install.sh
+	echo "[0] Done!"
 }
 ###########################
 
