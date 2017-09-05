@@ -7,7 +7,7 @@ setup_screen() {
 	scn_cmd="termcapinfo xterm 'Co#256:AB=\033[48;5;%dm:AF=\033[38;5;%dm'"
 	scn_sta="hardstatus alwayslastline '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'"
 #        if [[ -f ${scn_rc} ]]; then
-		rm -r $scn_rc
+		rm -r $scn_rc > /dev/null
 		printf "#Set Screen color as 256 color\n" >> ${scn_rc}
 		echo "${scn_cmd}" >> ${scn_rc}
 		printf "#Set Screen with StatusBar\n" >> ${scn_rc}
@@ -62,6 +62,7 @@ if [ $# -eq 0 ]; then
 	DST="$HOME/.bashrc"
 	setup_bash
 	source ~/.bashrc
+	sudo apt-get install sreen #Not the latest version
 	setup_screen
 else
 	case "$1" in
