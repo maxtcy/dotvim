@@ -68,6 +68,7 @@ set encoding=utf8
 set t_Co=256	 "Powerline color setting
 set nocompatible
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
+autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 
 "colorscheme nightshade
 "colorscheme jammy
@@ -125,12 +126,15 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
+	Plug 'junegunn/fzf.vim'
 	"Plug 'lookupfile'
 	"Plug 'genutils'
 	"Plug 'Shougo/unite.vim'
 	"Plug 'wincent/Command-T'
 	Plug 'vim-scripts/Align'
 	Plug 'easymotion/vim-easymotion'
+	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'mileszs/ack.vim'
 	Plug 'rking/ag.vim'
@@ -189,8 +193,10 @@ call plug#end()
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
 
                 " Bind \ (backword slash) to Ag shortcut. add '!' can help turn on the 1st search file in the other window
-                nnoremap <silent> \f :Ag! <SPACE> --vimgrep<SPACE>
+                nnoremap <silent> \ag :Ag! <SPACE> --vimgrep<SPACE>
                 ""command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+		nmap <Esc>w :BD <CR>
 
 	"}
 "}
