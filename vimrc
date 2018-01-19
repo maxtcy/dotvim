@@ -125,7 +125,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/EnhCommentify.vim'
-	Plug 'ctrlpvim/ctrlp.vim'
+"        Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
 	"Plug 'lookupfile'
@@ -282,28 +282,37 @@ call plug#end()
 		"let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
 	" plugin:Ctrlp {
-		let g:ctrlp_map = '<s-p>'
-		let g:ctrlp_cmd = 'CtrlP'
-		let g:ctrlp_max_files = 0		"Add for earch all files
-		let g:ctrlp_max_depth = 40		"Add for earch all files
-		let g:ctrlp_clear_cache_on_exit = 0 	"Improve Trun on Ctrlp Delay
+"                let g:ctrlp_map = '<s-p>'
+"                let g:ctrlp_cmd = 'CtrlP'
+"                let g:ctrlp_max_files = 0		"Add for earch all files
+"                let g:ctrlp_max_depth = 40		"Add for earch all files
+"                let g:ctrlp_clear_cache_on_exit = 0 	"Improve Trun on Ctrlp Delay
 
-		let g:ctrlp_custom_ignore = {
-		  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-		  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-		  \ }
+"                let g:ctrlp_custom_ignore = {
+"                  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
+"                  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+"                  \ }
 
-		if executable('ag')
-		    set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
+"                if executable('ag')
+"                    set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
 		    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-		    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"                    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 		    " ag is fast enough that CtrlP doesn't need to cache
-		    let g:ctrlp_use_caching = 0
-		endif
+"                    let g:ctrlp_use_caching = 0
+"                endif
 	" }
 	" plugin:ag {
 		let g:ag_working_path_mode = 'r'
 		let g:ag_highlight         = 1
 "                let g:ag_prg               = "Ag --vimgrep --smart-case"
+	" }
+	" plugin:fzf {
+		" For default extra key bindings
+		let g:fzf_action = {
+		  \ 'ctrl-t': 'tab_split',
+		  \ 'ctrl-x': 'split',
+		  \ 'ctrl-v': 'vsplit' }
+		" Defaut fzf layout : down/up/left/right
+		let g:fzf_layout = { 'down': '~40%'}
 	" }
 "}
