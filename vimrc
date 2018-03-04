@@ -148,6 +148,11 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Highlights the XML/HTML tags
 	Plug 'Valloric/MatchTagAlways'
 
+	" Incsearch: https://github.com/haya14busa/incsearch.vim
+	Plug 'haya14busa/incsearch.vim'
+	Plug 'haya14busa/incsearch-easymotion.vim'
+	Plug 'haya14busa/incsearch-fuzzy.vim'
+
 	"Markdwon
 	Plug 'plasticboy/vim-markdown'
 	Plug 'suan/vim-instant-markdown'
@@ -314,5 +319,14 @@ call plug#end()
 		  \ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
 		let g:fzf_layout = { 'down': '~40%'}
+	" }
+	" plugin:Incsearch { " ======== Incsearch ========
+		map /   <Plug>(incsearch-easymotion-/)
+		map ?   <Plug>(incsearch-easymotion-?)
+		map g/  <Plug>(incsearch-easymotion-stay)
+		map z/  <Plug>(incsearch-fuzzy-/)
+		map z?  <Plug>(incsearch-fuzzy-?)
+		map zg/ <Plug>(incsearch-fuzzy-stay)
+		nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 	" }
 "}
