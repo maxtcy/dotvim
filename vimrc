@@ -114,31 +114,27 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
 	"    EnhCommentify : mark out cod
-	"    Lookupfile    : search files with vim
-	"    genutils	   : necessary by Lookupfile
 	"    align	   : align text format
-	"    EasyGrep	   : vv to grep for the work under cursor, match all
-	"    unite	   : something like ctrlp
-	"    ctrlp	   : Turn on document
-	"    Command-T     : Turn on document
+	"    EasyGrep	   : [PhaseOut] vv to grep for the work under cursor, match all
+	"    genutils	   : [PhaseOut] necessary by Lookupfile
+	"    Lookupfile    : [PhaseOut] search files with vim
+	"    unite	   : [PhaseOut] something like ctrlp
+	"    ctrlp	   : [PhaseOut] Turn on document
+	"    Command-T     : [PhaseOut] Turn on document
 	""""""""""""""
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/EnhCommentify.vim'
-"        Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
-	"Plug 'lookupfile'
-	"Plug 'genutils'
-	"Plug 'Shougo/unite.vim'
-	"Plug 'wincent/Command-T'
+
 	Plug 'vim-scripts/Align'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'mileszs/ack.vim'
 	Plug 'rking/ag.vim'
-	Plug 'vim-scripts/EasyGrep'
+	"Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
 	"Plug 'brookhong/cscope.vim'
@@ -154,8 +150,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 
 	"Markdwon
-	Plug 'plasticboy/vim-markdown'
-	Plug 'suan/vim-instant-markdown'
+	"Plug 'plasticboy/vim-markdown'
+	"Plug 'suan/vim-instant-markdown'
 
 	"Colorscheme
 	Plug 'c9s/colorselector.vim'
@@ -163,6 +159,10 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Plug 'nightshade.vim'
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
+
+	"C++ Syntax Enhance C++11/14
+	Plug 'octol/vim-cpp-enhanced-highlight'
+
 
 "}
 call plug#end()
@@ -179,8 +179,9 @@ call plug#end()
 	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
+		nnoremap <silent> <F1>   :FZF<cr>				"FZF Search
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
-		nnoremap <silent> <F3>   :NERDTreeToggle<cr>
+		nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>
 		nnoremap <silent> <F6>   :cp<cr>				"QuickFix Last message
@@ -193,13 +194,13 @@ call plug#end()
 		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
 		nnoremap <silent>/<F10>  :Gblame<cr>				"Show git blame in vim
 		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
+		nnoremap <silent>.<F11>  :bp<cr>				"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
-		nnoremap <silent> <F12>  :TagbarToggle<cr>			"TlistToggle"
+		nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
 
-                " Bind \ (backword slash) to Ag shortcut. add '!' can help turn on the 1st search file in the other window
-                nnoremap <silent> \ag :Ag! <SPACE> --vimgrep<SPACE>
-                ""command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+                " Bind \ (backword slash) to Lunch Ag Search. add '!' can help turn on the 1st search file in the other window
+                nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR> "Using Ag to search current cursor word.
 
 		nmap <Esc>w :BD <CR>
 
@@ -286,26 +287,6 @@ call plug#end()
 		let g:gitgutter_eager = 0	"  To notice change to git index
 		"let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
-	" plugin:Ctrlp {
-"                let g:ctrlp_map = '<s-p>'
-"                let g:ctrlp_cmd = 'CtrlP'
-"                let g:ctrlp_max_files = 0		"Add for earch all files
-"                let g:ctrlp_max_depth = 40		"Add for earch all files
-"                let g:ctrlp_clear_cache_on_exit = 0 	"Improve Trun on Ctrlp Delay
-
-"                let g:ctrlp_custom_ignore = {
-"                  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-"                  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-"                  \ }
-
-"                if executable('ag')
-"                    set grepprg=ag\ --nogroup\ --nocolor		" Use ag over grep
-		    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-"                    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-		    " ag is fast enough that CtrlP doesn't need to cache
-"                    let g:ctrlp_use_caching = 0
-"                endif
-	" }
 	" plugin:ag {
 		let g:ag_working_path_mode = 'r'
 		let g:ag_highlight         = 1
@@ -314,7 +295,6 @@ call plug#end()
 	" plugin:fzf {
 		" For default extra key bindings
 		let g:fzf_action = {
-		  \ 'ctrl-t': 'tab_split',
 		  \ 'ctrl-x': 'split',
 		  \ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
@@ -327,6 +307,11 @@ call plug#end()
 		map z/  <Plug>(incsearch-fuzzy-/)
 		map z?  <Plug>(incsearch-fuzzy-?)
 		map zg/ <Plug>(incsearch-fuzzy-stay)
-		nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+                ""nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 	" }
-"}
+	" plugin:vim-cpp-enhanced-highlight {
+		let g:cpp_class_scope_highlight           = 1
+		""let g:cpp_member_variable_highlight       = 1
+		""let g:cpp_class_decl_highlight            = 1
+		let g:cpp_experimental_template_highlight = 1
+	" }
