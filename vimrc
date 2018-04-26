@@ -199,8 +199,10 @@ call plug#end()
 		nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
 		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
 
-                " Bind \ (backword slash) to Lunch Ag Search. add '!' can help turn on the 1st search file in the other window
-                nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR> "Using Ag to search current cursor word.
+                " Bind \ (backword slash) to Lunch Ag Search.
+                " add '!' can help turn on the 1st search file in the other window
+                " Using Ag to search current cursor word."Using Ag to search current cursor word.
+                nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 
 		nmap <Esc>w :BD <CR>
 
@@ -292,13 +294,16 @@ call plug#end()
 		let g:ag_highlight         = 1
 "                let g:ag_prg               = "Ag --vimgrep --smart-case"
 	" }
-	" plugin:fzf {
+	" plugin:FZF {
 		" For default extra key bindings
 		let g:fzf_action = {
 		  \ 'ctrl-x': 'split',
 		  \ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
 		let g:fzf_layout = { 'down': '~40%'}
+		" using fd tool as default search tool (http://github.com/sharkdp/fd)
+		" Need to generate .agignore manually.
+		let $FZF_DEFAULT_COMMAND = 'fd --type f --extension c --extension h --extension cpp --ignore-file ~/.agignore'
 	" }
 	" plugin:Incsearch { " ======== Incsearch ========
 		map /   <Plug>(incsearch-easymotion-/)
