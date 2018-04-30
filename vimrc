@@ -162,6 +162,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	"C++ Syntax Enhance C++11/14
 	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'derekwyatt/vim-protodef'
 
 
 "}
@@ -320,3 +321,4 @@ call plug#end()
 		""let g:cpp_class_decl_highlight            = 1
 		let g:cpp_experimental_template_highlight = 1
 	" }
+" }
