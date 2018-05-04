@@ -115,7 +115,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"    YankRing 	   : copy / paste
 	"    EnhCommentify : mark out cod
 	"    align	   : align text format
-	"    EasyGrep	   : [PhaseOut] vv to grep for the work under cursor, match all
+	"    EasyGrep	   : vv to grep for the work under cursor, match all
 	"    genutils	   : [PhaseOut] necessary by Lookupfile
 	"    Lookupfile    : [PhaseOut] search files with vim
 	"    unite	   : [PhaseOut] something like ctrlp
@@ -134,11 +134,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	Plug 'mileszs/ack.vim'
 	Plug 'rking/ag.vim'
-	"Plug 'vim-scripts/EasyGrep'
+	Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
-	"Plug 'brookhong/cscope.vim'
-	"Plug 'vim-scripts/cscope_macros.vim'
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	"Highlights the XML/HTML tags
@@ -198,7 +196,7 @@ call plug#end()
 		nnoremap <silent>.<F11>  :bp<cr>				"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
 		nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
-		nnoremap <silent> <S-F12> :SelectColorS<cr>			"Selec Color Schema"
+		nnoremap <silent>/<F12> :SelectColorS<cr>			"Selec Color Schema"
 
                 " Bind \ (backword slash) to Lunch Ag Search.
                 " add '!' can help turn on the 1st search file in the other window
@@ -206,7 +204,6 @@ call plug#end()
                 nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 
 		nmap <Esc>w :BD <CR>
-
 	"}
 "}
 
@@ -230,7 +227,7 @@ call plug#end()
 		"autocmd FileType c nested :TagbarOpen	"Auto Turn on while file type is c, cpp
 		"autocmd VimEnter * nested :TagbarOpen
 		let g:tagbar_width = 30
-		let g:tagbar_sort = 0			"List by position
+		let g:tagbar_sort = 0					"List by position
 		let g:tagbar_autoclose = 0
 	"}
 	"
@@ -239,7 +236,7 @@ call plug#end()
 		let g:airline_theme="light"
                 "let g:airline_theme="tomorrow"
 		"let g:airline_theme="base16"
-		let g:airline_powerline_fonts                  = 1	" Enable triangle symbol in vim
+		let g:airline_powerline_fonts = 1			" Enable triangle symbol in vim
 
 		if !exists("g:airline_symbols")
 			let g:airline_symbols = {}
@@ -265,14 +262,14 @@ call plug#end()
 		let g:EasyGrepMode=2	"Default 0:All file, 2-Track the current extension
 	"}
 	"
-	"plugin:NERDTree{
+	"plugin:NERDTree"{
 		let g:NERDTreeWinPos  = "left"
 		let NERDChristmasTree = 1
 		let NERDTreeChDirMode = 1
 		let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
 	"}
 	"
-	"plugin:NERDTree-Tab{
+	"plugin:NERDTree-Tab"{
 		let g:nerdtree_tabs_open_on_console_startup = 0
 		let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
 		let g:nerdtree_tabs_autoclose               = 1
@@ -290,11 +287,12 @@ call plug#end()
 		let g:gitgutter_eager = 0	"  To notice change to git index
 		"let g:gitgutter_highlight_lines = 1 "  To turn on line highlight by default
 	"}
+	"
 	" plugin:ag {
 		let g:ag_working_path_mode = 'r'
 		let g:ag_highlight         = 1
-"                let g:ag_prg               = "Ag --vimgrep --smart-case"
 	" }
+	"
 	" plugin:FZF {
 		" For default extra key bindings
 		let g:fzf_action = {
@@ -304,7 +302,7 @@ call plug#end()
 		let g:fzf_layout = { 'down': '~40%'}
 		" using fd tool as default search tool (http://github.com/sharkdp/fd)
 		" Need to generate .agignore manually.
-		let $FZF_DEFAULT_COMMAND = 'fd --type f --extension c --extension h --extension cpp --ignore-file ~/.agignore'
+		let $FZF_DEFAULT_COMMAND = 'fd --type f --ignore-file ~/.agignore'
 	" }
 	" plugin:Incsearch { " ======== Incsearch ========
 		map /   <Plug>(incsearch-easymotion-/)
@@ -317,8 +315,8 @@ call plug#end()
 	" }
 	" plugin:vim-cpp-enhanced-highlight {
 		let g:cpp_class_scope_highlight           = 1
-		""let g:cpp_member_variable_highlight       = 1
-		""let g:cpp_class_decl_highlight            = 1
+		"let g:cpp_member_variable_highlight       = 1
+		"let g:cpp_class_decl_highlight            = 1
 		let g:cpp_experimental_template_highlight = 1
 	" }
 " }
