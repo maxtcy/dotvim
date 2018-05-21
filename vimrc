@@ -70,10 +70,9 @@ set nocompatible
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 
-"colorscheme nightshade
-"colorscheme jammy
+colorscheme jammy
 "colorscheme kellys
-colorscheme molokai
+"colorscheme molokai
 "colorscheme torte
 "colorscheme nightshade
 
@@ -140,7 +139,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	"Highlights the XML/HTML tags
-	Plug 'Valloric/MatchTagAlways'
+        "Plug 'Valloric/MatchTagAlways'
 
 	" Incsearch: https://github.com/haya14busa/incsearch.vim
 	Plug 'haya14busa/incsearch.vim'
@@ -161,8 +160,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"C++ Syntax Enhance C++11/14
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'derekwyatt/vim-protodef'
-
-
+	"Ansi Escape Code 
+	Plug 'powerman/vim-plugin-AnsiEsc'
 "}
 call plug#end()
 
