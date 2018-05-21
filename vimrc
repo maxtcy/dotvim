@@ -69,6 +69,7 @@ set t_Co=256	 "Powerline color setting
 set nocompatible
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
+autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
 colorscheme jammy
 "colorscheme kellys
