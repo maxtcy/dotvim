@@ -84,7 +84,7 @@ augroup END
 set foldlevel=5
 
 " Update file automatically
-set updatetime=1000	"update file time
+set updatetime=500	"update file time
 au CursorHold,CursorHoldI * checktime
 au FocusGained,BufEnter * :checktime
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,7 +161,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"C++ Syntax Enhance C++11/14
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'derekwyatt/vim-protodef'
-	"Ansi Escape Code 
+	"Ansi Escape Code
 	Plug 'powerman/vim-plugin-AnsiEsc'
 "}
 call plug#end()
@@ -318,5 +318,9 @@ call plug#end()
 		"let g:cpp_member_variable_highlight       = 1
 		"let g:cpp_class_decl_highlight            = 1
 		let g:cpp_experimental_template_highlight = 1
+	" }
+	" plugin:EnhCommentify {
+		let g:EnhCommentifyPretty = 'yes'	"Add space in comment"
+		let g:EnhCommentifyAlighRight = 'yes'
 	" }
 " }
