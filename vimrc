@@ -71,9 +71,9 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
-colorscheme jammy
+"colorscheme jammy
 "colorscheme kellys
-"colorscheme molokai
+colorscheme molokai
 "colorscheme torte
 "colorscheme nightshade
 
@@ -87,6 +87,9 @@ set foldlevel=5
 set updatetime=500	"update file time
 au CursorHold,CursorHoldI * checktime
 au FocusGained,BufEnter * :checktime
+
+let using_NERD = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " vim-plug . Since Vundle is not maintain anymore
@@ -102,14 +105,21 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'vim-scripts/Tagbar'
-	Plug 'scrooloose/nerdtree'
-	Plug 'jistr/vim-nerdtree-tabs'
+	if using_NERD
+	    Plug 'scrooloose/nerdtree'
+	    Plug 'jistr/vim-nerdtree-tabs'
+	endif "NERD
+	Plug 'tpope/vim-vinegar'
 	Plug 'markabe/bufexplorer'
 	Plug 'gcmt/wildfire.vim'
 	Plug 'Yggdroot/indentLine'
 	Plug 'ntpeters/vim-better-whitespace'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
+	if has('unix')
+	    Plug 'ludovicchabant/vim-gutentags'
+	endif
+	Plug 'jsfaint/gen_tags.vim'
 
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
@@ -127,17 +137,20 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
+	if has('python') || has('python3')
+	    Plug 'Yggdroot/LeaderF', { 'do': './install.sh'}
+	endif
 
 	Plug 'vim-scripts/Align'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'qpkorr/vim-bufkill'
 
-	Plug 'mileszs/ack.vim'
 	Plug 'rking/ag.vim'
 	Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
 	Plug 'ronakg/quickr-cscope.vim'
+"         Plug 'aceofall/gtags.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	"Highlights the XML/HTML tags
         "Plug 'Valloric/MatchTagAlways'
@@ -180,7 +193,11 @@ call plug#end()
 	"key for Plugins{
 		nnoremap <silent> <F1>   :FZF<cr>				"FZF Search
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
-		nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
+		if using_NERD
+		    nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
+	        else
+		    nnoremap <silent> <F3>   :TagbarClose<cr>
+		endif
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>
 		nnoremap <silent> <F6>   :cp<cr>				"QuickFix Last message
@@ -195,7 +212,11 @@ call plug#end()
 		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
 		nnoremap <silent>.<F11>  :bp<cr>				"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
-		nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
+		if using_NERD
+		    nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
+		else
+		    nnoremap <silent> <F12>  :TagbarToggle<cr>	                "TlistToggle"
+		endif
 		nnoremap <silent>/<F12> :SelectColorS<cr>			"Selec Color Schema"
 
                 " Bind \ (backword slash) to Lunch Ag Search.
@@ -216,14 +237,16 @@ call plug#end()
 	"
 	"plugin:ctags {
 		if has("ctags")
-			if filereadable("tags")
-				set tags=tags
-			endif
+"                         if filereadable("tags")
+"                                 set tags=tags
+"                         endif
+			set tags=./.tags;,.tags
 		endif
 	"}
 	"
-	"plugin:tagbar"{
-		let g:tagbar_ctags_bin = '/usr/bin/ctags'
+	"plugin:tagbar {
+		""let g:tagbar_ctags_bin = '/usr/bin/ctags'
+		let g:tagbar_ctags_bin = '/proj/mtk16125/bin/u-ctags/bin/ctags'
 		"autocmd FileType c nested :TagbarOpen	"Auto Turn on while file type is c, cpp
 		"autocmd VimEnter * nested :TagbarOpen
 		let g:tagbar_width = 30
@@ -259,21 +282,7 @@ call plug#end()
 	"}
 	"
 	"plugin:Easygrep"{
-		let g:EasyGrepMode=2	"Default 0:All file, 2-Track the current extension
-	"}
-	"
-	"plugin:NERDTree"{
-		let g:NERDTreeWinPos  = "left"
-		let NERDChristmasTree = 1
-		let NERDTreeChDirMode = 1
-		let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
-	"}
-	"
-	"plugin:NERDTree-Tab"{
-		let g:nerdtree_tabs_open_on_console_startup = 0
-		let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
-		let g:nerdtree_tabs_autoclose               = 1
-		let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
+	       let g:EasyGrepMode=2	"Default 0:All file, 2-Track the current extension
 	"}
 	"
 	"plugin:quickfix{
@@ -323,4 +332,73 @@ call plug#end()
 		let g:EnhCommentifyPretty = 'yes'	"Add space in comment"
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
+	" LeaderF {
+	if has('python') || has('python3')
+		let g:Lf_ShortcutF = '<C-F>'
+                let g:Lf_Ctags = "/proj/mtk16125/bin/ctags"
+	endif
+	" }
+	if 0 " vim-gutentags {
+		set statusline+=%{gutentags#statusline()}
+
+		" gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+		let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+		let g:gutentags_generate_on_missiong = 1
+
+		" 所生成的数据文件的名称
+		let g:gutentags_ctags_tagfile = '.tags'
+
+		" 同时开启 ctags 和 gtags 支持：
+		let g:gutentags_modules = []
+		if executable('ctags')
+			let g:gutentags_modules += ['ctags']
+		endif
+"                 if executable('gtags-cscope') && executable('gtags')
+"                         let g:gutentags_modules += ['gtags_cscope']
+"                 endif
+
+		" 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+"                 let g:gutentags_cache_dir = expand('./.cache/tags')
+		let s:vim_tags = expand('./.cache/tags')
+		let g:gutentags_cache_dir = s:vim_tags
+
+		" 配置 ctags 的参数
+		let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+		let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+		let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+		" 如果使用 universal ctags 需要增加下面一行
+		let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+		if !isdirectory(s:vim_tags)
+			silent! call mkdir(s:vim_tags, 'p')
+		endif
+
+		let g:gutentags_trace = 1
+		" 禁用 gutentags 自动加载 gtags 数据库的行为
+"                 let g:gutentags_auto_add_gtags_cscope = 0
+
+"                 set cscopetag
+"                 set cscopeprg='gtags-cscope'
+	endif
+	" }
+	" gtags {
+"                 let $GTAGSLABEL = 'native-pygments'
+"                 let $GTAGSCONFG = '/proj/mtk16125/bin/global/share/gtags/gtags.conf'
+	" }
+	if using_NERD "plugin:NERDTree {
+	           let g:NERDTreeWinPos  = "left"
+	           let NERDChristmasTree = 1
+	           let NERDTreeChDirMode = 1
+	           let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
+	    "}
+	    "
+	    "plugin:NERDTree-Tab"{
+	           let g:nerdtree_tabs_open_on_console_startup = 0
+	           let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
+	           let g:nerdtree_tabs_autoclose               = 1
+	           let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
+	    "}
+	endif " NERDTree
+	"
 " }
