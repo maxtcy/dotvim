@@ -335,8 +335,15 @@ call plug#end()
 	" LeaderF {
 	if has('python') || has('python3')
 		let g:Lf_ShortcutF = '<C-F>'
-                let g:Lf_Ctags = "/proj/mtk16125/bin/ctags"
+                let g:Lf_Ctags = g:tagbar_ctags_bin
 	endif
+	" }
+	" gen_tags {
+"                 if !executable('gtags')
+	            let g:loaded_gentags#gtags = 1 "Set 1 to disable gtags support
+                    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
+"                     echo "TES"
+"                 endif
 	" }
 	if 0 " vim-gutentags {
 		set statusline+=%{gutentags#statusline()}
