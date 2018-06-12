@@ -71,9 +71,9 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
-"colorscheme jammy
+colorscheme jammy
 "colorscheme kellys
-colorscheme molokai
+"colorscheme molokai
 "colorscheme torte
 "colorscheme nightshade
 
@@ -116,7 +116,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ntpeters/vim-better-whitespace'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
-	if has('unix')
+	if 0 "has('unix')
 	    Plug 'ludovicchabant/vim-gutentags'
 	endif
 	Plug 'jsfaint/gen_tags.vim'
@@ -146,11 +146,11 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'rking/ag.vim'
+	Plug 'mhinz/vim-grepper'
 	Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
-	Plug 'ronakg/quickr-cscope.vim'
-"         Plug 'aceofall/gtags.vim'
+        "Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	"Highlights the XML/HTML tags
         "Plug 'Valloric/MatchTagAlways'
@@ -176,6 +176,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'derekwyatt/vim-protodef'
 	"Ansi Escape Code
 	Plug 'powerman/vim-plugin-AnsiEsc'
+
+
 "}
 call plug#end()
 
@@ -223,8 +225,6 @@ call plug#end()
                 " add '!' can help turn on the 1st search file in the other window
                 " Using Ag to search current cursor word."Using Ag to search current cursor word.
                 nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
-
-		nmap <Esc>w :BD <CR>
 	"}
 "}
 
@@ -237,34 +237,58 @@ call plug#end()
 	"
 	"plugin:ctags {
 		if has("ctags")
-"                         if filereadable("tags")
-"                                 set tags=tags
-"                         endif
+                        "set tags=tags
 			set tags=./.tags;,.tags
 		endif
 	"}
 	"
 	"plugin:tagbar {
-		""let g:tagbar_ctags_bin = '/usr/bin/ctags'
-		let g:tagbar_ctags_bin = '/proj/mtk16125/bin/u-ctags/bin/ctags'
-		"autocmd FileType c nested :TagbarOpen	"Auto Turn on while file type is c, cpp
-		"autocmd VimEnter * nested :TagbarOpen
-		let g:tagbar_width = 30
-		let g:tagbar_sort = 0					"List by position
-		let g:tagbar_autoclose = 0
+		let g:tagbar_ctags_bin = '/proj/mtk16125/bin/u-ctags/bin/ctags' "universal-ctags
+                if !executable(g:tagbar_ctags_bin)
+                    let g:tagbar_ctags_bin = '/usr/bin/ctags'
+		    if !executable(g:tagbar_ctags_bin)
+		        let g:loaded_gentags#ctags = 1 "Set 1 as disable ctag
+		    endif
+		else
+		    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
+		    let g:gen_tags#ctags_opts = '--fields=+niazS '
+		    let g:gen_tags#ctags_opts .= '--extras=q '
+		    let g:gen_tags#ctags_opts .= '--c++-kinds=+px --c-kinds=+px '
+		    let g:gen_tags#ctags_opts .= '--output-format=e-ctags '
+		    let g:gen_tags#ctags_opts .= '--exclude=*.mk '
+                endif
+
+		let g:tagbar_width      = 30
+		let g:tagbar_sort       = 0
+		let g:tagbar_autoclose  = 0
 	"}
-	"
+	" gtags {
+		"let $GTAGSLABEL = 'native'
+		let $GTAGSCONF = '/proj/mtk16125/bin/global/share/gtags/gtags.conf'
+		" Copy to $HOME/.globalrc
+	" }
+	" gen_tags {
+		let g:gen_tags#gtags_bin = '/proj/mtk16125/bin/global/bin/gtags'
+		if !executable(g:gen_tags#gtags_bin)
+	            let g:loaded_gentags#gtags = 1 "Set 1 as disable gtags
+	        else
+		    let g:gen_tags#gtags_default_map = 1 "using cscope key mapping
+		endif
+
+		let g:gen_tags#use_cache_dir = 0 "Set 0, cache @ <project folder>/.git/tags_dir
+		let g:gen_tags#verbose       = 1
+		let g:gen_tags#statusline    = 1
+
+	" }
 	"plugin:airline"{
 		"let g:airline_theme="powerlineish"
-		let g:airline_theme="light"
-                "let g:airline_theme="tomorrow"
-		"let g:airline_theme="base16"
-		let g:airline_powerline_fonts = 1			" Enable triangle symbol in vim
+		let g:airline_theme = "light"
+		let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
 
 		if !exists("g:airline_symbols")
 			let g:airline_symbols = {}
 		endif
-		if has('gui_running')					" Add this section can enable Gvim with correct symbol
+		if has('gui_running')		" Add this section can enable Gvim with correct symbol
 			set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
 		endif
 
@@ -338,13 +362,6 @@ call plug#end()
                 let g:Lf_Ctags = g:tagbar_ctags_bin
 	endif
 	" }
-	" gen_tags {
-"                 if !executable('gtags')
-	            let g:loaded_gentags#gtags = 1 "Set 1 to disable gtags support
-                    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
-"                     echo "TES"
-"                 endif
-	" }
 	if 0 " vim-gutentags {
 		set statusline+=%{gutentags#statusline()}
 
@@ -388,23 +405,19 @@ call plug#end()
 "                 set cscopetag
 "                 set cscopeprg='gtags-cscope'
 	endif
-	" }
-	" gtags {
-"                 let $GTAGSLABEL = 'native-pygments'
-"                 let $GTAGSCONFG = '/proj/mtk16125/bin/global/share/gtags/gtags.conf'
-	" }
+	 " }
 	if using_NERD "plugin:NERDTree {
-	           let g:NERDTreeWinPos  = "left"
-	           let NERDChristmasTree = 1
-	           let NERDTreeChDirMode = 1
-	           let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
+"                    let g:NERDTreeWinPos  = "left"
+"                    let NERDChristmasTree = 1
+"                    let NERDTreeChDirMode = 1
+"                    let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
 	    "}
 	    "
 	    "plugin:NERDTree-Tab"{
-	           let g:nerdtree_tabs_open_on_console_startup = 0
-	           let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
-	           let g:nerdtree_tabs_autoclose               = 1
-	           let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
+"                    let g:nerdtree_tabs_open_on_console_startup = 0
+"                    let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
+"                    let g:nerdtree_tabs_autoclose               = 1
+"                    let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
 	    "}
 	endif " NERDTree
 	"
