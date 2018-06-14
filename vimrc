@@ -71,9 +71,9 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
-colorscheme jammy
+" colorscheme jammy
 "colorscheme kellys
-"colorscheme molokai
+colorscheme molokai
 "colorscheme torte
 "colorscheme nightshade
 
@@ -251,11 +251,13 @@ call plug#end()
 		    endif
 		else
 		    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
-		    let g:gen_tags#ctags_opts = '--fields=+niazS '
-		    let g:gen_tags#ctags_opts .= '--extras=q '
-		    let g:gen_tags#ctags_opts .= '--c++-kinds=+px --c-kinds=+px '
-		    let g:gen_tags#ctags_opts .= '--output-format=e-ctags '
-		    let g:gen_tags#ctags_opts .= '--exclude=*.mk '
+		    "String Type. below is List Type. Different Way to add 2
+                    "let g:gen_tags#ctags_opts = '--fields=+niazS '
+                    "let g:gen_tags#ctags_opts .= '--extras=+q ' string
+
+		    let g:gen_tags#ctags_opts =  ['--fields=+niazS','--extras=+q']
+		    let g:gen_tags#ctags_opts += ['--c++-kinds=+px', '--c-kinds=+px']
+		    let g:gen_tags#ctags_opts += ['--output-format=e-ctags','--exclude=*.mk']
                 endif
 
 		let g:tagbar_width      = 30
@@ -275,9 +277,10 @@ call plug#end()
 		    let g:gen_tags#gtags_default_map = 1 "using cscope key mapping
 		endif
 
-		let g:gen_tags#use_cache_dir = 0 "Set 0, cache @ <project folder>/.git/tags_dir
+		let g:gen_tags#use_cache_dir = 0 " 0:cache @ <project folder>/.git/tags_dir
 		let g:gen_tags#verbose       = 1
 		let g:gen_tags#statusline    = 1
+		let g:gen_tags#blacklist     = ['$HOME', '$HOME/.vim']
 
 	" }
 	"plugin:airline"{
