@@ -71,10 +71,22 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
-" colorscheme jammy
+" function s:os_type()
+"     if system('uname -s') =~ 'MING64'
+"         return 'win'
+"     elseif system('uname -s') == 'Darwin\n'
+"         return 'mac'
+"     endif
+" endfunction
+" echo call s:os_type()
+
+if system('uname -s') =~ 'MING64'
+    colorscheme jammy
+else
+    colorscheme molokai
+endif
 "colorscheme kellys
-colorscheme molokai
-"colorscheme torte
+" colorscheme torte
 "colorscheme nightshade
 
 augroup vimrc
@@ -129,15 +141,13 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"    genutils	   : [PhaseOut] necessary by Lookupfile
 	"    Lookupfile    : [PhaseOut] search files with vim
 	"    unite	   : [PhaseOut] something like ctrlp
-	"    ctrlp	   : [PhaseOut] Turn on document
-	"    Command-T     : [PhaseOut] Turn on document
 	""""""""""""""
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
-	if has('python') || has('python3')
+	if !(system('uname -s') =~ 'MING64')
 	    Plug 'Yggdroot/LeaderF', { 'do': './install.sh'}
 	endif
 
@@ -167,7 +177,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Colorscheme
 	Plug 'c9s/colorselector.vim'
 	"Plug 'tomasr/molokai'
-	"Plug 'nightshade.vim'
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
 
@@ -176,6 +185,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'derekwyatt/vim-protodef'
 	"Ansi Escape Code
 	Plug 'powerman/vim-plugin-AnsiEsc'
+	" access system clipped in vim
+	Plug 'lxhillwind/leader-clipped'
 
 
 "}
@@ -233,6 +244,9 @@ call plug#end()
 "Plugin" {
 	"plugin:Yankring" {
 		let g:yankring_replace_n_pkey = '<m-p>'
+		if has('nvim')
+		    let g:yankring_clipboard_monitor = 0
+		endif
 	"}
 	"
 	"plugin:ctags {
@@ -335,10 +349,17 @@ call plug#end()
 		  \ 'ctrl-x': 'split',
 		  \ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
-		let g:fzf_layout = { 'down': '~40%'}
+		let g:fzf_layout = { 'down': '~35%'}
 		" using fd tool as default search tool (http://github.com/sharkdp/fd)
 		" Need to generate .agignore manually.
 		let $FZF_DEFAULT_COMMAND = 'fd --type f --ignore-file ~/.agignore'
+		if system('uname -n') =~ "mtkslt"
+			set rtp +=$HOME/bin/
+		elseif system('uname -s') == 'Darwin\n'
+			set rtp +=/usr/local/opt/fzf
+		else
+			set rtp +=$HOME/.fzf
+		endif
 	" }
 	" plugin:Incsearch { " ======== Incsearch ========
 		map /   <Plug>(incsearch-easymotion-/)
@@ -365,50 +386,6 @@ call plug#end()
                 let g:Lf_Ctags = g:tagbar_ctags_bin
 	endif
 	" }
-	if 0 " vim-gutentags {
-		set statusline+=%{gutentags#statusline()}
-
-		" gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
-		let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-		let g:gutentags_generate_on_missiong = 1
-
-		" 所生成的数据文件的名称
-		let g:gutentags_ctags_tagfile = '.tags'
-
-		" 同时开启 ctags 和 gtags 支持：
-		let g:gutentags_modules = []
-		if executable('ctags')
-			let g:gutentags_modules += ['ctags']
-		endif
-"                 if executable('gtags-cscope') && executable('gtags')
-"                         let g:gutentags_modules += ['gtags_cscope']
-"                 endif
-
-		" 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-"                 let g:gutentags_cache_dir = expand('./.cache/tags')
-		let s:vim_tags = expand('./.cache/tags')
-		let g:gutentags_cache_dir = s:vim_tags
-
-		" 配置 ctags 的参数
-		let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-		let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-		let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-		" 如果使用 universal ctags 需要增加下面一行
-		let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-		if !isdirectory(s:vim_tags)
-			silent! call mkdir(s:vim_tags, 'p')
-		endif
-
-		let g:gutentags_trace = 1
-		" 禁用 gutentags 自动加载 gtags 数据库的行为
-"                 let g:gutentags_auto_add_gtags_cscope = 0
-
-"                 set cscopetag
-"                 set cscopeprg='gtags-cscope'
-	endif
-	 " }
 	if using_NERD "plugin:NERDTree {
 "                    let g:NERDTreeWinPos  = "left"
 "                    let NERDChristmasTree = 1
