@@ -78,9 +78,8 @@ autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 "         return 'mac'
 "     endif
 " endfunction
-" echo call s:os_type()
 
-if system('uname -s') =~ 'MING64'
+if (system('uname -s') =~ 'MINGW64')
     colorscheme jammy
 else
     colorscheme molokai
@@ -128,9 +127,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ntpeters/vim-better-whitespace'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
-	if 0 "has('unix')
-	    Plug 'ludovicchabant/vim-gutentags'
-	endif
 	Plug 'jsfaint/gen_tags.vim'
 
 	"""""""""""""""
@@ -147,7 +143,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
-	if !(system('uname -s') =~ 'MING64')
+	if !(system('uname -s') =~ 'MINGW64')
 	    Plug 'Yggdroot/LeaderF', { 'do': './install.sh'}
 	endif
 
@@ -186,7 +182,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Ansi Escape Code
 	Plug 'powerman/vim-plugin-AnsiEsc'
 	" access system clipped in vim
-	Plug 'lxhillwind/leader-clipped'
+	Plug 'lxhillwind/leader-clipboard'
 
 
 "}
