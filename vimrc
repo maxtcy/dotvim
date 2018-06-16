@@ -115,7 +115,12 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"vim-scripts
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
+	Plug 'tpope/vim-repeat'
+	Plug 'tpope/vim-surround'
 	Plug 'vim-scripts/Tagbar'
+	Plug 'vim-scripts/AutoClose'
+	Plug 'vim-scripts/YankRing.vim'
+	Plug 'vim-scripts/EnhCommentify.vim'
 	if using_NERD
 	    Plug 'scrooloose/nerdtree'
 	    Plug 'jistr/vim-nerdtree-tabs'
@@ -125,8 +130,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'gcmt/wildfire.vim'
 	Plug 'Yggdroot/indentLine'
 	Plug 'ntpeters/vim-better-whitespace'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-repeat'
 	Plug 'jsfaint/gen_tags.vim'
 
 	"""""""""""""""
@@ -134,13 +137,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"    EnhCommentify : mark out cod
 	"    align	   : align text format
 	"    EasyGrep	   : vv to grep for the work under cursor, match all
-	"    genutils	   : [PhaseOut] necessary by Lookupfile
-	"    Lookupfile    : [PhaseOut] search files with vim
-	"    unite	   : [PhaseOut] something like ctrlp
 	""""""""""""""
-	Plug 'vim-scripts/YankRing.vim'
-	Plug 'vim-scripts/AutoClose'
-	Plug 'vim-scripts/EnhCommentify.vim'
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
 	if !(system('uname -s') =~ 'MINGW64')
@@ -153,36 +150,32 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	Plug 'rking/ag.vim'
 	Plug 'mhinz/vim-grepper'
-	Plug 'vim-scripts/EasyGrep'
+	"Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
         "Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
-	"Highlights the XML/HTML tags
-        "Plug 'Valloric/MatchTagAlways'
+
+        "Plug 'Valloric/MatchTagAlways'		"Highlights the XML/HTML tags
 
 	" Incsearch: https://github.com/haya14busa/incsearch.vim
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 	Plug 'haya14busa/incsearch-fuzzy.vim'
 
-	"Markdwon
-	"Plug 'plasticboy/vim-markdown'
+	"Plug 'plasticboy/vim-markdown'		"Markdwon
 	"Plug 'suan/vim-instant-markdown'
 
-	"Colorscheme
-	Plug 'c9s/colorselector.vim'
+	Plug 'c9s/colorselector.vim'		"Colorscheme
 	"Plug 'tomasr/molokai'
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
 
-	"C++ Syntax Enhance C++11/14
-	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'octol/vim-cpp-enhanced-highlight'	"C++ Syntax Enhance C++11/14
 	Plug 'derekwyatt/vim-protodef'
-	"Ansi Escape Code
-	Plug 'powerman/vim-plugin-AnsiEsc'
-	" access system clipped in vim
-	Plug 'lxhillwind/leader-clipboard'
+
+	Plug 'powerman/vim-plugin-AnsiEsc'	"Ansi Escape Code
+	Plug 'lxhillwind/leader-clipboard'	" access system clipped in vim
 
 
 "}
@@ -381,6 +374,19 @@ call plug#end()
 		let g:Lf_ShortcutF = '<C-F>'
                 let g:Lf_Ctags = g:tagbar_ctags_bin
 	endif
+	" }
+	"
+	" plugin:vim-grepper{
+		let g:grepper          = {}
+		let g:grepper.quickfix = 1      "using quickfix window
+		let g:grepper.open     = 1      "Open quickfix after search finished
+		let g:grepper.switch   = 1      "swtich to quickfix after search
+		let g:grepper.prompt   = 1      "Show prompt by default
+                let g:grepper.tools    = ['ag','grep']
+
+                nnoremap <Leader>/ :Grepper<CR>
+                nnoremap <Leader>* :Grepper -cword -noprompt<CR>
+
 	" }
 	if using_NERD "plugin:NERDTree {
 "                    let g:NERDTreeWinPos  = "left"
