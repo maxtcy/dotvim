@@ -377,12 +377,18 @@ call plug#end()
 	" }
 	"
 	" plugin:vim-grepper {
-		let g:grepper          = {}
-		let g:grepper.quickfix = 1      "using quickfix window
-		let g:grepper.open     = 1      "Open quickfix after search finished
-		let g:grepper.switch   = 1      "swtich to quickfix after search
-		let g:grepper.prompt   = 1      "Show prompt by default
-                let g:grepper.tools    = ['ag','grep']
+		let g:grepper = {
+		    \ 'tool' : ['ag','grep'],
+		    \ 'open' : 1,
+		    \ 'quickfix' : 1,
+		    \ 'switch' : 1,
+		    \ 'prompt' : 1,
+		    \}
+"                 let g:grepper.quickfix = 1	"Open quickfix after search finished
+"                 let g:grepper.open     = 1    "using quickfix window
+"                 let g:grepper.switch   = 1    "swtich to quickfix after search
+"                 let g:grepper.prompt   = 1    "Show prompt by default
+"                 let g:grepper.tools    = ['ag','grep']
 
                 nnoremap <Leader>/ :Grepper<CR>
                 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
