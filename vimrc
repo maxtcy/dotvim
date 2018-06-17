@@ -376,7 +376,7 @@ call plug#end()
 	endif
 	" }
 	"
-	" plugin:vim-grepper{
+	" plugin:vim-grepper {
 		let g:grepper          = {}
 		let g:grepper.quickfix = 1      "using quickfix window
 		let g:grepper.open     = 1      "Open quickfix after search finished
@@ -388,6 +388,11 @@ call plug#end()
                 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 
 	" }
+	"
+	"  plugin:leader-clipboard {
+		let g:leader_clipboard#key_mapping = ['vcy', 'npp']
+	"  }
+	"
 	if using_NERD "plugin:NERDTree {
 "                    let g:NERDTreeWinPos  = "left"
 "                    let NERDChristmasTree = 1
