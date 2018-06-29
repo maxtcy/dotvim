@@ -110,8 +110,7 @@ let using_NERD = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
-"plugin:{
-	"core plugins
+"plugin:{ "core plugins
 	"vim-scripts
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
@@ -193,7 +192,7 @@ call plug#end()
 	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F1>   :FZF<cr>				"FZF Search
+		nnoremap <silent> <F1>   :FZF<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
 		if using_NERD
 		    nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
@@ -225,6 +224,11 @@ call plug#end()
                 " add '!' can help turn on the 1st search file in the other window
                 " Using Ag to search current cursor word."Using Ag to search current cursor word.
                 nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
+
+		" plugin:vim-grepper {
+                    nnoremap <Leader>/ :Grepper<CR>
+                    nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
+		 " }
 	"}
 "}
 
@@ -389,10 +393,6 @@ call plug#end()
 "                 let g:grepper.switch   = 1    "swtich to quickfix after search
 "                 let g:grepper.prompt   = 1    "Show prompt by default
 "                 let g:grepper.tools    = ['ag','grep']
-
-                nnoremap <Leader>/ :Grepper<CR>
-                nnoremap <Leader>* :Grepper -cword -noprompt<CR>
-
 	" }
 	"
 	"  plugin:leader-clipboard {
