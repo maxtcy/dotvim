@@ -241,6 +241,9 @@ call plug#end()
 		    let g:yankring_clipboard_monitor = 0
 		endif
 	"}
+	"plugin:bufexplorer {
+		let g:bufExplorerShowRelativePath = 1 "Show Relatvie paths in buffer explorer
+	"}
 	"
 	"plugin:ctags {
 		if has("ctags")
