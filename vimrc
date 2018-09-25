@@ -170,12 +170,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	"Plug 'kellys'
 	"Plug 'jammy.vim'
 
-	"Plug 'octol/vim-cpp-enhanced-highlight'	"C++ Syntax Enhance C++11/14
-	Plug 'sheerun/vim-polyglot'
+	Plug 'octol/vim-cpp-enhanced-highlight'	"C++ Syntax Enhance C++11/14
+        " Plug 'sheerun/vim-polyglot'
 	Plug 'derekwyatt/vim-protodef'
-	Plug 'LucHermitte/lh-cpp'
-	Plug 'LucHermitte/VimFold4C'
-	Plug 'ericcurtin/CurtineIncSw.vim'	"Quick switch bwteen source & header
 	Plug 'farmergreg/vim-lastplace' 	"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'	"Ansi Escape Code
