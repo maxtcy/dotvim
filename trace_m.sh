@@ -1,5 +1,5 @@
 #!/bin/bash
-lnfile="mtkcam_inc"
+lnfile="cam_inc"
 mtkcam3="mtkcam3"	#keyword
 tag_dir=".git/tag_dir/"
 
@@ -31,20 +31,23 @@ file_size_check()
 if [ "$#" -ne 1 ] || ! [ -d "$1" ]; then
 
 case $1 in
-	1)
-
+	1) # Gen ln
 	cur_dir="${PWD##*/}" 	#get current folder name or grep -o "[^/]*$"
 	if [[ $cur_dir == $mtkcam3 ]];
 	then
-		ln -s -f ../mtkcam/ cam_inc
+		ln -s -f ../mtkcam/ $lnfile
 		echo "OK"
-		#ls -al | ag mtkcam_inc
 	else
 		echo "FAIL"
 	fi
 	;;
-	2)
+	2) # pulling size
 	file_size_check
+	;;
+	3) # unlink ln
+	if [ -d $lnfile];then
+		unlink $lnfile
+	fi
 	;;
 esac
 

@@ -27,9 +27,9 @@ set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+" if has("autocmd")
+"   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
@@ -55,8 +55,8 @@ endif
 
 set nu
 set ai           " 自動縮排
-set shiftwidth=8 " 設定縮排寬度 = 4
-set tabstop=8    " tab 的字元數
+set shiftwidth=4 " 設定縮排寬度 = 4
+set tabstop=4    " tab 的字元數
 set colorcolumn=90 "長度超過90字元
 set history=100  " 保留 100 個使用過的指令
 set cursorline   "Show current cursor
@@ -194,7 +194,8 @@ call plug#end()
 	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent> <F1>   :FZF<cr>
+		nnoremap <silent>z<F1>   :q<cr>
+		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
 		if using_NERD
 		    nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
@@ -218,18 +219,19 @@ call plug#end()
 		if using_NERD
 		    nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
 		else
-		    nnoremap <silent> <F12>  :TagbarToggle<cr>	                "TlistToggle"
+		    nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
 		endif
-		nnoremap <silent>/<F12> :SelectColorS<cr>			"Selec Color Schema"
+		nnoremap <silent>/<F12> :! trace_m.sh 1<cr>:GenGTAGS<cr>		"BuildTag  mtkcam folder
+		nnoremap <silent>.<F12> :! trace_m.sh 2<cr>:! trace_m.sh 3<cr>	"Unlink  mtkcam folder
 
-                " Bind \ (backword slash) to Lunch Ag Search.
-                " add '!' can help turn on the 1st search file in the other window
-                " Using Ag to search current cursor word."Using Ag to search current cursor word.
-                nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
+		" Bind \ (backword slash) to Lunch Ag Search.
+		" add '!' can help turn on the 1st search file in the other window
+		" Using Ag to search current cursor word."Using Ag to search current cursor word.
+		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 
 		" plugin:vim-grepper {
-                    nnoremap <Leader>/ :Grepper<CR>
-                    nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
+			nnoremap <Leader>/ :Grepper<CR>
+			nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
 		 " }
 	"}
 "}
@@ -249,8 +251,8 @@ call plug#end()
 	"
 	"plugin:ctags {
 		if has("ctags")
-                        "set tags=tags
-			set tags=./.tags;,.tags
+			"set tags=./.tags;,.tags 	"set tags=tags
+			set tags=./.git/tags_dir/prj_tags
 		endif
 	"}
 	"
@@ -325,10 +327,10 @@ call plug#end()
 	"}
 	"
 	"plugin:quickfix{
-                aug QFClose
-                        au!
-                        au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-                aug END
+		aug QFClose
+			au!
+			au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+		aug END
 	"}
 	"
 	"plugin:Git Gutter {
@@ -381,7 +383,7 @@ call plug#end()
 	" LeaderF {
 	if has('python') || has('python3')
 		let g:Lf_ShortcutF = '<C-F>'
-                let g:Lf_Ctags = g:tagbar_ctags_bin
+		let g:Lf_Ctags = g:tagbar_ctags_bin
 	endif
 	" }
 	"
@@ -405,22 +407,22 @@ call plug#end()
 	"  }
 	"
 	" plugin:lastplace {
-		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"	
+		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
 	"
 	if using_NERD "plugin:NERDTree {
-"                    let g:NERDTreeWinPos  = "left"
-"                    let NERDChristmasTree = 1
-"                    let NERDTreeChDirMode = 1
-"                    let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
+"        let g:NERDTreeWinPos  = "left"
+"        let NERDChristmasTree = 1
+"        let NERDTreeChDirMode = 1
+"        let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
 	    "}
 	    "
-	    "plugin:NERDTree-Tab"{
-"                    let g:nerdtree_tabs_open_on_console_startup = 0
-"                    let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
-"                    let g:nerdtree_tabs_autoclose               = 1
-"                    let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
+"	    plugin:NERDTree-Tab"{
+"        let g:nerdtree_tabs_open_on_console_startup = 0
+"        let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
+"        let g:nerdtree_tabs_autoclose               = 1
+"        let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
 	    "}
 	endif " NERDTree
 	"
