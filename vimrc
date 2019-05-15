@@ -71,22 +71,31 @@ autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
-" function s:os_type()
-"     if system('uname -s') =~ 'MING64'
-"         return 'win'
-"     elseif system('uname -s') == 'Darwin\n'
-"         return 'mac'
-"     endif
-" endfunction
+" Platform identification { " schme using by OS type
+    silent function! OSX()
+        return has('macunix')
+    endfunction
+    silent function! LINUX()
+        return has('unix') && !has('macunix') && !has('win32unix')
+    endfunction
+    silent function! WINDOWS()
+        return  (has('win16') || has('win32') || has('win64'))
+    endfunction
+    silent function! FREEBSD()
+      let s:uname = system("uname -s")
+      return (match(s:uname, 'FreeBSD') >= 0)
+    endfunction
 
-if (system('uname -s') =~ 'MINGW64')
-    colorscheme jammy
-else
-    colorscheme molokai
-endif
-"colorscheme kellys
+	if OSX()
+		colorscheme jammy
+	elseif LINUX()
+		colorscheme kellys
+	endif
+
+" colorscheme kellys
 " colorscheme torte
-"colorscheme nightshade
+" colorscheme nightshade
+" }
 
 augroup vimrc
 	au BufReadPre * setlocal foldmethod=indent
