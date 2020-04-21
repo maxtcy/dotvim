@@ -48,10 +48,13 @@ Quick Start
 
 	- [universal-ctags](https://blog.csdn.net/wanghuasn911/article/details/86851825)
 	- [Global](https://github.com/kosaki/gtags/blob/master/INSTALL)
+
+```
 		$ wget http://tamacom.com/global/global-6.6.4.tar.gz
 		$ ./configure
 		$ make -j4
 		$ sudo make install
+```
 Others
 ----------
 - Markdown Preview [Ref_Link](http://www.jianshu.com/p/24aefcd4ca93)
