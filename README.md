@@ -35,6 +35,15 @@ Quick Start
 **4. Airline detail**
 
 	- Need to install extra font (powerline used)
+
+5. Install universal-ctags & global
+
+	- [universal-ctags](https://blog.csdn.net/wanghuasn911/article/details/86851825)
+	- [Global]
+		$ wget http://tamacom.com/global/global-6.6.4.tar.gz
+		$ ./configure
+		$ make -j4
+		$ sudo make install
 ```
 	mkdir .font/
 	cd .font/
