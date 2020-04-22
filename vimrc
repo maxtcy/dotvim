@@ -121,8 +121,9 @@ let using_NERD = 0
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{ "core plugins
 	"vim-scripts
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
+	"Plug 'vim-airline/vim-airline'
+	"Plug 'vim-airline/vim-airline-themes'
+	Plug 'itchyny/lightline.vim'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
 	Plug 'vim-scripts/Tagbar'
@@ -267,12 +268,10 @@ call plug#end()
 	"}
 	"
 	"plugin:tagbar {
-		let g:tagbar_ctags_bin = '/proj/mtk16125/bin/u-ctags/bin/ctags' "universal-ctags
-                if !executable(g:tagbar_ctags_bin)
-                    let g:tagbar_ctags_bin = '/usr/bin/ctags'
-		    if !executable(g:tagbar_ctags_bin)
-		        let g:loaded_gentags#ctags = 1 "Set 1 as disable ctag
-		    endif
+		let g:tagbar_ctags_bin = '/usr/local/bin/ctags' "universal-ctags
+		if !executable(g:tagbar_ctags_bin)
+			let g:tagbar_ctags_bin = '/usr/bin/ctags'
+			let g:loaded_gentags#ctags = 1 "Set 1 as disable ctag
 		else
 		    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
 		    "String Type. below is List Type. Different Way to add 2
@@ -282,7 +281,7 @@ call plug#end()
 		    let g:gen_tags#ctags_opts =  ['--fields=+niazS','--extras=+q']
 		    let g:gen_tags#ctags_opts += ['--c++-kinds=+px', '--c-kinds=+px']
 		    let g:gen_tags#ctags_opts += ['--output-format=e-ctags','--exclude=*.mk']
-                endif
+		endif
 
 		let g:tagbar_width      = 30
 		let g:tagbar_sort       = 0
@@ -290,11 +289,11 @@ call plug#end()
 	"}
 	" gtags {
 		"let $GTAGSLABEL = 'native'
-		let $GTAGSCONF = '/proj/mtk16125/bin/global/share/gtags/gtags.conf'
+		let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 		" Copy to $HOME/.globalrc
 	" }
 	" gen_tags {
-		let g:gen_tags#gtags_bin = '/proj/mtk16125/bin/global/bin/gtags'
+		let g:gen_tags#gtags_bin = '/usr/local/bin/gtags'
 		if !executable(g:gen_tags#gtags_bin)
 	            let g:loaded_gentags#gtags = 1 "Set 1 as disable gtags
 	        else
@@ -309,24 +308,24 @@ call plug#end()
 	" }
 	"plugin:airline"{
 		"let g:airline_theme="powerlineish"
-		let g:airline_theme = "light"
-		let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
-
-		if !exists("g:airline_symbols")
-			let g:airline_symbols = {}
-		endif
-		if has('gui_running')		" Add this section can enable Gvim with correct symbol
-			set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
-		endif
-
-		let g:airline#extensions#whitespace#enabled     = 0
-		let g:airline#extensions#tabline#enabled        = 1	" Enable Tabline
-		let g:airline#extensions#tabline#tab_nr_type    = 1	" tab number
-		let g:airline#extensions#tabline#buffer_nr_show = 1	" Show Buffer number
-		let g:airline#extensions#tabline#show_buffers   = 1
-		let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
-		let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
-		let g:airline#extensions#tagbar#enabled         = 1
+	"	let g:airline_theme = "light"
+	"	let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
+    "
+	"	if !exists("g:airline_symbols")
+	"		let g:airline_symbols = {}
+	"	endif
+	"	if has('gui_running')		" Add this section can enable Gvim with correct symbol
+	"		set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
+	"	endif
+    "
+	"	let g:airline#extensions#whitespace#enabled     = 0
+	"	let g:airline#extensions#tabline#enabled        = 1	" Enable Tabline
+	"	let g:airline#extensions#tabline#tab_nr_type    = 1	" tab number
+	"	let g:airline#extensions#tabline#buffer_nr_show = 1	" Show Buffer number
+	"	let g:airline#extensions#tabline#show_buffers   = 1
+	"	let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
+	"	let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
+	"	let g:airline#extensions#tagbar#enabled         = 1
                 "let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
                 "let g:airline#extensions#branch#enabled        = 1
                 "let g:airline#extensions#branch#empty_message  = "No SCM"
