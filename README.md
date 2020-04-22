@@ -52,7 +52,7 @@ Quick Start
 
 ```
 	wget http://tamacom.com/global/global-6.6.4.tar.gz
-	./configure
+	./configure --with-universal-ctags=/usr/local/bin/ctags
 	make -j4
 	sudo make install
 ```
