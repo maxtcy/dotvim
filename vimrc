@@ -189,7 +189,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	Plug 'powerman/vim-plugin-AnsiEsc'	"Ansi Escape Code
 	"Plug 'lxhillwind/leader-clipboard'	"access system clipped in vim
-	Plug 'skywind3000/vim-preview'
+	Plug 'bfrg/vim-qf-preview'
 
 
 "}
@@ -472,4 +472,12 @@ call plug#end()
 	    "}
 	endif " NERDTree
 	"
+	"plugin:vim-qf-preview {
+		augroup qfpreview
+			autocmd!
+			autocmd FileType qf nmap <buffer> p <plug>(qf-preview-open)
+		augroup END
+
+		let g:qfpreview = {'sign': {'linehl': 'CursorLine'}}
+	"}
 " }
