@@ -21,15 +21,7 @@ if has("syntax")
   syntax on
 endif
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
 set background=dark
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-" if has("autocmd")
-"   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-" endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
@@ -48,10 +40,6 @@ set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
 
 set nu
 set ai           " 自動縮排
@@ -72,29 +60,25 @@ autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 
 " Platform identification { " schme using by OS type
-    silent function! OSX()
-        return has('macunix')
-    endfunction
-    silent function! LINUX()
-        return has('unix') && !has('macunix') && !has('win32unix')
-    endfunction
-    silent function! WINDOWS()
-        return  (has('win16') || has('win32') || has('win64'))
-    endfunction
-    silent function! FREEBSD()
-      let s:uname = system("uname -s")
-      return (match(s:uname, 'FreeBSD') >= 0)
-    endfunction
+	silent function! OSX()
+		return has('macunix')
+	endfunction
+	silent function! LINUX()
+		return has('unix') && !has('macunix') && !has('win32unix')
+	endfunction
+	silent function! WINDOWS()
+		return  (has('win16') || has('win32') || has('win64'))
+	endfunction
+	silent function! FREEBSD()
+	  let s:uname = system("uname -s")
+	  return (match(s:uname, 'FreeBSD') >= 0)
+	endfunction
 
 	if OSX()
 		colorscheme jammy
 	elseif LINUX()
-		colorscheme kellys
+		colorscheme molokai
 	endif
-
-" colorscheme kellys
-" colorscheme torte
-" colorscheme nightshade
 " }
 
 augroup vimrc
@@ -107,8 +91,6 @@ set foldlevel=5
 set updatetime=500	"update file time
 au CursorHold,CursorHoldI * checktime
 au FocusGained,BufEnter * :checktime
-
-let using_NERD = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -130,10 +112,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/EnhCommentify.vim'
-	if using_NERD
-	    Plug 'scrooloose/nerdtree'
-	    Plug 'jistr/vim-nerdtree-tabs'
-	endif "NERD
 	Plug 'tpope/vim-vinegar'
 	Plug 'markabe/bufexplorer'
 	Plug 'gcmt/wildfire.vim'
@@ -143,12 +121,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'skywind3000/gutentags_plus'
 
-	"""""""""""""""
-	"    YankRing 	   : copy / paste
-	"    EnhCommentify : mark out cod
-	"    align	   : align text format
-	"    EasyGrep	   : vv to grep for the work under cursor, match all
-	""""""""""""""
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
 	if !(system('uname -s') =~ 'MINGW64')
@@ -160,38 +132,27 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'rking/ag.vim'
-	""lug 'mhinz/vim-grepper'
-	"Plug 'vim-scripts/EasyGrep'
+	"lug 'mhinz/vim-grepper'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
-        "Plug 'ronakg/quickr-cscope.vim'
 	Plug 'terryma/vim-multiple-cursors'
 
-        "Plug 'Valloric/MatchTagAlways'		"Highlights the XML/HTML tags
+	"Plug 'Valloric/MatchTagAlways'		"Highlights the XML/HTML tags
 
 	" Incsearch: https://github.com/haya14busa/incsearch.vim
-	Plug 'haya14busa/incsearch.vim'
-	Plug 'haya14busa/incsearch-easymotion.vim'
-	Plug 'haya14busa/incsearch-fuzzy.vim'
+	"Plug 'haya14busa/incsearch.vim'
+	"Plug 'haya14busa/incsearch-easymotion.vim'
+	"Plug 'haya14busa/incsearch-fuzzy.vim'
 
-	"Plug 'plasticboy/vim-markdown'		"Markdwon
-	"Plug 'suan/vim-instant-markdown'
 
 	Plug 'c9s/colorselector.vim'		"Colorscheme
-	"Plug 'tomasr/molokai'
-	"Plug 'kellys'
-	"Plug 'jammy.vim'
 
 	Plug 'octol/vim-cpp-enhanced-highlight'	"C++ Syntax Enhance C++11/14
-        " Plug 'sheerun/vim-polyglot'
 	Plug 'derekwyatt/vim-protodef'
 	Plug 'farmergreg/vim-lastplace' 	"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'	"Ansi Escape Code
-	"Plug 'lxhillwind/leader-clipboard'	"access system clipped in vim
 	Plug 'bfrg/vim-qf-preview'
-
-
 "}
 call plug#end()
 
@@ -210,11 +171,7 @@ call plug#end()
 		nnoremap <silent>z<F1>   :q<cr>
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>				"Switch Window
-		if using_NERD
-		    nnoremap <silent> <F3>   :TagbarClose<cr>:NERDTreeToggle<cr>
-	        else
-		    nnoremap <silent> <F3>   :TagbarClose<cr>
-		endif
+		nnoremap <silent> <F3>   :TagbarClose<cr>
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>
 		nnoremap <silent> <F6>   :cp<cr>				"QuickFix Last message
@@ -229,11 +186,7 @@ call plug#end()
 		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>		"Buffer Next
 		nnoremap <silent>.<F11>  :bp<cr>				"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>				"Buffer Close
-		if using_NERD
-		    nnoremap <silent> <F12>  :NERDTreeClose<cr>:TagbarToggle<cr>	"TlistToggle"
-		else
-		    nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
-		endif
+		nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
 		nnoremap <silent>/<F12> :! trace_m.sh 1<cr>:GenGTAGS<cr>		"BuildTag  mtkcam folder
 		nnoremap <silent>.<F12> :! trace_m.sh 2<cr>:! trace_m.sh 3<cr>	"Unlink  mtkcam folder
 
@@ -243,10 +196,6 @@ call plug#end()
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G .h -p ~/.agignore <C-R><C-W><CR>
 
-		" plugin:vim-grepper {
-		"	nnoremap <Leader>/ :Grepper<CR>
-		"	nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
-		 " }
 	"}
 "}
 
@@ -368,10 +317,6 @@ call plug#end()
     "            let g:airline#extensions#branch#empty_message  = "No SCM"
 	"}
 	"
-	"plugin:Easygrep"{
-	       let g:EasyGrepMode=2	"Default 0:All file, 2-Track the current extension
-	"}
-	"
 	"plugin:quickfix{
 		aug QFClose
 			au!
@@ -408,12 +353,12 @@ call plug#end()
 		endif
 	" }
 	" plugin:Incsearch { " ======== Incsearch ========
-		map /   <Plug>(incsearch-easymotion-/)
-		map ?   <Plug>(incsearch-easymotion-?)
-		map g/  <Plug>(incsearch-easymotion-stay)
-		map z/  <Plug>(incsearch-fuzzy-/)
-		map z?  <Plug>(incsearch-fuzzy-?)
-		map zg/ <Plug>(incsearch-fuzzy-stay)
+"         map /   <Plug>(incsearch-easymotion-/)
+"         map ?   <Plug>(incsearch-easymotion-?)
+"         map g/  <Plug>(incsearch-easymotion-stay)
+"         map z/  <Plug>(incsearch-fuzzy-/)
+"         map z?  <Plug>(incsearch-fuzzy-?)
+"         map zg/ <Plug>(incsearch-fuzzy-stay)
                 ""nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 	" }
 	" plugin:vim-cpp-enhanced-highlight {
@@ -433,44 +378,10 @@ call plug#end()
 	endif
 	" }
 	"
-	" plugin:vim-grepper {
-	"	let g:grepper = {
-	"	    \ 'tool' : ['ag','grep'],
-	"	    \ 'open' : 1,
-	"	    \ 'quickfix' : 1,
-	"	    \ 'switch' : 1,
-	"	    \ 'prompt' : 1,
-	"	    \}
-"                 let g:grepper.quickfix = 1	"Open quickfix after search finished
-"                 let g:grepper.open     = 1    "using quickfix window
-"                 let g:grepper.switch   = 1    "swtich to quickfix after search
-"                 let g:grepper.prompt   = 1    "Show prompt by default
-"                 let g:grepper.tools    = ['ag','grep']
-	" }
-	"
-	"  plugin:leader-clipboard {
-	"	let g:leader_clipboard#key_mapping = ['vcy', 'npp']
-	"  }
-	"
 	" plugin:lastplace {
 		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
-	"
-	if using_NERD "plugin:NERDTree {
-"        let g:NERDTreeWinPos  = "left"
-"        let NERDChristmasTree = 1
-"        let NERDTreeChDirMode = 1
-"        let NERDTreeIgnore    = ['\.o$', '\.ko$', '\~$', '\.dir$', '\.out$']
-	    "}
-	    "
-"	    plugin:NERDTree-Tab"{
-"        let g:nerdtree_tabs_open_on_console_startup = 0
-"        let g:nerdtree_tabs_open_on_gui_startup     = 0		"Not turn on NERD while gvim or macvim
-"        let g:nerdtree_tabs_autoclose               = 1
-"        let g:nerdtree_tabs_no_startup_for_diff     = 1         "Keep off whil in vimdiff mode
-	    "}
-	endif " NERDTree
 	"
 	"plugin:vim-qf-preview {
 		augroup qfpreview
