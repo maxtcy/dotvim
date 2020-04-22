@@ -139,7 +139,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'gcmt/wildfire.vim'
 	Plug 'Yggdroot/indentLine'
 	Plug 'ntpeters/vim-better-whitespace'
-	Plug 'jsfaint/gen_tags.vim'
+	"Plug 'jsfaint/gen_tags.vim'
+	Plug 'ludovicchabant/vim-gutentags'
+	Plug 'skywind3000/gutentags_plus'
 
 	"""""""""""""""
 	"    YankRing 	   : copy / paste
@@ -158,7 +160,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'rking/ag.vim'
-	Plug 'mhinz/vim-grepper'
+	""lug 'mhinz/vim-grepper'
 	"Plug 'vim-scripts/EasyGrep'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
@@ -186,7 +188,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'farmergreg/vim-lastplace' 	"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'	"Ansi Escape Code
-	Plug 'lxhillwind/leader-clipboard'	"access system clipped in vim
+	"Plug 'lxhillwind/leader-clipboard'	"access system clipped in vim
+	Plug 'skywind3000/vim-preview'
 
 
 "}
@@ -241,8 +244,8 @@ call plug#end()
 		nnoremap <silent> \ah :Ag! -G .h -p ~/.agignore <C-R><C-W><CR>
 
 		" plugin:vim-grepper {
-			nnoremap <Leader>/ :Grepper<CR>
-			nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
+		"	nnoremap <Leader>/ :Grepper<CR>
+		"	nnoremap <Leader>* :Grepper -cword -noprompt -p ~/.agignore<CR>
 		 " }
 	"}
 "}
@@ -255,6 +258,8 @@ call plug#end()
 		if has('nvim')
 		    let g:yankring_clipboard_monitor = 0
 		endif
+		let g:yankring_max_history = 50
+		let g:yankring_history_dir = '/local/mnt/workspace/.vim'
 	"}
 	"plugin:bufexplorer {
 		let g:bufExplorerShowRelativePath = 1 "Show Relatvie paths in buffer explorer
@@ -264,6 +269,11 @@ call plug#end()
 		if has("ctags")
 			"set tags=./.tags;,.tags 	"set tags=tags
 			set tags=./.git/tags_dir/prj_tags
+		endif
+	"}
+	"plugin:globle/gtags {
+		if has("gtags-cscope")
+			set csprg=/usr/loca/bin/gtags-cscope
 		endif
 	"}
 	"
@@ -306,8 +316,35 @@ call plug#end()
 		let g:gen_tags#blacklist     = ['$HOME', '$HOME/.vim']
 
 	" }
+	" plugin:vim-gutentags {
+		let g:gutentags_define_advanced_commands=1
+		let g:gutentags_modules = ['ctags', 'gtags_cscope']
+		set statusline+=%{gutentags#statusline()}
+		let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+		let g:gutentags_ctags_tagfile = '.tags'
+		let s:vim_tags = expand('/local/mnt/workspace/.cache/tags')
+		let g:gutentags_cache_dir = s:vim_tags
+
+		let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
+		let g:gutentags_ctags_extra_args += ['--c++-kinds=+px', '--c-kinds=+px']
+		let g:gutentags_ctags_extra_args += ['--output-format=e-ctags','--exclude=*.mk']
+
+		let g:gutentags_auto_add_gtags_cscope = 0
+
+		" check ~/.cache/tags exist or not. if not create new.
+		if !isdirectory(s:vim_tags)
+			silent! call mkdir(s:vim_tags, 'p')
+		endif
+
+        augroup MyGutentagsStatusLineRefresher
+            autocmd!
+            autocmd User GutentagsUpdating call lightline#update()
+            autocmd User GutentagsUpdated call lightline#update()
+        augroup END
+	" }
 	"plugin:airline"{
-		"let g:airline_theme="powerlineish"
+	"	let g:airline_theme="powerlineish"
 	"	let g:airline_theme = "light"
 	"	let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
     "
@@ -326,9 +363,9 @@ call plug#end()
 	"	let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
 	"	let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
 	"	let g:airline#extensions#tagbar#enabled         = 1
-                "let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
-                "let g:airline#extensions#branch#enabled        = 1
-                "let g:airline#extensions#branch#empty_message  = "No SCM"
+    "            let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
+    "            let g:airline#extensions#branch#enabled        = 1
+    "            let g:airline#extensions#branch#empty_message  = "No SCM"
 	"}
 	"
 	"plugin:Easygrep"{
@@ -397,13 +434,13 @@ call plug#end()
 	" }
 	"
 	" plugin:vim-grepper {
-		let g:grepper = {
-		    \ 'tool' : ['ag','grep'],
-		    \ 'open' : 1,
-		    \ 'quickfix' : 1,
-		    \ 'switch' : 1,
-		    \ 'prompt' : 1,
-		    \}
+	"	let g:grepper = {
+	"	    \ 'tool' : ['ag','grep'],
+	"	    \ 'open' : 1,
+	"	    \ 'quickfix' : 1,
+	"	    \ 'switch' : 1,
+	"	    \ 'prompt' : 1,
+	"	    \}
 "                 let g:grepper.quickfix = 1	"Open quickfix after search finished
 "                 let g:grepper.open     = 1    "using quickfix window
 "                 let g:grepper.switch   = 1    "swtich to quickfix after search
@@ -412,7 +449,7 @@ call plug#end()
 	" }
 	"
 	"  plugin:leader-clipboard {
-		let g:leader_clipboard#key_mapping = ['vcy', 'npp']
+	"	let g:leader_clipboard#key_mapping = ['vcy', 'npp']
 	"  }
 	"
 	" plugin:lastplace {
