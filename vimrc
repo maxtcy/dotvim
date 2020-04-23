@@ -168,7 +168,7 @@ call plug#end()
 		nnoremap <silent>z<F1>   :q<cr>
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>							"Switch Window
-		nnoremap <silent> <F3>   :TagbarClose<cr>
+		nnoremap <silent> <F3>   :LeaderfFunction!<cr>
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>						"Remove tail space
 		nnoremap <silent> <F6>   :cp<cr>								"QuickFix Last message
@@ -193,6 +193,11 @@ call plug#end()
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G .h -p ~/.agignore <C-R><C-W><CR>
 
+		" plugin:Incsearch { " ======== Incsearch ========
+			map /   <Plug>(incsearch-easymotion-/)
+			map ?   <Plug>(incsearch-easymotion-?)
+			map g/  <Plug>(incsearch-easymotion-stay)
+		" }
 	"}
 "}
 
@@ -201,14 +206,18 @@ call plug#end()
 "Plugin" {
 	"plugin:lightline {
 		set showtabline=2
-		let g:lightline#bufferline#show_number  = 1
-		let g:lightline#bufferline#shorten_path = 0
-		let g:lightline#bufferline#unamed       = '[NoName]'
+		let g:lightline#bufferline#show_number      = 1
+		let g:lightline#bufferline#shorten_path     = 0
+		let g:lightline#bufferline#min_buffer_count = 2
+		let g:lightline#bufferline#unamed           = '[NoName]'
 
         let g:lightline                  = {}
         let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
         let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
         let g:lightline.component_type   = {'buffers': 'tabsel'}
+	"}
+	"plugin:Easymotion" {
+		let g:EasyMotion_smartcase = 1
 	"}
 	"plugin:Yankring" {
 		let g:yankring_replace_n_pkey = '<m-p>'
@@ -253,6 +262,7 @@ call plug#end()
 		let g:gutentags_modules = ['ctags', 'gtags_cscope']
 		set statusline+=%{gutentags#statusline()}
 		let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+		let g:gutentags_exclude_project_root = ['~/', '~/.vim/']
 
 		let g:gutentags_ctags_tagfile = '.tags'
 		let s:vim_tags = expand('/local/mnt/workspace/.cache/tags')
@@ -307,11 +317,6 @@ call plug#end()
 			set rtp +=$HOME/.fzf
 		endif
 	" }
-	" plugin:Incsearch { " ======== Incsearch ========
-         map /   <Plug>(incsearch-easymotion-/)
-         map ?   <Plug>(incsearch-easymotion-?)
-         map g/  <Plug>(incsearch-easymotion-stay)
-	" }
 	" plugin:vim-cpp-enhanced-highlight {
 		let g:cpp_class_scope_highlight           = 1
 		let g:cpp_member_variable_highlight       = 1
@@ -323,17 +328,16 @@ call plug#end()
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
 	" LeaderF {
-	if has('python') || has('python3')
-		let g:Lf_ShortcutF = '<C-F>'
-		let g:Lf_Ctags = g:tagbar_ctags_bin
-	endif
+        let g:Lf_Ctags = g:tagbar_ctags_bin
+        "let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
+        if has('python') || has('python3')
+            let g:Lf_ShortcutF = '<C-F>'
+        endif
 	" }
-	"
 	" plugin:lastplace {
 		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
-	"
 	"plugin:vim-qf-preview {
 		augroup qfpreview
 			autocmd!
