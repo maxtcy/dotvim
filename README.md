@@ -56,6 +56,17 @@ Quick Start
 	make -j4
 	sudo make install
 ```
+
+6.	Searching tool
+- [AG](https://github.com/ggreer/the_silver_searcher)
+- [ripgrep](https://github.com/BurnSushi/ripgrep)
+- [fd](https://github.com/sharkdp/fd)
+- [szrz] apt install lszrz
+
+
+7. Misc
+- Need to review some customize setting path in vimrc, such as ctags, yankring
+
 Others
 ----------
 - Markdown Preview [Ref_Link](http://www.jianshu.com/p/24aefcd4ca93)

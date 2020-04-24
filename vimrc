@@ -151,6 +151,8 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'powerman/vim-plugin-AnsiEsc'			"Ansi Escape Code
 	Plug 'bfrg/vim-qf-preview'
 	Plug 'markabe/bufexplorer'
+
+	Plug 'gosukiwi/vim-atom-dark'
 "}
 call plug#end()
 
@@ -169,6 +171,7 @@ call plug#end()
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>							"Switch Window
 		nnoremap <silent> <F3>   :LeaderfFunction!<cr>
+		nnoremap <silent>f<F3>   :LeaderfBuffer<cr>
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>						"Remove tail space
 		nnoremap <silent> <F6>   :cp<cr>								"QuickFix Last message
@@ -194,9 +197,17 @@ call plug#end()
 		nnoremap <silent> \ah :Ag! -G .h -p ~/.agignore <C-R><C-W><CR>
 
 		" plugin:Incsearch { " ======== Incsearch ========
-			map /   <Plug>(incsearch-easymotion-/)
-			map ?   <Plug>(incsearch-easymotion-?)
-			map g/  <Plug>(incsearch-easymotion-stay)
+			nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+
+			map /  <Plug>(incsearch-easymotion-/)
+			map ?  <Plug>(incsearch-easymotion-?)
+			map g/ <Plug>(incsearch-easymotion-stay)
+			map n  <Plug>(incsearch-nohl-n)
+			map N  <Plug>(incsearch-nohl-N)
+			map *  <Plug>(incsearch-nohl-*)
+			map #  <Plug>(incsearch-nohl-#)
+			map g* <Plug>(incsearch-nohl-g*)
+			map g# <Plug>(incsearch-nohl-g#)
 		" }
 	"}
 "}
@@ -212,6 +223,7 @@ call plug#end()
 		let g:lightline#bufferline#unamed           = '[NoName]'
 
         let g:lightline                  = {}
+		let g:lightline.colorscheme 	 = 'wombat'
         let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
         let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
         let g:lightline.component_type   = {'buffers': 'tabsel'}
@@ -225,7 +237,7 @@ call plug#end()
 		    let g:yankring_clipboard_monitor = 0
 		endif
 		let g:yankring_max_history = 50
-		let g:yankring_history_dir = '/local/mnt/workspace/.vim'
+		let g:yankring_history_dir = '~/.vim'
 	"}
 	"plugin:bufexplorer {
 		let g:bufExplorerShowRelativePath = 1 "Show Relatvie paths in buffer explorer
@@ -265,7 +277,7 @@ call plug#end()
 		let g:gutentags_exclude_project_root = ['~/', '~/.vim/']
 
 		let g:gutentags_ctags_tagfile = '.tags'
-		let s:vim_tags = expand('/local/mnt/workspace/.cache/tags')
+		let s:vim_tags = expand('~/.cache/tags')
 		let g:gutentags_cache_dir = s:vim_tags
 
 		let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
@@ -345,6 +357,10 @@ call plug#end()
 		augroup END
 
 		let g:qfpreview = {'sign': {'linehl': 'CursorLine'}}
+	"}
+	"plugin:incsearch {
+	    set hlsearch
+	    let g:incsearch#auto_nohlsearch = 1
 	"}
 	" gen_tags {
 	"	let g:gen_tags#gtags_bin = '/usr/local/bin/gtags'
