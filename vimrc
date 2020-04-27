@@ -55,6 +55,7 @@ set laststatus=2
 set encoding=utf8
 set t_Co=256	 "Powerline color setting
 set nocompatible
+set clipboard=unnamedplus
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
