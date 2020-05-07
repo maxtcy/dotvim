@@ -363,10 +363,6 @@ call plug#end()
 	    set hlsearch
 	    let g:incsearch#auto_nohlsearch = 1
 	"}
-	"plugin:incsearch {
-	    set hlsearch
-	    let g:incsearch#auto_nohlsearch = 1
-	"}
 	" gen_tags {
 	"	let g:gen_tags#gtags_bin = '/usr/local/bin/gtags'
 	"	if !executable(g:gen_tags#gtags_bin)
