@@ -179,7 +179,6 @@ call plug#end()
 		nnoremap <silent> <F7>   :YRShow<cr>
 		nnoremap <silent> <F8>   :cn<cr>								"QuickFix Next message
 		nnoremap <silent> <F9>   :botright copen<cr>					"QuickFix Open
-		nnoremap <silent>/<F9>   :ccl<cr>								"QuickFix Close
 		nnoremap <silent> <F10>  :GitGutterLineHighlightsToggle<cr>		"HL Git Diff"
 		nnoremap <silent>.<F10>  :GitGutterNextHunk<cr>
 		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
@@ -188,8 +187,9 @@ call plug#end()
 		nnoremap <silent>.<F11>  :bp<cr>								"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>								"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
-		nnoremap <silent>/<F12> :! trace_m.sh 1<cr>:GenGTAGS<cr>		"BuildTag  mtkcam folder
-		nnoremap <silent>.<F12> :! trace_m.sh 2<cr>:! trace_m.sh 3<cr>	"Unlink  mtkcam folder
+		nnoremap <silent>/<F12>  :! trace_m.sh 1<cr>:GenGTAGS<cr>		"BuildTag  mtkcam folder
+		nnoremap <silent>.<F12>  :! trace_m.sh 2<cr>:! trace_m.sh 3<cr>	"Unlink  mtkcam folder
+		nnoremap <Esc><Esc><Esc> :ccl <CR>
 
 		" Bind \ (backword slash) to Lunch Ag Search.
 		" add '!' can help turn on the 1st search file in the other window
