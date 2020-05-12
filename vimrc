@@ -195,7 +195,7 @@ call plug#end()
 		" add '!' can help turn on the 1st search file in the other window
 		" Using Ag to search current cursor word."Using Ag to search current cursor word.
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
-		nnoremap <silent> \ah :Ag! -G .h -p ~/.agignore <C-R><C-W><CR>
+		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
 
 		" plugin:Incsearch { " ======== Incsearch ========
 			nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
