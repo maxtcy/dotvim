@@ -35,21 +35,17 @@ endif
 "set showmatch		" Show matching brackets.
 "set ignorecase		" Do case insensitive matching
 "set smartcase		" Do smart case matching
+set nu
+set ai           	" 自動縮排
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes)
-
-
-set nu
-set ai           " 自動縮排
-set shiftwidth=4 " 設定縮排寬度 = 4
-set tabstop=4    " tab 的字元數
-set colorcolumn=90 "長度超過90字元
-set history=100  " 保留 100 個使用過的指令
-set cursorline   "Show current cursor
-"set cursorcolumn "Show Column cursor"
-set hlsearch	 "High Light Search
+set mouse=a			" Enable mouse usage (all modes)
+set shiftwidth=4 	" 設定縮排寬度 = 4
+set tabstop=4    	" tab 的字元數
+set colorcolumn=90 	"長度超過90字元
+set history=100  	" 保留 100 個使用過的指令
+set cursorline   	"Show current cursor
+set hlsearch	 	"High Light Search
 set autoindent
 set laststatus=2
 set encoding=utf8
@@ -78,7 +74,7 @@ autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 	if OSX()
 		colorscheme jammy
 	elseif LINUX()
-		colorscheme molokai
+		colorscheme atom-dark-256
 	endif
 " }
 
