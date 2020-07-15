@@ -74,7 +74,9 @@ autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 	if OSX()
 		colorscheme jammy
 	elseif LINUX()
-		colorscheme atom-dark-256
+		if filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
+			colorscheme atom-dark-256
+		endif
 	endif
 " }
 
@@ -149,7 +151,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'bfrg/vim-qf-preview'
 	Plug 'markabe/bufexplorer'
 
-	Plug 'gosukiwi/vim-atom-dark'
+	if !filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
+		Plug 'gosukiwi/vim-atom-dark'
+	endif
 "}
 call plug#end()
 
