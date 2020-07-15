@@ -1,45 +1,11 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
-" /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vim/vimrc), since debian.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing debian.vim since it alters the value of the
-" 'compatible' option.
-
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
-
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the
-" following enables syntax highlighting by default.
-if has("syntax")
-  syntax on
-endif
 
 set background=dark
 
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-if has("autocmd")
-  filetype plugin indent on
-endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
 set nu
 set ai           	" 自動縮排
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
-set mouse=a			" Enable mouse usage (all modes)
+set mouse=a			" Enable mouse usage
 set shiftwidth=4 	" 設定縮排寬度 = 4
 set tabstop=4    	" tab 的字元數
 set colorcolumn=90 	"長度超過90字元
@@ -52,6 +18,7 @@ set encoding=utf8
 set t_Co=256	 "Powerline color setting
 set nocompatible
 set clipboard=unnamedplus
+set viminfo+='500,n~/.vim/viminfo
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
 autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
 autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
@@ -62,13 +29,6 @@ autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
 	endfunction
 	silent function! LINUX()
 		return has('unix') && !has('macunix') && !has('win32unix')
-	endfunction
-	silent function! WINDOWS()
-		return  (has('win16') || has('win32') || has('win64'))
-	endfunction
-	silent function! FREEBSD()
-	  let s:uname = system("uname -s")
-	  return (match(s:uname, 'FreeBSD') >= 0)
 	endfunction
 
 	if OSX()
@@ -87,23 +47,14 @@ augroup END
 set foldlevel=5
 
 " Update file automatically
-set updatetime=500	"update file time
-au CursorHold,CursorHoldI * checktime
-au FocusGained,BufEnter * :checktime
+" set updatetime=500	"update file time
+" au CursorHold,CursorHoldI * checktime
+" au FocusGained,BufEnter * :checktime
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" vim-plug . Since Vundle is not maintain anymore
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{ "core plugins
-	"vim-scripts
-	"Plug 'vim-airline/vim-airline'
-	"Plug 'vim-airline/vim-airline-themes'
 	Plug 'itchyny/lightline.vim'
 	Plug 'mengelbrecht/lightline-bufferline'
 	Plug 'tpope/vim-repeat'
@@ -117,7 +68,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'Yggdroot/indentLine'
 	Plug 'ntpeters/vim-better-whitespace'
 
-	"Plug 'jsfaint/gen_tags.vim'
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'skywind3000/gutentags_plus'
 
@@ -131,13 +81,11 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'qpkorr/vim-bufkill'
 
 	Plug 'rking/ag.vim'
-	"lug 'mhinz/vim-grepper'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
 	Plug 'terryma/vim-multiple-cursors'
 
 	Plug 'easymotion/vim-easymotion'
-	" Incsearch: https://github.com/haya14busa/incsearch.vim
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 
@@ -362,50 +310,5 @@ call plug#end()
 	"plugin:incsearch {
 	    set hlsearch
 	    let g:incsearch#auto_nohlsearch = 1
-	"}
-	" gen_tags {
-	"	let g:gen_tags#gtags_bin = '/usr/local/bin/gtags'
-	"	if !executable(g:gen_tags#gtags_bin)
-	"		let g:loaded_gentags#gtags = 1 "Set 1 as disable gtags
-	"	else
-	"	    let g:gen_tags#gtags_default_map = 1 "using cscope key mapping
-	"	endif
-
-	"	let g:gen_tags#use_cache_dir = 0 " 0:cache @ <project folder>/.git/tags_dir
-	"	let g:gen_tags#verbose       = 1
-	"	let g:gen_tags#statusline    = 1
-	"	let g:gen_tags#blacklist     = ['$HOME', '$HOME/.vim']
-
-	"	if executable(g:tagbar_ctags_bin)
-	"	    let g:gen_tags#ctags_bin = g:tagbar_ctags_bin
-
-	"	    let g:gen_tags#ctags_opts =  ['--fields=+niazS','--extras=+q']
-	"	    let g:gen_tags#ctags_opts += ['--c++-kinds=+px', '--c-kinds=+px']
-	"	    let g:gen_tags#ctags_opts += ['--output-format=e-ctags','--exclude=*.mk']
-	"	endif
-	" }
-	"plugin:airline"{
-	"	let g:airline_theme="powerlineish"
-	"	let g:airline_theme = "light"
-	"	let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
-    "
-	"	if !exists("g:airline_symbols")
-	"		let g:airline_symbols = {}
-	"	endif
-	"	if has('gui_running')		" Add this section can enable Gvim with correct symbol
-	"		set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
-	"	endif
-    "
-	"	let g:airline#extensions#whitespace#enabled     = 0
-	"	let g:airline#extensions#tabline#enabled        = 1	" Enable Tabline
-	"	let g:airline#extensions#tabline#tab_nr_type    = 1	" tab number
-	"	let g:airline#extensions#tabline#buffer_nr_show = 1	" Show Buffer number
-	"	let g:airline#extensions#tabline#show_buffers   = 1
-	"	let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
-	"	let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
-	"	let g:airline#extensions#tagbar#enabled         = 1
-    "            let g:airline#extensions#syntastic#enabled     = 1	" Need extra plugin syntastic [Not used]
-    "            let g:airline#extensions#branch#enabled        = 1
-    "            let g:airline#extensions#branch#empty_message  = "No SCM"
 	"}
 " }
