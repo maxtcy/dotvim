@@ -1,39 +1,36 @@
 
-set background=dark
-
-set nu
-set ai           	" 自動縮排
-set incsearch		" Incremental search
-set autowrite		" Automatically save before commands like :next and :make
-set mouse=a			" Enable mouse usage
-set shiftwidth=4 	" 設定縮排寬度 = 4
-set tabstop=4    	" tab 的字元數
-set colorcolumn=90 	"長度超過90字元
-set history=100  	" 保留 100 個使用過的指令
-set cursorline   	"Show current cursor
-set hlsearch	 	"High Light Search
+set ai           							" 自動縮排
 set autoindent
-set laststatus=2
-set encoding=utf8
-set t_Co=256	 "Powerline color setting
-set nocompatible
+set autowrite								" Automatically save before commands like :next and :make
+set background=dark
 set clipboard=unnamedplus
+set cursorline   							"Show current cursor
+set colorcolumn=90 							"長度超過90字元
+set encoding=utf8
+set history=100  							" 保留 100 個使用過的指令
+set hlsearch	 							"High Light Search
+set incsearch								" Incremental search
+set laststatus=2
+set mouse=a									" Enable mouse usage
+set nu
+set nocompatible
+set shiftwidth=4 							" 設定縮排寬度 = 4
+set tabstop=4    							" tab 的字元數
+set t_Co=256	 							"Powerline color setting
 set viminfo+='500,n~/.vim/viminfo
 autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
-autocmd FileType cpp set smarttab		"Change tabwidth while *.cpp
-autocmd FileType cpp set expandtab		"Change tabwidth while *.cpp
+autocmd FileType cpp set smarttab			"Change tabwidth while *.cpp
+autocmd FileType cpp set expandtab			"Change tabwidth while *.cpp
 
 " Platform identification { " schme using by OS type
 	silent function! OSX()
 		return has('macunix')
 	endfunction
 	silent function! LINUX()
-		return has('unix') && !has('macunix') && !has('win32unix')
+		return has('unix') && has('macunix') && !has('win32unix')
 	endfunction
 
-	if OSX()
-		colorscheme jammy
-	elseif LINUX()
+	if LINUX()
 		if filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
 			colorscheme atom-dark-256
 		endif
