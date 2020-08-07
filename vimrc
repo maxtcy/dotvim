@@ -294,10 +294,18 @@ call plug#end()
 	" }
 	" LeaderF {
         let g:Lf_Ctags = g:tagbar_ctags_bin
+		let g:Lf_WindowPosition = 'popup'
+		let g:Lf_StlSeparator = { 'left': '⮀', 'right': '⮂' }
         "let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
         if has('python') || has('python3')
             let g:Lf_ShortcutF = '<C-F>'
         endif
+
+		let g:Lf_StlColorscheme = 'powerline'
+		let g:Lf_WildIgnore = {
+				\ 'dir': ['.svn','.git','.hg'],
+				\ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+				\}
 	" }
 	" plugin:lastplace {
 		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
