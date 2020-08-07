@@ -27,13 +27,15 @@ autocmd FileType cpp set expandtab			"Change tabwidth while *.cpp
 		return has('macunix')
 	endfunction
 	silent function! LINUX()
-		return has('unix') && has('macunix') && !has('win32unix')
+		return has('linux') && has('unix') && has('macunix') && !has('win32unix')
 	endfunction
 
-	if LINUX()
-		if filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
-			colorscheme atom-dark-256
-		endif
+	if filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
+		colorscheme atom-dark-256
+	endif
+
+	if &term == 'screen'
+		colorscheme atom-dark
 	endif
 " }
 
