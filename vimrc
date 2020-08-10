@@ -45,11 +45,6 @@ augroup vimrc
 augroup END
 set foldlevel=5
 
-" Update file automatically
-" set updatetime=500	"update file time
-" au CursorHold,CursorHoldI * checktime
-" au FocusGained,BufEnter * :checktime
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
@@ -134,8 +129,8 @@ call plug#end()
 		nnoremap <silent>.<F11>  :bp<cr>								"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>								"Buffer Close
 		nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
-		nnoremap <silent>/<F12>  :! trace_m.sh 1<cr>:GenGTAGS<cr>		"BuildTag  mtkcam folder
-		nnoremap <silent>.<F12>  :! trace_m.sh 2<cr>:! trace_m.sh 3<cr>	"Unlink  mtkcam folder
+		nnoremap <silent>/<F12>  :<cr>									"BuildTag  mtkcam folder
+		nnoremap <silent>.<F12>  :<cr>									"Unlink mtkcam folder
 		nnoremap <Esc><Esc><Esc> :ccl <CR>
 
 		" Bind \ (backword slash) to Lunch Ag Search.
@@ -144,7 +139,7 @@ call plug#end()
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
 
-		" plugin:Incsearch { " ======== Incsearch ========
+		" plugin:incsearch { " ======== incsearch ========
 			nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 			map /  <Plug>(incsearch-easymotion-/)
@@ -190,59 +185,50 @@ call plug#end()
 	"plugin:bufexplorer {
 		let g:bufExplorerShowRelativePath = 1 "Show Relatvie paths in buffer explorer
 	"}
-	"plugin:ctags {
-		if has("ctags")
-			"set tags=./.tags;,.tags 	"set tags=tags
-			set tags=./.git/tags_dir/prj_tags
-		endif
-	"}
 	"plugin:globle/gtags {
 		if has("gtags-cscope")
-			set csprg=/usr/loca/bin/gtags-cscope
+			set csprg=/usr/local/bin/gtags-cscope
 		endif
+        let $GTAGSLABEL = 'native'
+		let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 	"}
 	"plugin:tagbar {
-		let g:tagbar_ctags_bin = '/usr/local/bin/ctags' "universal-ctags
+		let g:tagbar_ctags_bin = '/usr/local/bin/ctags' 			"universal-ctags
 		if !executable(g:tagbar_ctags_bin)
 			let g:tagbar_ctags_bin = '/usr/bin/ctags'
-			let g:loaded_gentags#ctags = 1 "Set 1 as disable ctag
+			let g:loaded_gentags#ctags = 1 							"Set 1 as disable ctag
 		endif
 
 		let g:tagbar_width      = 30
 		let g:tagbar_sort       = 0
 		let g:tagbar_autoclose  = 0
 	"}
-	" gtags {
-		"let $GTAGSLABEL = 'native'
-		let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-		" Copy to $HOME/.globalrc
-	" }
 	" plugin:vim-gutentags {
-		let g:gutentags_define_advanced_commands=1
-		let g:gutentags_modules = ['ctags', 'gtags_cscope']
-		set statusline+=%{gutentags#statusline()}
-		let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-		let g:gutentags_exclude_project_root = ['~/', '~/.vim/']
+        set statusline+=%{gutentags#statusline()}
+        let g:gutentags_modules                  = ['ctags', 'gtags_cscope']
+        let g:gutentags_project_root             = ['.root', '.svn', '.git', '.hg', '.project']
+        let g:gutentags_exclude_project_root     = ['~/', '~/.vim/']
+        let g:gutentags_define_advanced_commands = 1
 
-		let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
-		let g:gutentags_ctags_extra_args += ['--c++-kinds=+px', '--c-kinds=+px']
-		let g:gutentags_ctags_extra_args += ['--output-format=e-ctags','--exclude=*.mk']
+        let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px', '--c-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--output-format=e-ctags','--exclude=*.mk']
 
-		let g:gutentags_auto_add_gtags_cscope = 0
+        let g:gutentags_auto_add_gtags_cscope = 0
 
-		let g:gutentags_ctags_tagfile = '.tags'
-		" check ~/.cache/tags exist or not. if not create new.
-		let s:hostname = substitute(system('hostname'), '\n', '', '')
-		if s:hostname  == 'maxtseng-linux'
-			let s:vim_tags = expand('~/.vim/tags')
-		else
-			let s:vim_tags = expand('~/.cache/tags')
-		endif
-		""let s:vim_tags = expand('~/.cache/tags')
-		let g:gutentags_cache_dir = s:vim_tags
-		if !isdirectory(s:vim_tags)
-			silent! call mkdir(s:vim_tags, 'p')
-		endif
+        let g:gutentags_ctags_tagfile = '.tags'
+        " check ~/.cache/tags exist or not. if not create new.
+        let s:hostname = substitute(system('hostname'), '\n', '', '')
+        if s:hostname  == 'maxtseng-linux'
+            let s:vim_tags = expand('~/.vim/tags')
+        else
+            let s:vim_tags = expand('~/.cache/tags')
+        endif
+
+        let g:gutentags_cache_dir = s:vim_tags
+        if !isdirectory(s:vim_tags)
+            silent! call mkdir(s:vim_tags, 'p')
+        endif
 
         augroup MyGutentagsStatusLineRefresher
             autocmd!
@@ -292,7 +278,7 @@ call plug#end()
 		let g:EnhCommentifyPretty = 'yes'	"Add space in comment"
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
-	" LeaderF {
+	" plugin:LeaderF {
         let g:Lf_Ctags = g:tagbar_ctags_bin
 		let g:Lf_WindowPosition = 'popup'
 		let g:Lf_StlSeparator = { 'left': '⮀', 'right': '⮂' }
@@ -308,7 +294,7 @@ call plug#end()
 				\}
 	" }
 	" plugin:lastplace {
-		let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
+		let g:lastplace_ignore         = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
 	"plugin:vim-qf-preview {
