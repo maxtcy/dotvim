@@ -46,6 +46,12 @@ augroup END
 set foldlevel=5
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"automated installation of vimplug if not installed
+if empty(glob('$HOME/.vim/autoload/plug.vim'))
+    silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
+endif
 
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{ "core plugins
@@ -280,8 +286,8 @@ call plug#end()
 	" }
 	" plugin:LeaderF {
         let g:Lf_Ctags = g:tagbar_ctags_bin
-		let g:Lf_WindowPosition = 'popup'
-		let g:Lf_StlSeparator = { 'left': '⮀', 'right': '⮂' }
+		let g:Lf_WindowPosition = 'bottom'
+		let g:Lf_StlSeparator = { 'left': '', 'right': '' }
         "let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
         if has('python') || has('python3')
             let g:Lf_ShortcutF = '<C-F>'
