@@ -71,7 +71,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'skywind3000/gutentags_plus'
 
-	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
+	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	if !(system('uname -s') =~ 'MINGW64')
 	    Plug 'Yggdroot/LeaderF', { 'do': './install.sh'}
