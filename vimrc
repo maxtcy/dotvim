@@ -1,26 +1,36 @@
 
-set ai           							" 自動縮排
-set autoindent
-set autowrite								" Automatically save before commands like :next and :make
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC                      "Make change effect right the way
+
+filetype on                     "Detect file tpye
+filetype plugin on              "By diff file type with diff indent
+filetype indent on
+
+set ai           				"Auto Indent
+set nu
+set autowrite					"Automatically save before commands like :next and :make
 set background=dark
 set clipboard=unnamedplus
-set cursorline   							"Show current cursor
-set colorcolumn=90 							"長度超過90字元
+set cursorline   				"Show current cursor
+set colorcolumn=90 				"Line Length over 90
 set encoding=utf8
-set history=100  							" 保留 100 個使用過的指令
-set hlsearch	 							"High Light Search
-set incsearch								" Incremental search
+set history=50  				"Keep command used.
+set hlsearch	 				"High Light Search
+set incsearch					"Incremental search
 set laststatus=2
-set mouse=a									" Enable mouse usage
-set nu
+set mouse=a					    "Enable mouse usage
 set nocompatible
-set shiftwidth=4 							" 設定縮排寬度 = 4
-set tabstop=4    							" tab 的字元數
-set t_Co=256	 							"Powerline color setting
+" ++ Indent Related ++
+set smarttab
+set autoindent
+set shiftwidth=4 		"Impact Tab behavior,
+set tabstop=4    		"Impact Display show Width, but not Tab behavior
+set expandtab	 		"Impact insert tab with specific space count. count is the same as tabstop
+
+set t_Co=256	 		"Powerline color setting
 set viminfo+='500,n~/.vim/viminfo
-autocmd FileType cpp set shiftwidth=4		"Change tabwidth while *.cpp
-autocmd FileType cpp set smarttab			"Change tabwidth while *.cpp
-autocmd FileType cpp set expandtab			"Change tabwidth while *.cpp
+
+autocmd FileType c,cpp set tabstop=4 shiftwidth=4 noexpandtab		"Change tabwidth while *.c *.cpp
+autocmd FileType c,cpp set list lcs=tab:\|\                         "Put space here on purpose
 
 " Platform identification { " schme using by OS type
 	silent function! OSX()
@@ -55,8 +65,10 @@ endif
 
 call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 "plugin:{ "core plugins
-	Plug 'itchyny/lightline.vim'
-	Plug 'mengelbrecht/lightline-bufferline'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+    "Plug 'itchyny/lightline.vim'
+    "Plug 'mengelbrecht/lightline-bufferline'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
 	Plug 'majutsushi/Tagbar'
@@ -96,7 +108,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'farmergreg/vim-lastplace' 			"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'			"Ansi Escape Code
-	Plug 'bfrg/vim-qf-preview'
+	"Plug 'bfrg/vim-qf-preview'
 	Plug 'markabe/bufexplorer'
 
 	if !filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
@@ -144,19 +156,20 @@ call plug#end()
 		" Using Ag to search current cursor word."Using Ag to search current cursor word.
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
+		nnoremap <silent> \rg :Rg! <C-R><C-W><CR>
 
 		" plugin:incsearch { " ======== incsearch ========
-			nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
-
-			map /  <Plug>(incsearch-easymotion-/)
-			map ?  <Plug>(incsearch-easymotion-?)
-			map g/ <Plug>(incsearch-easymotion-stay)
-			map n  <Plug>(incsearch-nohl-n)
-			map N  <Plug>(incsearch-nohl-N)
-			map *  <Plug>(incsearch-nohl-*)
-			map #  <Plug>(incsearch-nohl-#)
-			map g* <Plug>(incsearch-nohl-g*)
-			map g# <Plug>(incsearch-nohl-g#)
+            nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+            
+            map /  <Plug>(incsearch-easymotion-/)
+            map ?  <Plug>(incsearch-easymotion-?)
+            map g/ <Plug>(incsearch-easymotion-stay)
+            map n  <Plug>(incsearch-nohl-n)
+            map N  <Plug>(incsearch-nohl-N)
+            map *  <Plug>(incsearch-nohl-*)
+            map #  <Plug>(incsearch-nohl-#)
+            map g* <Plug>(incsearch-nohl-g*)
+            map g# <Plug>(incsearch-nohl-g#)
 		" }
 	"}
 "}
@@ -165,17 +178,49 @@ call plug#end()
 
 "Plugin" {
 	"plugin:lightline {
-		set showtabline=2
-		let g:lightline#bufferline#show_number      = 1
-		let g:lightline#bufferline#shorten_path     = 0
-		let g:lightline#bufferline#min_buffer_count = 2
-		let g:lightline#bufferline#unamed           = '[NoName]'
+        "set showtabline=2
+        "let g:lightline#bufferline#show_number      = 1
+        "let g:lightline#bufferline#shorten_path     = 0
+        "let g:lightline#bufferline#min_buffer_count = 2
+        "let g:lightline#bufferline#unamed           = '[NoName]'
 
-        let g:lightline                  = {}
-		let g:lightline.colorscheme 	 = 'wombat'
-        let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
-        let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-        let g:lightline.component_type   = {'buffers': 'tabsel'}
+        "let g:lightline                  = {}
+        "let g:lightline.colorscheme 	  = 'wombat'
+        "let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
+        "let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+        "let g:lightline.component_type   = {'buffers': 'tabsel'}
+	"}
+
+	"plugin:airline {
+		let g:airline_theme = "lucius"
+		let g:airline_powerline_fonts = 1	" Enable triangle symbol in vim
+		if !exists("g:airline_symbols")
+			let g:airline_symbols = {}
+		endif
+        "if has('gui_running')		" Add this section can enable Gvim with correct symbol
+        "    set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline
+        "endif
+
+		let g:airline#extensions#whitespace#enabled     = 0
+
+		let g:airline#extensions#tabline#enabled        = 1	" Enable Tabline
+		let g:airline#extensions#tabline#tab_nr_type    = 1	" tab number
+		let g:airline#extensions#tabline#buffer_nr_show = 1	" Show Buffer number
+		let g:airline#extensions#tabline#show_buffers   = 1
+		let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
+        let g:airline#extensions#tabline#fnamemod       = ':t'  "Only show fileName in tab``
+		let g:airline#extensions#tagbar#enabled         = 1
+
+		let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
+
+        let g:airline_inactive_collapse=0
+
+        "let g:airline#extensions#syntastic#enabled     = 1	 " Need extra plugin syntastic [Not used]
+        let g:airline#extensions#branch#enabled         = 0  " Disable show git branch info
+        "let g:airline#extensions#branch#empty_message  = "No SCM"
+        let g:airline#extensions#gutentags#enabled      = 0  " Not show Gen Tag string
+
+        let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "Not show this fileformat
 	"}
 	"plugin:Easymotion" {
 		let g:EasyMotion_smartcase = 1
@@ -236,11 +281,11 @@ call plug#end()
             silent! call mkdir(s:vim_tags, 'p')
         endif
 
-        augroup MyGutentagsStatusLineRefresher
-            autocmd!
-            autocmd User GutentagsUpdating call lightline#update()
-            autocmd User GutentagsUpdated call lightline#update()
-        augroup END
+        "augroup MyGutentagsStatusLineRefresher
+        "    autocmd!
+        "    autocmd User GutentagsUpdating call lightline#update()
+        "    autocmd User GutentagsUpdated call lightline#update()
+        "augroup END
 	" }
 	"plugin:quickfix{
 		aug QFClose
@@ -303,16 +348,12 @@ call plug#end()
 		let g:lastplace_ignore         = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
-	"plugin:vim-qf-preview {
-		augroup qfpreview
-			autocmd!
-			autocmd FileType qf nmap <buffer> p <plug>(qf-preview-open)
-		augroup END
-
-		let g:qfpreview = {'sign': {'linehl': 'CursorLine'}}
-	"}
 	"plugin:incsearch {
 	    set hlsearch
 	    let g:incsearch#auto_nohlsearch = 1
 	"}
 " }
+
+
+
+
