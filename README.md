@@ -67,6 +67,12 @@ Quick Start
 7. Misc
 - Need to review some customize setting path in vimrc, such as ctags, yankring
 
+8. Profiling `Plugin Launch Time`, [Ref](https://github.com/hyiltiz/vim-plugins-profile)
+```
+Perl version as an example:
+> perl <(curl -sSL https://raw.githubusercontent.com/hyiltiz/vim-plugins-profile/master/vim-plugins-profile.pl)
+```
+
 Others
 ----------
 - Markdown Preview [Ref_Link](http://www.jianshu.com/p/24aefcd4ca93)
