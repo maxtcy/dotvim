@@ -11,7 +11,7 @@ set autowrite					"Automatically save before commands like :next and :make
 set background=dark
 set clipboard=unnamedplus
 set cursorline   				"Show current cursor
-set colorcolumn=90 				"Line Length over 90
+set colorcolumn=80 				"Line Length over 90
 set encoding=utf8
 set history=50  				"Keep command used.
 set hlsearch	 				"High Light Search
@@ -24,7 +24,7 @@ set smarttab
 set autoindent
 set shiftwidth=4 		"Impact Tab behavior,
 set tabstop=4    		"Impact Display show Width, but not Tab behavior
-set expandtab	 		"Impact insert tab with specific space count. count is the same as tabstop
+"set expandtab	 		"Impact insert tab with specific space count. count is the same as tabstop
 
 set t_Co=256	 		"Powerline color setting
 set viminfo+='500,n~/.vim/viminfo
@@ -82,6 +82,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'skywind3000/gutentags_plus'
+    Plug 'skywind3000/vim-preview'
 
 	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
@@ -128,7 +129,7 @@ call plug#end()
 	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"}
 	"key for Plugins{
-		nnoremap <silent>z<F1>   :q<cr>
+		nnoremap <silent>z<F1>   :winc j<cr>:bd<cr>
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>							"Switch Window
 		nnoremap <silent> <F3>   :LeaderfFunction!<cr>
@@ -156,11 +157,11 @@ call plug#end()
 		" Using Ag to search current cursor word."Using Ag to search current cursor word.
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
-		nnoremap <silent> \rg :Rg! <C-R><C-W><CR>
+		nnoremap <silent> \rg :Rg <C-R><C-W><CR>
 
 		" plugin:incsearch { " ======== incsearch ========
             nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
-            
+
             map /  <Plug>(incsearch-easymotion-/)
             map ?  <Plug>(incsearch-easymotion-?)
             map g/ <Plug>(incsearch-easymotion-stay)
@@ -170,7 +171,7 @@ call plug#end()
             map #  <Plug>(incsearch-nohl-#)
             map g* <Plug>(incsearch-nohl-g*)
             map g# <Plug>(incsearch-nohl-g#)
-		" }
+		"}
 	"}
 "}
 
@@ -209,6 +210,7 @@ call plug#end()
 		let g:airline#extensions#tabline#show_buffers   = 1
 		let g:airline#extensions#tabline#fnamecollapse  = 1	" collapsing parent directories in buffer name
         let g:airline#extensions#tabline#fnamemod       = ':t'  "Only show fileName in tab``
+
 		let g:airline#extensions#tagbar#enabled         = 1
 
 		let g:airline#extensions#hunks#non_zero_only    = 1	" git gutter
@@ -217,7 +219,7 @@ call plug#end()
 
         "let g:airline#extensions#syntastic#enabled     = 1	 " Need extra plugin syntastic [Not used]
         let g:airline#extensions#branch#enabled         = 0  " Disable show git branch info
-        "let g:airline#extensions#branch#empty_message  = "No SCM"
+
         let g:airline#extensions#gutentags#enabled      = 0  " Not show Gen Tag string
 
         let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "Not show this fileformat
@@ -237,18 +239,18 @@ call plug#end()
 		let g:bufExplorerShowRelativePath = 1 "Show Relatvie paths in buffer explorer
 	"}
 	"plugin:globle/gtags {
-		if has("gtags-cscope")
+		if executable('gtags') && executable('gtags-cscope')
 			set csprg=/usr/local/bin/gtags-cscope
 		endif
-        let $GTAGSLABEL = 'native'
+        let $GTAGSLABEL = 'native-pygments'
 		let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 	"}
 	"plugin:tagbar {
-		let g:tagbar_ctags_bin = '/usr/local/bin/ctags' 			"universal-ctags
-		if !executable(g:tagbar_ctags_bin)
-			let g:tagbar_ctags_bin = '/usr/bin/ctags'
-			let g:loaded_gentags#ctags = 1 							"Set 1 as disable ctag
-		endif
+        let g:tagbar_ctags_bin = '/usr/local/bin/ctags' 			"universal-ctags
+        if !executable(g:tagbar_ctags_bin)
+            let g:tagbar_ctags_bin = '/usr/bin/ctags'
+            let g:loaded_gentags#ctags = 1 							"Set 1 as disable ctag
+        endif
 
 		let g:tagbar_width      = 30
 		let g:tagbar_sort       = 0
@@ -257,13 +259,21 @@ call plug#end()
 	" plugin:vim-gutentags {
         set statusline+=%{gutentags#statusline()}
         let g:gutentags_modules                  = ['ctags', 'gtags_cscope']
+
         let g:gutentags_project_root             = ['.root', '.svn', '.git', '.hg', '.project']
-        let g:gutentags_exclude_project_root     = ['~/', '~/.vim/']
+        let g:gutentags_exclude_project_root     = ['~/', '/home/max/.vim/']
+		let g:gutentags_exclude_filetypes		 = ['*.mk']
         let g:gutentags_define_advanced_commands = 1
 
         let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px', '--c-kinds=+px']
-        let g:gutentags_ctags_extra_args += ['--output-format=e-ctags','--exclude=*.mk']
+        let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+		let g:gutentags_ctags_extra_args += ['--exclude=*.mk','--exclude=.git']
+		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/test/*'] 			"AMD
+		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/diags_dm/*']			"AMD
+		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/amdgpu_dm/*']		"AMD
+		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/include_legacy/*']	"AMD
+		let g:gutentags_ctags_extra_args += ['--exclude=/home/max/.vim/*']
 
         let g:gutentags_auto_add_gtags_cscope = 0
 
@@ -280,6 +290,8 @@ call plug#end()
         if !isdirectory(s:vim_tags)
             silent! call mkdir(s:vim_tags, 'p')
         endif
+
+        let g:gutentags_define_advanced_command = 0    "Show More Debug Message
 
         "augroup MyGutentagsStatusLineRefresher
         "    autocmd!
@@ -330,7 +342,9 @@ call plug#end()
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
 	" plugin:LeaderF {
-        let g:Lf_Ctags = g:tagbar_ctags_bin
+        if executable(g:tagbar_ctags_bin)
+            let g:Lf_Ctags = g:tagbar_ctags_bin
+        endif
 		let g:Lf_WindowPosition = 'bottom'
 		let g:Lf_StlSeparator = { 'left': '', 'right': '' }
         "let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
