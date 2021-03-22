@@ -71,7 +71,9 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
     "Plug 'mengelbrecht/lightline-bufferline'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
-	Plug 'majutsushi/Tagbar'
+
+	"Plug 'liuchengxu/vista.vim' 			"Enhance of Tagbar
+
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/EnhCommentify.vim'
@@ -96,6 +98,7 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'rking/ag.vim'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
+	Plug 'mhinz/vim-signify'					"Something like gitgutter
 	Plug 'terryma/vim-multiple-cursors'
 
 	Plug 'easymotion/vim-easymotion'
@@ -109,8 +112,10 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'farmergreg/vim-lastplace' 			"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'			"Ansi Escape Code
-	"Plug 'bfrg/vim-qf-preview'
+	Plug 'bfrg/vim-qf-preview'
 	Plug 'markabe/bufexplorer'
+
+	Plug 'jremmen/vim-ripgrep'
 
 	if !filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
 		Plug 'gosukiwi/vim-atom-dark'
@@ -121,22 +126,22 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Key Mapping" {
-	"key for Generic{
+	"key for Generic {
 		let mapleader="\\"
-	"}
-	"key for build code"{
+	" }
+	"key for build code {
 	"	noremap <silent> \j :make -j16<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
 	"	noremap <silent> \b :cd ../;make bootimage -j16; cd kernel<cr> :TagbarToggle<cr>:cw<cr>:TagbarToggle<cr>
-	"}
+	" }
 	"key for Plugins{
 		nnoremap <silent>z<F1>   :winc j<cr>:bd<cr>
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>							"Switch Window
-		nnoremap <silent> <F3>   :LeaderfFunction!<cr>
 		nnoremap <silent>f<F3>   :LeaderfBuffer<cr>
 		nnoremap <silent> <F4>   :BufExplorer<cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>						"Remove tail space
-		nnoremap <silent> <F6>   :cp<cr>								"QuickFix Last message
+		nnoremap <silent> <F6>   :PreviewTag<cr>						"vim-preview
+		nnoremap <silent>/<F6>   :PreviewClose<cr>						"QuickFix Last message
 		nnoremap <silent> <F7>   :YRShow<cr>
 		nnoremap <silent> <F8>   :cn<cr>								"QuickFix Next message
 		nnoremap <silent> <F9>   :botright copen<cr>					"QuickFix Open
@@ -144,13 +149,14 @@ call plug#end()
 		nnoremap <silent>.<F10>  :GitGutterNextHunk<cr>
 		nnoremap <silent>,<F10>  :GitGutterPrevHunk<cr>
 		nnoremap <silent>/<F10>  :Gblame<cr>							"Show git blame in vim
-		nnoremap <silent> <F11>  :TagbarClose<cr>:bn<cr>				"Buffer Next
+		nnoremap <silent> <F11>  :bn<cr>								"Buffer Next
 		nnoremap <silent>.<F11>  :bp<cr>								"Buffer Previous
 		nnoremap <silent>/<F11>  :bw<cr>								"Buffer Close
-		nnoremap <silent> <F12>  :TagbarToggle<cr>	                	"TlistToggle"
-		nnoremap <silent>/<F12>  :<cr>									"BuildTag  mtkcam folder
-		nnoremap <silent>.<F12>  :<cr>									"Unlink mtkcam folder
+		nnoremap <silent> <F12>  :LeaderfFunction!<cr>					"Show Func
 		nnoremap <Esc><Esc><Esc> :ccl <CR>
+
+		noremap <m-u> :PreviewScroll -1<cr>
+		noremap <m-d> :PreviewSScrol +1<cr>
 
 		" Bind \ (backword slash) to Lunch Ag Search.
 		" add '!' can help turn on the 1st search file in the other window
@@ -158,6 +164,7 @@ call plug#end()
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \rg :Rg <C-R><C-W><CR>
+		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s -g *.h", expand("<cword>"))<CR>
 
 		" plugin:incsearch { " ======== incsearch ========
             nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
@@ -262,18 +269,26 @@ call plug#end()
 
         let g:gutentags_project_root             = ['.root', '.svn', '.git', '.hg', '.project']
         let g:gutentags_exclude_project_root     = ['~/', '/home/max/.vim/']
-		let g:gutentags_exclude_filetypes		 = ['*.mk']
+		let g:gutentags_exclude_filetypes		 = ['*.mk', '*.d']
         let g:gutentags_define_advanced_commands = 1
 
         let g:gutentags_ctags_extra_args =  ['--fields=+niazS','--extras=+q']
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px', '--c-kinds=+px']
         let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-		let g:gutentags_ctags_extra_args += ['--exclude=*.mk','--exclude=.git']
-		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/test/*'] 			"AMD
-		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/diags_dm/*']			"AMD
-		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/amdgpu_dm/*']		"AMD
-		let g:gutentags_ctags_extra_args += ['--exclude=/mnt/c/P4_src/main/drivers/dal/include_legacy/*']	"AMD
-		let g:gutentags_ctags_extra_args += ['--exclude=/home/max/.vim/*']
+
+		let g:gutentags_ctags_exclude = [
+			\ '/home/max/.vim/*',
+			\ '.git',
+			\ '*.mk',
+			\]
+		" AMD Specific ++++
+		let g:gutentags_ctags_exclude = [
+			\ '/mnt/c/P4_src/main/drivers/dal/dmub_fw/dmu/include_legacy/*',
+			\ '/mnt/c/P4_src/main/drivers/dal/test/*',
+			\ '/mnt/c/P4_src/main/drivers/dal/diags_dm/*',
+			\ '/mnt/c/P4_src/main/drivers/dal/amdgpu_dm/*',
+			\]
+		" AMD Specific ----
 
         let g:gutentags_auto_add_gtags_cscope = 0
 
@@ -319,7 +334,7 @@ call plug#end()
 		  \ 'ctrl-x': 'split',
 		  \ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
-		let g:fzf_layout = { 'down': '~35%'}
+		" let g:fzf_layout = { 'down': '~35%'}
 		" using fd tool as default search tool (http://github.com/sharkdp/fd)
 		" Need to generate .agignore manually.
 		let $FZF_DEFAULT_COMMAND = 'fd --type f --ignore-file ~/.agignore'
@@ -338,7 +353,7 @@ call plug#end()
 		let g:cpp_experimental_template_highlight = 1
 	" }
 	" plugin:EnhCommentify {
-		let g:EnhCommentifyPretty = 'yes'	"Add space in comment"
+		let g:EnhCommentifyPretty     = 'yes'	"Add space in comment
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
 	" plugin:LeaderF {
@@ -355,8 +370,13 @@ call plug#end()
 		let g:Lf_StlColorscheme = 'powerline'
 		let g:Lf_WildIgnore = {
 				\ 'dir': ['.svn','.git','.hg'],
-				\ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+				\ 'file': ['*.d','*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
 				\}
+
+		let g:Lf_NormalMap = {
+			\ "File": 		[["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+			\ "Function":	[["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+			\}
 	" }
 	" plugin:lastplace {
 		let g:lastplace_ignore         = "gitcommit,gitrebase,svn,hgcommit"
@@ -366,6 +386,9 @@ call plug#end()
 	    set hlsearch
 	    let g:incsearch#auto_nohlsearch = 1
 	"}
+	"plugin:vim-ripgrep {
+		let g:rg_command = 'rg --vimgrep -S'
+	" }
 " }
 
 
