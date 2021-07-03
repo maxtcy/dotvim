@@ -72,8 +72,6 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
 
-	"Plug 'liuchengxu/vista.vim' 			"Enhance of Tagbar
-
 	Plug 'vim-scripts/AutoClose'
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'vim-scripts/EnhCommentify.vim'
@@ -105,14 +103,11 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'haya14busa/incsearch-easymotion.vim'
 
-	Plug 'c9s/colorselector.vim'				"Colorscheme
-
 	Plug 'octol/vim-cpp-enhanced-highlight'		"C++ Syntax Enhance C++11/14
 	Plug 'derekwyatt/vim-protodef'
 	Plug 'farmergreg/vim-lastplace' 			"reopen files at your last edit positioN
 
 	Plug 'powerman/vim-plugin-AnsiEsc'			"Ansi Escape Code
-	Plug 'bfrg/vim-qf-preview'
 	Plug 'markabe/bufexplorer'
 
 	Plug 'jremmen/vim-ripgrep'
@@ -164,7 +159,7 @@ call plug#end()
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \rg :Rg <C-R><C-W><CR>
-		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s -g *.h", expand("<cword>"))<CR>
+		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
 
 		" plugin:incsearch { " ======== incsearch ========
             nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
@@ -377,17 +372,48 @@ call plug#end()
 			\ "File": 		[["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
 			\ "Function":	[["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
 			\}
+
+		let g:Lf_GtagsAutoGenerate = 1
+		let g:Lf_Gtagslabel = 'native-pygments'
+		let g:Lf_PreviewInPopup = 1
+
+		let g:Lf_PreviewInPopup = 1
+		let g:Lf_WindowHeight = 0.30
+		let g:Lf_StlColorscheme = 'powerline'
+		let g:Lf_PreviewResult = {
+				\ 'File': 0,
+				\ 'Buffer': 0,
+				\ 'Mru': 0,
+				\ 'Tag': 1,
+				\ 'BufTag': 1,
+				\ 'Function': 1,
+				\ 'Line': 1,
+				\ 'Colorscheme': 0,
+				\ 'Rg': 1,
+				\ 'Gtags': 1
+				\}
+
+		noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+		noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+		noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
 	" }
 	" plugin:lastplace {
 		let g:lastplace_ignore         = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
-	"plugin:incsearch {
+	" plugin:incsearch {
 	    set hlsearch
 	    let g:incsearch#auto_nohlsearch = 1
-	"}
+	" }
 	"plugin:vim-ripgrep {
 		let g:rg_command = 'rg --vimgrep -S'
+	" }
+	" plugin: vim-preview {
+		autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+		autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 	" }
 " }
 
