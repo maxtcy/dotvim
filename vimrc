@@ -130,10 +130,11 @@ call plug#end()
 	" }
 	"key for Plugins{
 		nnoremap <silent>z<F1>   :winc j<cr>:bd<cr>
+		nnoremap <silent>a<F1>   :Buffers<cr>
 		nnoremap <silent> <F1>   :FZF -i<cr>
 		nnoremap <silent> <F2>   :wincmd p<cr>							"Switch Window
-		nnoremap <silent>f<F3>   :LeaderfBuffer<cr>
-		nnoremap <silent> <F4>   :BufExplorer<cr>
+		nnoremap <silent> <F3>   <cr>
+		nnoremap <silent> <F4>   <cr>
 		nnoremap <silent> <F5>   :%s/\s\+$//g<cr>						"Remove tail space
 		nnoremap <silent> <F6>   :PreviewTag<cr>						"vim-preview
 		nnoremap <silent>/<F6>   :PreviewClose<cr>						"QuickFix Last message
@@ -158,22 +159,31 @@ call plug#end()
 		" Using Ag to search current cursor word."Using Ag to search current cursor word.
 		nnoremap <silent> \ag :Ag! -p ~/.agignore <C-R><C-W><CR>
 		nnoremap <silent> \ah :Ag! -G h$ -p ~/.agignore <C-R><C-W><CR>
-		nnoremap <silent> \rg :Rg <C-R><C-W><CR>
-		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
+		"nnoremap <silent> \rg :Rg <C-R><C-W><CR>
+		nnoremap <silent> \rg :Leaderf rg -S <C-R><C-W><CR>
+		nnoremap <Leader>f :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
+		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s -th", expand("<cword>"))<CR>
 
 		" plugin:incsearch { " ======== incsearch ========
-            nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+			nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
-            map /  <Plug>(incsearch-easymotion-/)
-            map ?  <Plug>(incsearch-easymotion-?)
-            map g/ <Plug>(incsearch-easymotion-stay)
-            map n  <Plug>(incsearch-nohl-n)
-            map N  <Plug>(incsearch-nohl-N)
-            map *  <Plug>(incsearch-nohl-*)
-            map #  <Plug>(incsearch-nohl-#)
-            map g* <Plug>(incsearch-nohl-g*)
-            map g# <Plug>(incsearch-nohl-g#)
+			map /  <Plug>(incsearch-easymotion-/)
+			map ?  <Plug>(incsearch-easymotion-?)
+			map g/ <Plug>(incsearch-easymotion-stay)
+			map n  <Plug>(incsearch-nohl-n)
+			map N  <Plug>(incsearch-nohl-N)
+			map *  <Plug>(incsearch-nohl-*)
+			map #  <Plug>(incsearch-nohl-#)
+			map g* <Plug>(incsearch-nohl-g*)
+			map g# <Plug>(incsearch-nohl-g#)
 		"}
+		" plugin LeaderF {
+			noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+			noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+			noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+			noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+			noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+		" }
 	"}
 "}
 
@@ -181,17 +191,17 @@ call plug#end()
 
 "Plugin" {
 	"plugin:lightline {
-        "set showtabline=2
-        "let g:lightline#bufferline#show_number      = 1
-        "let g:lightline#bufferline#shorten_path     = 0
-        "let g:lightline#bufferline#min_buffer_count = 2
-        "let g:lightline#bufferline#unamed           = '[NoName]'
+		"set showtabline=2
+		"let g:lightline#bufferline#show_number      = 1
+		"let g:lightline#bufferline#shorten_path     = 0
+		"let g:lightline#bufferline#min_buffer_count = 2
+		"let g:lightline#bufferline#unamed           = '[NoName]'
 
-        "let g:lightline                  = {}
-        "let g:lightline.colorscheme 	  = 'wombat'
-        "let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
-        "let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-        "let g:lightline.component_type   = {'buffers': 'tabsel'}
+		"let g:lightline                  = {}
+		"let g:lightline.colorscheme 	  = 'wombat'
+		"let g:lightline.tabline          = {'left':[['buffers']], 'right':[['close']]}
+		"let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+		"let g:lightline.component_type   = {'buffers': 'tabsel'}
 	"}
 
 	"plugin:airline {
@@ -245,7 +255,7 @@ call plug#end()
 			set csprg=/usr/local/bin/gtags-cscope
 		endif
         let $GTAGSLABEL = 'native-pygments'
-		let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+        "let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 	"}
 	"plugin:tagbar {
         let g:tagbar_ctags_bin = '/usr/local/bin/ctags' 			"universal-ctags
@@ -326,8 +336,8 @@ call plug#end()
 	" plugin:FZF {
 		" For default extra key bindings
 		let g:fzf_action = {
-		  \ 'ctrl-x': 'split',
-		  \ 'ctrl-v': 'vsplit' }
+			\ 'ctrl-x': 'split',
+			\ 'ctrl-v': 'vsplit' }
 		" Defaut fzf layout : down/up/left/right
 		" let g:fzf_layout = { 'down': '~35%'}
 		" using fd tool as default search tool (http://github.com/sharkdp/fd)
@@ -352,15 +362,15 @@ call plug#end()
 		let g:EnhCommentifyAlighRight = 'yes'
 	" }
 	" plugin:LeaderF {
-        if executable(g:tagbar_ctags_bin)
-            let g:Lf_Ctags = g:tagbar_ctags_bin
-        endif
+		if executable(g:tagbar_ctags_bin)
+			let g:Lf_Ctags = g:tagbar_ctags_bin
+		endif
 		let g:Lf_WindowPosition = 'bottom'
 		let g:Lf_StlSeparator = { 'left': '', 'right': '' }
-        "let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
-        if has('python') || has('python3')
-            let g:Lf_ShortcutF = '<C-F>'
-        endif
+		"let g:Lf_GtagsStoreInProject = '/local/mnt/workspace/.cache/tags'
+		if has('python') || has('python3')
+			let g:Lf_ShortcutF = '<C-F>'
+		endif
 
 		let g:Lf_StlColorscheme = 'powerline'
 		let g:Lf_WildIgnore = {
@@ -374,39 +384,33 @@ call plug#end()
 			\}
 
 		let g:Lf_GtagsAutoGenerate = 1
-		let g:Lf_Gtagslabel = 'native-pygments'
+		let g:Lf_Gtagslabel     = 'native-pygments'
+		let g:Lf_Gtagsconf      = "$HOME/.globalrc"
 		let g:Lf_PreviewInPopup = 1
 
 		let g:Lf_PreviewInPopup = 1
-		let g:Lf_WindowHeight = 0.30
+		let g:Lf_WindowHeight   = 0.30
 		let g:Lf_StlColorscheme = 'powerline'
-		let g:Lf_PreviewResult = {
-				\ 'File': 0,
-				\ 'Buffer': 0,
-				\ 'Mru': 0,
-				\ 'Tag': 1,
-				\ 'BufTag': 1,
-				\ 'Function': 1,
-				\ 'Line': 1,
-				\ 'Colorscheme': 0,
-				\ 'Rg': 1,
-				\ 'Gtags': 1
+		let g:Lf_PreviewResult  = {
+				\ 'File'        : 0,
+				\ 'Buffer'      : 0,
+				\ 'Mru'         : 0,
+				\ 'Tag'         : 0,
+				\ 'BufTag'      : 1,
+				\ 'Function'    : 0,
+				\ 'Line'        : 1,
+				\ 'Colorscheme' : 0,
+				\ 'Rg'          : 1,
+				\ 'Gtags'       : 1
 				\}
-
-		noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-		noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-		noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-		noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-		noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-
 	" }
 	" plugin:lastplace {
 		let g:lastplace_ignore         = "gitcommit,gitrebase,svn,hgcommit"
 		let g:lastplace_ignore_buftype = "quickfix.nofile,help"
 	" }
 	" plugin:incsearch {
-	    set hlsearch
-	    let g:incsearch#auto_nohlsearch = 1
+		set hlsearch
+		let g:incsearch#auto_nohlsearch = 1
 	" }
 	"plugin:vim-ripgrep {
 		let g:rg_command = 'rg --vimgrep -S'
