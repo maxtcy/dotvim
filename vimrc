@@ -112,9 +112,11 @@ call plug#begin('~/.vim/plugged')	"Make sure you use single quotes
 
 	Plug 'jremmen/vim-ripgrep'
 
-	if !filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
-		Plug 'gosukiwi/vim-atom-dark'
-	endif
+"     if !filereadable( expand("$HOME/.vim/colors/atom-dark-256.vim"))
+"         Plug 'gosukiwi/vim-atom-dark'
+"     endif
+
+"     Plug 'ayu-theme/ayu-vim'
 "}
 call plug#end()
 
@@ -162,6 +164,7 @@ call plug#end()
 		"nnoremap <silent> \rg :Rg <C-R><C-W><CR>
 		nnoremap <silent> \rg :Leaderf rg -S <C-R><C-W><CR>
 		nnoremap <Leader>f :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
+		nnoremap <Leader>fR:<C-U><C-R>=printf("Leaderf! --recall")<CR>
 		nnoremap <Leader>h :<C-U><C-R>=printf("Leaderf! rg -e %s -th", expand("<cword>"))<CR>
 
 		" plugin:incsearch { " ======== incsearch ========
@@ -203,6 +206,21 @@ call plug#end()
 		"let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 		"let g:lightline.component_type   = {'buffers': 'tabsel'}
 	"}
+
+	"ayu color scheme {
+"             set termguicolors
+"             let ayucolor="dark"
+"             colorscheme ayu
+	"}
+	"
+"     if system('uname -r') =~ "microsoft"
+		let s:clip = '/mnt/c/Windows/System32/clip.exe'
+		if executable(s:clip)
+			augroup WSLYank
+				autocmd!
+				autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+			augroup END
+		endif
 
 	"plugin:airline {
 		let g:airline_theme = "lucius"
@@ -386,8 +404,9 @@ call plug#end()
 		let g:Lf_GtagsAutoGenerate = 1
 		let g:Lf_Gtagslabel     = 'native-pygments'
 		let g:Lf_Gtagsconf      = "$HOME/.globalrc"
-		let g:Lf_PreviewInPopup = 1
-
+		let g:Lf_GtagsSource    = 1
+		let g:Lf_GtagsGutentags = 1
+		let g:gutentags_cache_dir = expand(s:vim_tags.'\.LfCache\gtags')
 		let g:Lf_PreviewInPopup = 1
 		let g:Lf_WindowHeight   = 0.30
 		let g:Lf_StlColorscheme = 'powerline'
