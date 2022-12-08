@@ -291,7 +291,7 @@ call plug#end()
         let g:gutentags_modules                  = ['ctags', 'gtags_cscope']
 
         let g:gutentags_project_root             = ['.root', '.svn', '.git', '.hg', '.project']
-        let g:gutentags_exclude_project_root     = ['~/', '.vim']
+        let g:gutentags_exclude_project_root     = ['~/', '/home/max.vim']
 		let g:gutentags_exclude_filetypes		 = ['*.mk', '*.d']
         let g:gutentags_define_advanced_commands = 1
 
