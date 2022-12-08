@@ -291,7 +291,7 @@ call plug#end()
         let g:gutentags_modules                  = ['ctags', 'gtags_cscope']
 
         let g:gutentags_project_root             = ['.root', '.svn', '.git', '.hg', '.project']
-        let g:gutentags_exclude_project_root     = ['~/', '/home/max/.vim/']
+        let g:gutentags_exclude_project_root     = ['~/', '.vim']
 		let g:gutentags_exclude_filetypes		 = ['*.mk', '*.d']
         let g:gutentags_define_advanced_commands = 1
 
@@ -300,34 +300,34 @@ call plug#end()
         let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 		let g:gutentags_ctags_exclude = [
-			\ '/home/max/.vim/*',
+			\ '.vim',
 			\ '.git',
 			\ '*.mk',
 			\]
 		" AMD Specific ++++
 		let g:gutentags_ctags_exclude = [
-			\ '/mnt/c/P4_src/main/drivers/dal/dmub_fw/dmu/include_legacy/*',
-			\ '/mnt/c/P4_src/main/drivers/dal/test/*',
-			\ '/mnt/c/P4_src/main/drivers/dal/diags_dm/*',
-			\ '/mnt/c/P4_src/main/drivers/dal/amdgpu_dm/*',
+			\ 'include_legacy',
+			\ 'test',
+			\ 'diags_dm',
+			\ 'amdgpu_dm',
 			\]
 		" AMD Specific ----
 
         let g:gutentags_auto_add_gtags_cscope = 0
 
-        let g:gutentags_ctags_tagfile = '.tags'
-        " check ~/.cache/tags exist or not. if not create new.
-        let s:hostname = substitute(system('hostname'), '\n', '', '')
-        if s:hostname  == 'maxtseng-linux'
-            let s:vim_tags = expand('~/.vim/tags')
-        else
-            let s:vim_tags = expand('~/.cache/tags')
-        endif
+		let g:gutentags_ctags_tagfile = '.tags'
+		" check ~/.cache/tags exist or not. if not create new.
+		let s:hostname = substitute(system('hostname'), '\n', '', '')
+		if s:hostname  == 'maxtseng-linux'
+			let s:vim_tags = expand('~/.vim/tags')
+		else
+			let s:vim_tags = expand('~/.cache/tags')
+		endif
 
-        let g:gutentags_cache_dir = s:vim_tags
-        if !isdirectory(s:vim_tags)
-            silent! call mkdir(s:vim_tags, 'p')
-        endif
+		"let g:gutentags_cache_dir = s:vim_tags
+		"if !isdirectory(s:vim_tags)
+		"	silent! call mkdir(s:vim_tags, 'p')
+		"endif
 
         let g:gutentags_define_advanced_command = 0    "Show More Debug Message
 
@@ -406,7 +406,7 @@ call plug#end()
 		let g:Lf_Gtagsconf      = "$HOME/.globalrc"
 		let g:Lf_GtagsSource    = 1
 		let g:Lf_GtagsGutentags = 1
-		let g:gutentags_cache_dir = expand(s:vim_tags.'\.LfCache\gtags')
+		let g:gutentags_cache_dir = expand(s:vim_tags.'\.LfCache_gtags')
 		let g:Lf_PreviewInPopup = 1
 		let g:Lf_WindowHeight   = 0.30
 		let g:Lf_StlColorscheme = 'powerline'
